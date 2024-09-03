@@ -26,8 +26,9 @@ public class LaunchCommand extends Command {
 
         // Return a JSON response
         JSONObject response = new JSONObject();
+        String name = player.getName();
         response.put("status", "success");
-        response.put("message", "Player launched to position: (" + x + ", " + y + ")");
+        response.put("message", name + " launched to position: (" + x + ", " + y + ")");
         System.out.println("Reached Launch");
         return response;
     }

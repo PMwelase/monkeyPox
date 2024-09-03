@@ -2,7 +2,7 @@ package no.org.ServerConnection;
 
 import no.org.PlayerCommands.Command;
 import no.org.PlayerCommands.CommandFactory;
-import no.org.World.PlayerCreator;
+import no.org.World.Position;
 import no.org.World.World;
 import no.org.PlayerPackage.Player;
 
@@ -94,8 +94,7 @@ public class SimpleServer implements Runnable {
 
     public void run() {
         String messageFromClient;
-        PlayerCreator playerCreator = new PlayerCreator(this.world); // Renamed to avoid confusion
-        this.player = playerCreator.setPlayer(); // Assuming createPlayer() method exists
+        this.player = new Player("defaultName", "defaultType", this.world, new Position(0, 0));
 
         while (!socket.isClosed()) {
             try {
@@ -104,6 +103,7 @@ public class SimpleServer implements Runnable {
                 JSONObject jsonObject = new JSONObject(messageFromClient);
                 String commandName = jsonObject.getString("command");
                 String playerName = jsonObject.getString("name");
+                this.player.setName(playerName);
 
                 // Print out the received data for debugging
                 System.out.println("Received JSON: " + jsonObject.toString(4));
@@ -128,6 +128,5 @@ public class SimpleServer implements Runnable {
                 // Optionally, send an error response back to the client
             }
         }
-    }
     }
 }
