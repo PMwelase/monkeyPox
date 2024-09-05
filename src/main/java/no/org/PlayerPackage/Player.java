@@ -54,6 +54,8 @@ public class Player {
                 this.setInventory(new ArrayList<>(List.of("spray can", "spray can")));
                 break;
         }
+
+        world.setPlayerInWorld(this);
     }
 
     public void setName(String name) {
