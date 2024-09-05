@@ -49,6 +49,16 @@ public class CommandFactory {
             }
         }
 
+        else if ("hit".equalsIgnoreCase(commandName)) {
+            if (!arguments.isEmpty()) {
+                String targetName = arguments.get(0).toString();
+                return new HitCommand(targetName);
+            } else {
+                System.out.println("Hit command missing target name in arguments");
+                return new ErrorCommand();
+            }
+        }
+
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {
             System.out.println("Command not recognized, defaulting to error command");
