@@ -114,6 +114,11 @@ public class SimpleServer implements Runnable {
                 if (Objects.equals(player.getName(), "defaultName")){
                     player.setName(playerName);
                     player.setType(arguments.getString(0));
+                    player.setLevel(1);
+                    player.setMaxHealth(50);
+                    player.setWeapon("fist");
+                    player.setExperience(0);
+                    player.setHealth(50);
                 }
 
                 // Create and execute the command using the command name and arguments

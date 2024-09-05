@@ -15,7 +15,13 @@ public class StateCommand extends Command {
     public JSONObject execute(Player player, World world) {
         JSONObject response = new JSONObject();
         response.put("status", "success");
-        response.put("message", player.getName() + " Position: " + player.getPosition() + " Type: " + player.getType());
+        response.put("Position", player.getPosition());
+        response.put("Type", player.getType());
+        response.put("Health", player.getHealth());
+        response.put("Max-Health", player.getMaxHealth());
+        response.put("Experience", player.getExperience());
+        response.put("Level", player.getLevel());
+        response.put("Weapon", player.getWeapon());
         return response;
     }
 }
