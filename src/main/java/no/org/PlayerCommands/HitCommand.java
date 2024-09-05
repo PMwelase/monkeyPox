@@ -22,10 +22,21 @@ public class HitCommand extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
+        int playerX = position.getX();
+        int playerY = position.getY();
+        Boolean isPlayerInRoom = player.isInRoom();
+
         JSONObject response = new JSONObject();
 
         for (Player user : world.getPlayersInWorld()) {
-            if (user.getName().equals(targetName) && !user.getName().equals(player.getName())) {
+            int userX = user.getPosition().getX();
+            int userY = user.getPosition().getY();
+            Boolean isUserInRoom = user.isInRoom();
+
+            if (user.getName().equals(targetName) &&
+                    !user.getName().equals(player.getName()) &&
+                    userX == playerX && userY == playerY &&
+                    isUserInRoom == isPlayerInRoom) {
                 user.setHealth(user.getHealth() - 1);
 
                 if (user.getHealth() <= 0) {

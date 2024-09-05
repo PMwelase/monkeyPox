@@ -1,5 +1,6 @@
 package no.org.PlayerPackage;
 
+import no.org.Rooms.Room;
 import no.org.World.Position;
 import no.org.World.World;
 
@@ -18,6 +19,8 @@ public class Player {
     private int friendlyKills;
     private int enemyKills;
     private String weapon;
+    private boolean isInRoom;
+    private Room currentRoom;
     private List<String> inventory = new java.util.ArrayList<>();
 
     private World world;
@@ -156,5 +159,29 @@ public class Player {
 
     public int getKills() {
         return kills;
+    }
+
+    public boolean isInRoom() {
+        return isInRoom;
+    }
+
+    public void setInRoom(boolean isInRoom) {
+        this.isInRoom = isInRoom;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void enterRoom(Room room) {
+        this.currentRoom = room;
+        this.isInRoom = true;
+        room.setPlayerInRoom(this);
+    }
+
+    public void leaveRoom(Room room) {
+        this.currentRoom = room;
+        room.removePlayerInRoom(this);
+        this.isInRoom = false;
     }
 }

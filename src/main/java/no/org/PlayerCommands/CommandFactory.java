@@ -59,6 +59,14 @@ public class CommandFactory {
             }
         }
 
+        else if ("enter".equalsIgnoreCase(commandName)){
+            return new EnterRoomCommand();
+        }
+
+        else if ("leave".equalsIgnoreCase(commandName)){
+            return new LeaveRoomCommand();
+        }
+
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {
             System.out.println("Command not recognized, defaulting to error command");

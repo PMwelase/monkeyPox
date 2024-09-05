@@ -24,9 +24,19 @@ public class LookCommand extends Command {
         response.put("status", "success");
         response.put("message", "Room Tag: " + currentRoom.getTag());
 
+        int playerX = position.getX();
+        int playerY = position.getY();
+        Boolean isPlayerInRoom = player.isInRoom();
+
         JSONArray playersArray = new JSONArray();
         for (Player user : world.getPlayersInWorld()) {
-            if (!user.getName().equals(player.getName())) {
+            int userX = user.getPosition().getX();
+            int userY = user.getPosition().getY();
+            Boolean isUserInRoom = user.isInRoom();
+
+            if (!user.getName().equals(player.getName()) &&
+                    userX == playerX && userY == playerY &&
+                    isUserInRoom == isPlayerInRoom) {
                 JSONObject playerInfo = new JSONObject();
                 playerInfo.put("Name", user.getName());
                 playerInfo.put("Position", user.getPosition().toString());

@@ -9,7 +9,7 @@ import java.util.List;
 public class World {
     private final Position topLeft;
     private final Position bottomRight;
-    private final RoomGrid roomGrid;  // Added RoomGrid
+    private final RoomGrid roomGrid;
 
     public static List<Player> playersInWorld = new ArrayList<>();
 
