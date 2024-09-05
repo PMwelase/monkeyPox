@@ -26,7 +26,6 @@ public class ClientConnection {
             out.flush();
 
             String messageFromServer = in.readLine();
-//            System.out.println(new JSONObject(messageFromServer));
             System.out.println(messageFromServer);
 
             while (true) {

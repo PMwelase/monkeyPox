@@ -19,7 +19,6 @@ public abstract class Command {
         return name;
     }
 
-    // Abstract method to execute the command
     public abstract JSONObject execute(Player player, World world);
 }
 

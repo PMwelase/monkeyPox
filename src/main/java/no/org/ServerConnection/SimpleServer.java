@@ -9,8 +9,11 @@ import no.org.PlayerPackage.Player;
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SimpleServer implements Runnable {
@@ -103,19 +106,24 @@ public class SimpleServer implements Runnable {
                 JSONObject jsonObject = new JSONObject(messageFromClient);
                 String commandName = jsonObject.getString("command");
                 String playerName = jsonObject.getString("name");
-                this.player.setName(playerName);
+                JSONArray arguments = jsonObject.getJSONArray("arguments");
+
 
                 // Print out the received data for debugging
-                System.out.println("Received JSON: " + jsonObject.toString(4));
                 System.out.println("Command: " + commandName);
                 System.out.println("Player Name: " + playerName);
+                System.out.println("Arguments: " + arguments);
 
-                // Update player name if needed
-                setPlayerName(playerName);
 
-                // Create and execute the command
-                Command command = CommandFactory.createCommand(commandName);
+                if (Objects.equals(player.getName(), "defaultName")){
+                    player.setName(playerName);
+                }
+
+
+                // Create and execute the command using the command name and arguments
+                Command command = CommandFactory.createCommand(commandName, arguments);
                 JSONObject response = command.execute(this.player, world);
+
                 // Send the response back to the client
                 out.println(response.toString());
                 out.flush();
@@ -128,5 +136,6 @@ public class SimpleServer implements Runnable {
                 // Optionally, send an error response back to the client
             }
         }
+
     }
 }

@@ -27,7 +27,7 @@ public class Request {
 
         // Create a JSON object
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("robot", name);
+        jsonObject.put("name", name);
         jsonObject.put("command", commandName);
         jsonObject.put("arguments", arguments);
 
