@@ -3,7 +3,6 @@ package no.org.ClientPackage;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class LaunchCommand  {
@@ -31,15 +30,15 @@ public class LaunchCommand  {
         int shots = 0;
 
         switch (playerKind) {
-            case "sniper" -> {
+            case "hound" -> {
                 shield = 20;
                 shots = 15;
             }
-            case "hitman" -> {
+            case "survivor" -> {
                 shield = 30;
                 shots = 10;
             }
-            case "assassin" -> {
+            case "ape" -> {
                 shield = 10;
                 shots = 20;
             }

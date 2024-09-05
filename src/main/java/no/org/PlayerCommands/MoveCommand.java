@@ -25,7 +25,7 @@ public class MoveCommand extends Command {
         switch (moveValue) {
             case 1:
                 x -= 1;
-                y += 2;
+                y += 1;
                 break;
             case 2:
                 y += 1;

@@ -10,7 +10,6 @@ public class CommandFactory {
 
     static {
         commands.put("launch", new LaunchCommand());
-        // No need to register MoveCommand as it requires an argument
     }
 
     public static Command createCommand(String commandName, JSONArray arguments) {
@@ -34,6 +33,20 @@ public class CommandFactory {
 
         else if ("state".equalsIgnoreCase(commandName)){
             return new StateCommand();
+        }
+
+        else if ("look".equalsIgnoreCase(commandName)){
+            return new LookCommand();
+        }
+
+        else if ("tag".equalsIgnoreCase(commandName)) {
+            if (!arguments.isEmpty()) {
+                String tag = String.valueOf(arguments);
+                return new TagCommand(tag);
+            } else {
+                System.out.println("Tag command missing tag in arguments");
+                return new ErrorCommand();
+            }
         }
 
         Command command = commands.get(commandName.toLowerCase());

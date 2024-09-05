@@ -1,7 +1,6 @@
 package no.org.PlayerCommands;
 
 import no.org.PlayerPackage.Player;
-import no.org.World.Position;
 import no.org.World.World;
 import org.json.JSONObject;
 
@@ -22,6 +21,8 @@ public class StateCommand extends Command {
         response.put("Experience", player.getExperience());
         response.put("Level", player.getLevel());
         response.put("Weapon", player.getWeapon());
+        response.put("Pistol Ammo", player.getPistolAmmo());
+        response.put("Inventory", player.getInventory());
         return response;
     }
 }

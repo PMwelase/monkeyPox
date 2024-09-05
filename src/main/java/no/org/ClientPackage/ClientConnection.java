@@ -22,7 +22,7 @@ public class ClientConnection {
             JSONObject launch = launch();
             String name = launch.getString("name");
 
-            out.println(launch.toString());
+            out.println(launch);
             out.flush();
 
             String messageFromServer = in.readLine();

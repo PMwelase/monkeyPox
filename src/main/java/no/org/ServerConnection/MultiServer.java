@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MultiServer {
+    private static RoomGrid roomGrid; // Make RoomGrid static
     private final ServerSocket serverSocket;
     private final World world;
     private final ExecutorService threadPool;
@@ -62,16 +63,15 @@ public class MultiServer {
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("Server running & waiting for robots to connect...");
 
-        // Create a 30x30 room grid
-        RoomGrid roomGrid = new RoomGrid(30, 30);
+        // Create a 30x30 room grid and assign it to the static variable
+        roomGrid = new RoomGrid(30, 30);
 
-        // Initialize the world with the room grid and proper bounds
+        // Initialize the world with the static room grid and proper bounds
         World world = new World(roomGrid, new Position(0, 0), new Position(size, size));
 
         MultiServer servers = new MultiServer(serverSocket, world, 10); // Assuming a thread pool size of 10
         servers.startServers();
     }
-
 
     private static Map<String, String> parseArguments(String[] args) {
         Map<String, String> flags = new HashMap<>();
