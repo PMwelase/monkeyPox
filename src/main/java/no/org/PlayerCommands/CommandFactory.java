@@ -32,6 +32,10 @@ public class CommandFactory {
             }
         }
 
+        else if ("state".equalsIgnoreCase(commandName)){
+            return new StateCommand();
+        }
+
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {
             System.out.println("Command not recognized, defaulting to error command");

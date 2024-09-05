@@ -45,26 +45,4 @@ public class Player {
         this.position = position;
     }
 
-//    public void move(Direction direction) {
-//        Position newPosition = new Position(position.getX(), position.getY());
-//        switch (direction) {
-//            case NORTH:
-//                newPosition.setY(position.getY() + 1);
-//                break;
-//            case SOUTH:
-//                newPosition.setY(position.getY() - 1);
-//                break;
-//            case EAST:
-//                newPosition.setX(position.getX() + 1);
-//                break;
-//            case WEST:
-//                newPosition.setX(position.getX() - 1);
-//                break;
-//        }
-//        if (newPosition.isIn(world.getTopLeft(), world.getBottomRight())) {
-//            position = newPosition;
-//        } else {
-//            System.out.println("You can't go that way");
-//        }
-//    }
 }

@@ -33,7 +33,8 @@ public class ClientConnection {
                 out.println(requestObject.toString());
 
                 messageFromServer = in.readLine();
-                System.out.println("Received from server: " + messageFromServer);
+                JSONObject message = new JSONObject(messageFromServer);
+                System.out.println("Received from server: " + message.toString(4));
             }
 
         } catch (IOException e) {

@@ -24,7 +24,6 @@ public class MoveCommand extends Command {
         // Update position based on moveValue
         switch (moveValue) {
             case 1:
-                System.out.println("here");
                 x -= 1;
                 y += 2;
                 break;

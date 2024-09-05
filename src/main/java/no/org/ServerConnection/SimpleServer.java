@@ -74,10 +74,6 @@ public class SimpleServer implements Runnable {
         return name;
     }
 
-    public void setPlayerName(String name) {
-        this.name = name;
-    }
-
     public Socket getSocket() {
         return socket;
     }
@@ -117,8 +113,8 @@ public class SimpleServer implements Runnable {
 
                 if (Objects.equals(player.getName(), "defaultName")){
                     player.setName(playerName);
+                    player.setType(arguments.getString(0));
                 }
-
 
                 // Create and execute the command using the command name and arguments
                 Command command = CommandFactory.createCommand(commandName, arguments);
