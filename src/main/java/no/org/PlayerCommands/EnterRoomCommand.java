@@ -20,10 +20,18 @@ public class EnterRoomCommand extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room room = roomGrid.getRoom(position.getX(), position.getY());
 
-        player.enterRoom(room);
         JSONObject response = new JSONObject();
+
+        if (room.getBarricades() == 0) {
+            player.enterRoom(room);
+            response.put("message", "You have entered the room.");
+        }
+        else {
+            response.put("message", "The room is barred.");
+        }
+
         response.put("status", "success");
-        response.put("message", "You have entered the room.");
+
         return response;
     }
 }
