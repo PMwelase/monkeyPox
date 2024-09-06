@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class PickUpItem extends Command {
 
-    private String item;
+    private final String item;
 
     public PickUpItem(String item) {
         super("take");
