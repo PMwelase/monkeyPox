@@ -55,7 +55,7 @@ public class Player {
             case "survivor":
                 this.weapon = "fist";
 
-                this.setInventory(new ArrayList<>(List.of("spray can", "spray can", "bomb")));
+                this.setInventory(new ArrayList<>(List.of("spray can", "spray can")));
                 break;
         }
 
