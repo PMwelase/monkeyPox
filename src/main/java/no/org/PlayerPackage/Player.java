@@ -40,7 +40,7 @@ public class Player {
         this.maxHealth = 50;
         this.weapon = "fist";
         this.experience = 0;
-        this.health = 50;
+        this.health = 5;
 
 
         switch (type.toLowerCase()) {
@@ -159,6 +159,22 @@ public class Player {
 
     public int getKills() {
         return kills;
+    }
+
+    public void setFriendlyKills(int friendlyKills) {
+        this.friendlyKills = friendlyKills;
+    }
+
+    public int getFriendlyKills() {
+        return friendlyKills;
+    }
+
+    public void setEnemyKills(int enemyKills) {
+        this.enemyKills = enemyKills;
+    }
+
+    public int getEnemyKills() {
+        return enemyKills;
     }
 
     public boolean isInRoom() {

@@ -14,11 +14,6 @@ public abstract class Command {
     protected Command(String name) {
         this.name = name;
     }
-
-    public String getName() {
-        return name;
-    }
-
     public abstract JSONObject execute(Player player, World world);
 }
 

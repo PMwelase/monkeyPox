@@ -23,6 +23,9 @@ public class StateCommand extends Command {
         response.put("Weapon", player.getWeapon());
         response.put("Pistol Ammo", player.getPistolAmmo());
         response.put("Inventory", player.getInventory());
+        response.put("Enemy Kills", player.getEnemyKills());
+        response.put("Friendly Kills", player.getFriendlyKills());
+        response.put("Kills", player.getKills());
         return response;
     }
 }
