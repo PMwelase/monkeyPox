@@ -26,6 +26,10 @@ public class BarricadeCommand extends Command{
         if (player.isInRoom() && currentRoom.getBarricades() <= 20){
             currentRoom.setBarricades(currentRoom.getBarricades() + 1);
             response.put("message", "Barricade added to room");
+        } else if (!player.isInRoom()){
+            response.put("message", "You cannot barricade a building from the outside.");
+        }  else if (currentRoom.getBarricades() >= 20){
+            response.put("message", "Room is already full of barricades");
         }
         else {
             return new ErrorCommand().execute(player, world);
