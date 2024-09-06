@@ -18,7 +18,7 @@ public class Main {
         room.setBarricades(5);
 
         // Print out the room details
-        System.out.println("Room at (5, 10) has tag: " + room.getTag());
+        System.out.println("Room at (5, 10) has tag: " + room.getInteriorTag());
         System.out.println("Barricades: " + room.getBarricades());
     }
 }

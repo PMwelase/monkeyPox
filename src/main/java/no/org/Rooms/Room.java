@@ -9,8 +9,10 @@ public class Room {
     private String tag;
     public static List<Player> playersInRoom = new ArrayList<>();
     private int barricades;
-    private int xCoordinate;
-    private int yCoordinate;
+    private final int xCoordinate;
+    private final int yCoordinate;
+    private String interiorTag;
+    private String exteriorTag;
 
     public Room(int x, int y) {
         this.xCoordinate = x;
@@ -29,8 +31,20 @@ public class Room {
         this.tag = newTag;
     }
 
-    public String getTag() {
-        return this.tag;
+    public void setInteriorTag(String interiorTag) {
+        this.interiorTag = interiorTag;
+    }
+
+    public String getInteriorTag() {
+        return this.interiorTag;
+    }
+
+    public void setExteriorTag(String exteriorTag) {
+        this.exteriorTag = exteriorTag;
+    }
+
+    public String getExteriorTag() {
+        return this.exteriorTag;
     }
 
     public void setBarricades(int barricades) {

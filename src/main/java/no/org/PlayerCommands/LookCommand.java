@@ -20,19 +20,27 @@ public class LookCommand extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
+        String tag = "";
+
+        if (player.isInRoom()){
+            tag = currentRoom.getInteriorTag();
+        } else {
+            tag = currentRoom.getExteriorTag();
+        }
+
         JSONObject response = new JSONObject();
         response.put("status", "success");
-        response.put("message", "Room Tag: " + currentRoom.getTag());
+        response.put("message", "Room Tag: " + tag);
 
         int playerX = position.getX();
         int playerY = position.getY();
-        Boolean isPlayerInRoom = player.isInRoom();
+        boolean isPlayerInRoom = player.isInRoom();
 
         JSONArray playersArray = new JSONArray();
         for (Player user : world.getPlayersInWorld()) {
             int userX = user.getPosition().getX();
             int userY = user.getPosition().getY();
-            Boolean isUserInRoom = user.isInRoom();
+            boolean isUserInRoom = user.isInRoom();
 
             if (!user.getName().equals(player.getName()) &&
                     userX == playerX && userY == playerY &&

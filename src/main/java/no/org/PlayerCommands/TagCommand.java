@@ -37,7 +37,13 @@ public class TagCommand extends Command {
         if (inventory.contains("spray can")) {
             response.put("status", "success");
             response.put("message", "Room tagged as: " + tag);
-            currentRoom.tagRoom(tag);
+
+            if (player.isInRoom()){
+                currentRoom.setInteriorTag(tag);
+            } else {
+                currentRoom.setExteriorTag(tag);
+            }
+
             inventory.remove("spray can");
         }
 
