@@ -54,7 +54,8 @@ public class Player {
 
             case "survivor":
                 this.weapon = "fist";
-                this.setInventory(new ArrayList<>(List.of("spray can", "spray can")));
+
+                this.setInventory(new ArrayList<>(List.of("spray can", "spray can", "bomb")));
                 break;
         }
 
@@ -179,10 +180,6 @@ public class Player {
 
     public boolean isInRoom() {
         return isInRoom;
-    }
-
-    public void setInRoom(boolean isInRoom) {
-        this.isInRoom = isInRoom;
     }
 
     public Room getCurrentRoom() {

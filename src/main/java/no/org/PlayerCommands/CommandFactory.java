@@ -71,6 +71,10 @@ public class CommandFactory {
             return new BarricadeCommand();
         }
 
+        else if ("drop".equalsIgnoreCase(commandName)){
+            return new DropItem(String.valueOf(arguments));
+        }
+
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {
             System.out.println("Command not recognized, defaulting to error command");

@@ -8,6 +8,8 @@ import java.util.List;
 public class Room {
     private String tag;
     public static List<Player> playersInRoom = new ArrayList<>();
+    private List<String> itemsInRoomInterior = new ArrayList<>();
+    private List<String> itemsInRoomExterior = new ArrayList<>();
     private int barricades;
     private final int xCoordinate;
     private final int yCoordinate;
@@ -62,4 +64,29 @@ public class Room {
     public String setRoomType(String type) {
         return type;
     }
+
+    public List<String> getItemsInRoomInterior() {
+        return itemsInRoomInterior;
+    }
+
+    public void addItemInRoomInterior(String item) {
+        itemsInRoomInterior.add(item);
+    }
+
+    public void removeItemInRoomInterior(String item) {
+        itemsInRoomInterior.remove(item);
+    }
+
+    public List<String> getItemsInRoomExterior() {
+        return itemsInRoomExterior;
+    }
+
+    public void addItemInRoomExterior(String item) {
+        itemsInRoomExterior.add(item);
+    }
+
+    public void removeItemInRoomExterior(String item) {
+        itemsInRoomExterior.remove(item);
+    }
+
 }

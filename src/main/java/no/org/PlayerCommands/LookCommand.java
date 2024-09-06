@@ -56,6 +56,14 @@ public class LookCommand extends Command {
             }
         }
 
+        if (player.isInRoom()){
+            System.out.println("here");
+            response.put("Items on the floor", currentRoom.getItemsInRoomInterior());
+        } else {
+            response.put("Items on the floor", currentRoom.getItemsInRoomExterior());
+        }
+
+
         response.put("Players", playersArray);
 
         return response;
