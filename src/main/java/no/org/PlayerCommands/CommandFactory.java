@@ -67,6 +67,10 @@ public class CommandFactory {
             return new LeaveRoomCommand();
         }
 
+        else if ("barricade".equalsIgnoreCase(commandName)){
+            return new BarricadeCommand();
+        }
+
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {
             System.out.println("Command not recognized, defaulting to error command");

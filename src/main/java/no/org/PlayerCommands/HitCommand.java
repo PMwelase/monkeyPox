@@ -21,8 +21,6 @@ public class HitCommand extends Command {
     @Override
     public JSONObject execute(Player player, World world) {
         Position position = player.getPosition();
-        RoomGrid roomGrid = world.getRoomGrid();
-        Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
         int playerX = position.getX();
         int playerY = position.getY();
@@ -39,10 +37,10 @@ public class HitCommand extends Command {
                     !user.getName().equals(player.getName()) &&
                     userX == playerX && userY == playerY &&
                     isUserInRoom == isPlayerInRoom &&
-                    user.getHealth() > 0) {
+                    user.getHealth() >= 1) {
                 user.setHealth(user.getHealth() - 1);
 
-                if (user.getHealth() <= 1) {
+                if (user.getHealth() <= 0) {
 
                     response.put("status", "success");
 
@@ -50,11 +48,11 @@ public class HitCommand extends Command {
 
                     if (Objects.equals(user.getType(), player.getType())) {
                         player.setFriendlyKills(player.getFriendlyKills() + 1);
-                        response.put("message", targetName + " has been hit. Remaining health: " + user.getHealth() +
+                        response.put("message", targetName + " has been killed. Remaining health: " + user.getHealth() +
                                 " Friendly kills: " + player.getFriendlyKills());
                     } else {
                         player.setEnemyKills(player.getEnemyKills() + 1);
-                        response.put("message", targetName + " has been hit. Remaining health: " + user.getHealth() +
+                        response.put("message", targetName + " has been killed. Remaining health: " + user.getHealth() +
                                 " Enemy kills: " + player.getEnemyKills());
                     }
                 } else {

@@ -31,6 +31,9 @@ public class LookCommand extends Command {
         JSONObject response = new JSONObject();
         response.put("status", "success");
         response.put("message", "Room Tag: " + tag);
+        if(currentRoom.getBarricades() > 0){
+            response.put("Barricades", currentRoom.getBarricades());
+        }
 
         int playerX = position.getX();
         int playerY = position.getY();

@@ -59,14 +59,6 @@ public class Room {
         return barricades;
     }
 
-    public int getXCoordinate() {
-        return xCoordinate;
-    }
-
-    public int getYCoordinate() {
-        return yCoordinate;
-    }
-
     public String setRoomType(String type) {
         return type;
     }
