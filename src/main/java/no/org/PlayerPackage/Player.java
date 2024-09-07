@@ -1,5 +1,6 @@
 package no.org.PlayerPackage;
 
+import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.Rooms.Room;
 import no.org.World.Position;
 import no.org.World.World;
@@ -22,6 +23,7 @@ public class Player {
     private boolean isInRoom;
     private Room currentRoom;
     private List<String> inventory = new java.util.ArrayList<>();
+    private List<Weapon> weapons = new ArrayList<>();
 
     private World world;
     private Position position;
@@ -143,15 +145,27 @@ public class Player {
     }
 
     public List<String> getInventory() {
-        return inventory;
+        return this.inventory;
     }
 
     public void addToInventory(String item) {
-        inventory.add(item);
+        this.inventory.add(item);
     }
 
     public void removeItem(String item) {
         inventory.remove(item);
+    }
+
+    public List<Weapon> getWeapons(){
+        return weapons;
+    }
+
+    public void addToWeapons(Weapon weapon) {
+        weapons.add(weapon);
+    }
+
+    public void removeWeapon(Weapon weapon){
+        weapons.remove(weapon);
     }
 
     public void setKills(int kills) {

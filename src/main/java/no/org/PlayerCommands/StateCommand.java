@@ -1,7 +1,9 @@
 package no.org.PlayerCommands;
 
+import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.Player;
 import no.org.World.World;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class StateCommand extends Command {
@@ -22,6 +24,11 @@ public class StateCommand extends Command {
         response.put("Level", player.getLevel());
         response.put("Weapon", player.getWeapon());
         response.put("Pistol Ammo", player.getPistolAmmo());
+        JSONArray weapons = new JSONArray();
+        for (Weapon weapon : player.getWeapons()) {
+            weapons.put(weapon.getName());
+        }
+        response.put("Weapons", weapons);
         response.put("Inventory", player.getInventory());
         response.put("Enemy Kills", player.getEnemyKills());
         response.put("Friendly Kills", player.getFriendlyKills());

@@ -1,5 +1,6 @@
 package no.org.Rooms;
 
+import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.Player;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 public class Room {
     public static List<Player> playersInRoom = new ArrayList<>();
+    public static List<Weapon> weaponsInRoom = new ArrayList<>();
     private List<String> itemsInRoomInterior = new ArrayList<>();
     private List<String> itemsInRoomExterior = new ArrayList<>();
     private int barricades;
@@ -68,6 +70,7 @@ public class Room {
         itemsInRoomInterior.add(item);
     }
 
+
     public void removeItemInRoomInterior(String item) {
         itemsInRoomInterior.remove(item);
     }
@@ -82,6 +85,18 @@ public class Room {
 
     public void removeItemInRoomExterior(String item) {
         itemsInRoomExterior.remove(item);
+    }
+
+    public void addWeaponInRoomInterior(Weapon weapon) {
+        weaponsInRoom.add(weapon);
+    }
+
+    public List<Weapon> getWeaponsInRoomInterior(){
+        return weaponsInRoom;
+    }
+
+    public void removeWeaponInRoom(Weapon weapon){
+        weaponsInRoom.remove(weapon);
     }
 
 }

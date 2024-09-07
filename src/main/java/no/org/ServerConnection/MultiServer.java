@@ -72,10 +72,15 @@ public class MultiServer {
 
         // Initialize the world with the static room grid and proper bounds
         World world = new World(roomGrid, new Position(0, 0), new Position(size, size));
+
+        //****Temp***//
         Shotgun shotgun = new Shotgun(0, 0, "12345");
         world.setShotgunInWorld(shotgun);
+        roomGrid.getRoom(0,0).addWeaponInRoomInterior(shotgun);
+        //***Temp***//
+
         MultiServer servers = new MultiServer(serverSocket, world, 10); // Assuming a thread pool size of 10
-        //TODO add ServerManager here
+
         ServerManager serverManager = new ServerManager(serverSocket, world);
 
         serverManager.start();

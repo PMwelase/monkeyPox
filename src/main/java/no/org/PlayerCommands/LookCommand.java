@@ -1,6 +1,6 @@
 package no.org.PlayerCommands;
 
-import no.org.ItemsPackage.Weapons.Shotgun;
+import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -23,7 +23,7 @@ public class LookCommand extends Command {
 
         String tag = "";
 
-        if (player.isInRoom()){
+        if (player.isInRoom()) {
             tag = currentRoom.getInteriorTag();
         } else {
             tag = currentRoom.getExteriorTag();
@@ -32,7 +32,8 @@ public class LookCommand extends Command {
         JSONObject response = new JSONObject();
         response.put("status", "success");
         response.put("message", "Room Tag: " + tag);
-        if(currentRoom.getBarricades() > 0){
+
+        if (currentRoom.getBarricades() > 0) {
             response.put("Barricades", currentRoom.getBarricades());
         }
 
@@ -57,18 +58,20 @@ public class LookCommand extends Command {
             }
         }
 
-        for (Shotgun shotgun : world.getShotgunsInWorld()){
-            System.out.print(shotgun.getSerialNumber());
-            response.put("shotgun", shotgun.getSerialNumber());
+        // Collect all weapons in the room into a JSONArray
+        JSONArray weaponsArray = new JSONArray();
+        for (Weapon weapon : currentRoom.getWeaponsInRoomInterior()) {
+            weaponsArray.put(weapon.getName());
         }
 
-        if (player.isInRoom()){
-            System.out.println("here");
+        // Add the weapons array to the response
+        response.put("Weapons", weaponsArray);
+
+        if (player.isInRoom()) {
             response.put("Items on the floor", currentRoom.getItemsInRoomInterior());
         } else {
             response.put("Items on the floor", currentRoom.getItemsInRoomExterior());
         }
-
 
         response.put("Players", playersArray);
 
