@@ -12,7 +12,7 @@ public class Main {
         Room room = roomGrid.getRoom(5, 10);
 
         // Set a tag for the room
-        room.tagRoom("Treasure Room");
+        room.setInteriorTag("Treasure Room");
 
         // Set barricades in the room
         room.setBarricades(5);

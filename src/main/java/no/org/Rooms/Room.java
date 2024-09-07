@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    private String tag;
     public static List<Player> playersInRoom = new ArrayList<>();
     private List<String> itemsInRoomInterior = new ArrayList<>();
     private List<String> itemsInRoomExterior = new ArrayList<>();
@@ -27,10 +26,6 @@ public class Room {
 
     public void removePlayerInRoom(Player player) {
         playersInRoom.remove(player);
-    }
-
-    public void tagRoom(String newTag) {
-        this.tag = newTag;
     }
 
     public void setInteriorTag(String interiorTag) {

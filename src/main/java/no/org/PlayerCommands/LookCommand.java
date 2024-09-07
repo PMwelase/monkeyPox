@@ -1,5 +1,6 @@
 package no.org.PlayerCommands;
 
+import no.org.ItemsPackage.Weapons.Shotgun;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -54,6 +55,11 @@ public class LookCommand extends Command {
                 playerInfo.put("Type", user.getType());
                 playersArray.put(playerInfo);
             }
+        }
+
+        for (Shotgun shotgun : world.getShotgunsInWorld()){
+            System.out.print(shotgun.getSerialNumber());
+            response.put("shotgun", shotgun.getSerialNumber());
         }
 
         if (player.isInRoom()){

@@ -1,5 +1,8 @@
 package no.org.ServerConnection;
 
+import no.org.ItemsPackage.Shells;
+import no.org.ItemsPackage.Weapons.Shotgun;
+import no.org.ServerCommands.ServerManager;
 import no.org.World.Position;
 import no.org.Rooms.RoomGrid;
 import no.org.World.World;
@@ -9,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,7 +39,7 @@ public class MultiServer {
                 System.out.println("A new client has connected!");
 
                 Runnable robot = new SimpleServer(socket, world);
-                threadPool.execute(robot); // Use thread pool to manage threads
+                threadPool.execute(robot);
             }
         } catch (IOException e) {
             System.err.println("I/O error occurred while accepting connection: " + e.getMessage());
@@ -68,8 +72,13 @@ public class MultiServer {
 
         // Initialize the world with the static room grid and proper bounds
         World world = new World(roomGrid, new Position(0, 0), new Position(size, size));
-
+        Shotgun shotgun = new Shotgun(0, 0, "12345");
+        world.setShotgunInWorld(shotgun);
         MultiServer servers = new MultiServer(serverSocket, world, 10); // Assuming a thread pool size of 10
+        //TODO add ServerManager here
+        ServerManager serverManager = new ServerManager(serverSocket, world);
+
+        serverManager.start();
         servers.startServers();
     }
 

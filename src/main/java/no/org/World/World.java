@@ -1,5 +1,6 @@
 package no.org.World;
 
+import no.org.ItemsPackage.Weapons.Shotgun;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.RoomGrid;
 
@@ -12,9 +13,10 @@ public class World {
     private final RoomGrid roomGrid;
 
     public static List<Player> playersInWorld = new ArrayList<>();
-
+    //Temp
+    public static List<Shotgun> shotgunsInWorld = new ArrayList<>();
     public World(RoomGrid roomGrid, Position topLeft, Position bottomRight) {
-        this.roomGrid = roomGrid;  // Initialize RoomGrid
+        this.roomGrid = roomGrid;
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
@@ -41,6 +43,15 @@ public class World {
 
     public List<Player> getPlayersInWorld() {
         return playersInWorld;
+    }
+
+    //Temp
+    public List<Shotgun> getShotgunsInWorld(){
+        return shotgunsInWorld;
+    }
+    //Temp
+    public void setShotgunInWorld(Shotgun shotgun) {
+        shotgunsInWorld.add(shotgun);
     }
 
     public void setPlayersInWorld(List<Player> newPlayers) {
