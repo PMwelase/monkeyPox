@@ -15,9 +15,8 @@ public class PickUpWeapon extends Command {
 
     public PickUpWeapon(String weaponName) {
         super("pickup");
-        String jsonString = "[\"shotgun\"]";
 
-        JSONArray jsonArray = new JSONArray(jsonString);
+        JSONArray jsonArray = new JSONArray(weaponName);
 
         this.weaponName = jsonArray.getString(0);
     }
@@ -31,13 +30,13 @@ public class PickUpWeapon extends Command {
         JSONObject response = new JSONObject();
 
         if (player.isInRoom()) {
-            if (currentRoom.getWeaponsInRoomInterior().isEmpty()) {
+            if (currentRoom.getWeaponsInRoom().isEmpty()) {
                 response.put("status", "fail");
-                response.put("message", "No weapons in room.");
+                response.put("message", "No weapons in the room.");
                 return response;
             }
 
-            Weapon weaponToPickUp = currentRoom.getWeaponsInRoomInterior().stream()
+            Weapon weaponToPickUp = currentRoom.getWeaponsInRoom().stream()
                     .filter(weapon -> weapon.getName().equalsIgnoreCase(weaponName))
                     .findFirst()
                     .orElse(null);
@@ -51,10 +50,30 @@ public class PickUpWeapon extends Command {
                 response.put("status", "fail");
                 response.put("message", "Weapon '" + weaponName + "' not found in room.");
             }
+
         } else {
-            response.put("status", "fail");
-            response.put("message", "Player is not in a room.");
+            if (currentRoom.getWeaponsExRoom().isEmpty()) {
+                response.put("status", "fail");
+                response.put("message", "No weapons outside the room.");
+                return response;
+            }
+
+            Weapon weaponToPickUp = currentRoom.getWeaponsExRoom().stream()
+                    .filter(weapon -> weapon.getName().equalsIgnoreCase(weaponName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (weaponToPickUp != null) {
+                currentRoom.removeWeaponExRoom(weaponToPickUp);
+                player.addToWeapons(weaponToPickUp);
+                response.put("status", "success");
+                response.put("message", "Picked up " + weaponToPickUp.getName() + " from room exterior.");
+            } else {
+                response.put("status", "fail");
+                response.put("message", "Weapon '" + weaponName + "' not found outside the room.");
+            }
         }
+
 
         return response;
     }

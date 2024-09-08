@@ -9,6 +9,9 @@ import no.org.Rooms.Room;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LookCommand extends Command {
 
     public LookCommand() {
@@ -58,20 +61,28 @@ public class LookCommand extends Command {
             }
         }
 
-        // Collect all weapons in the room into a JSONArray
-        JSONArray weaponsArray = new JSONArray();
-        for (Weapon weapon : currentRoom.getWeaponsInRoomInterior()) {
-            weaponsArray.put(weapon.getName());
-        }
-
-        // Add the weapons array to the response
-        response.put("Weapons", weaponsArray);
-
         if (player.isInRoom()) {
             response.put("Items on the floor", currentRoom.getItemsInRoomInterior());
+            List<String> weaponsInRoom = new ArrayList<>();
+
+            for (Weapon weapon : currentRoom.getWeaponsInRoom()) {
+                weaponsInRoom.add(weapon.getName());
+            }
+
+            response.put("Weapons", weaponsInRoom);
+
         } else {
             response.put("Items on the floor", currentRoom.getItemsInRoomExterior());
+
+            List<String> weaponsExRoom = new ArrayList<>();
+
+            for (Weapon weapon : currentRoom.getWeaponsExRoom()) {
+                weaponsExRoom.add(weapon.getName());
+            }
+
+            response.put("Weapons", weaponsExRoom);
         }
+
 
         response.put("Players", playersArray);
 

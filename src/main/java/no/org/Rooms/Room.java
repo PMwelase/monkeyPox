@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Room {
     public static List<Player> playersInRoom = new ArrayList<>();
-    public static List<Weapon> weaponsInRoom = new ArrayList<>();
+    private List<Weapon> weaponsInRoom = new ArrayList<>();
+    private List<Weapon> weaponsExRoom = new ArrayList<>();
     private List<String> itemsInRoomInterior = new ArrayList<>();
     private List<String> itemsInRoomExterior = new ArrayList<>();
     private int barricades;
@@ -87,16 +88,28 @@ public class Room {
         itemsInRoomExterior.remove(item);
     }
 
-    public void addWeaponInRoomInterior(Weapon weapon) {
+    public void addWeaponInRoom(Weapon weapon) {
         weaponsInRoom.add(weapon);
     }
 
-    public List<Weapon> getWeaponsInRoomInterior(){
+    public List<Weapon> getWeaponsInRoom(){
         return weaponsInRoom;
     }
 
     public void removeWeaponInRoom(Weapon weapon){
         weaponsInRoom.remove(weapon);
+    }
+
+    public void addWeaponExRoom(Weapon weapon) {
+        weaponsExRoom.add(weapon);
+    }
+
+    public List<Weapon> getWeaponsExRoom() {
+        return weaponsExRoom;
+    }
+
+    public void removeWeaponExRoom(Weapon weapon) {
+        weaponsExRoom.remove(weapon);
     }
 
 }

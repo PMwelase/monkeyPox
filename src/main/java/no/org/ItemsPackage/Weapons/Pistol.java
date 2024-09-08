@@ -5,8 +5,8 @@ import no.org.World.Position;
 public class Pistol extends Weapon {
     private int ammo;
 
-    public Pistol() {
-        super("Pistol");
+    public Pistol(int x, int y, String serialNumber) {
+        super("Pistol", x, y, serialNumber);
         this.ammo = 0;
     }
 
@@ -25,6 +25,16 @@ public class Pistol extends Weapon {
 
     public Pistol getPistol(){
         return this;
+    }
+
+    @Override
+    public int getQuantity() {
+        return 0;
+    }
+
+    @Override
+    public void setQuantity(int quantity) {
+
     }
 
 }
