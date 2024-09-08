@@ -31,6 +31,10 @@ public abstract class Weapon implements Item {
         this.serialNumber = serialNumber;
     }
 
+    public String getSerialNumber() {
+        return this.serialNumber;
+    }
+
     private void setPosition(Position position){
         this.position = position;
     }

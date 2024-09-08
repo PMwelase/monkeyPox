@@ -45,7 +45,7 @@ public class PickUpWeapon extends Command {
                 currentRoom.removeWeaponInRoom(weaponToPickUp);
                 player.addToWeapons(weaponToPickUp);
                 response.put("status", "success");
-                response.put("message", "Picked up " + weaponToPickUp.getName() + " from room interior.");
+                response.put("message", "Picked up " + weaponToPickUp.getName() + " Serial Number: " + weaponToPickUp.getSerialNumber());
             } else {
                 response.put("status", "fail");
                 response.put("message", "Weapon '" + weaponName + "' not found in room.");

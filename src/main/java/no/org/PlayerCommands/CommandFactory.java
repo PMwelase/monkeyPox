@@ -87,6 +87,11 @@ public class CommandFactory {
             return new PickUpWeapon(String.valueOf(arguments));
         }
 
+         else if ("lose".equalsIgnoreCase(commandName)) {
+            return new WeaponDisposal(String.valueOf(arguments));
+        }
+
+
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {
             System.out.println("Command not recognized, defaulting to error command");
