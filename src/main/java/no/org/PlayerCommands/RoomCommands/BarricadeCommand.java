@@ -1,14 +1,15 @@
-package no.org.PlayerCommands;
+package no.org.PlayerCommands.RoomCommands;
 
+import no.org.PlayerCommands.Command;
+import no.org.PlayerCommands.ErrorCommand;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
 import no.org.Rooms.Room;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class BarricadeCommand extends Command{
+public class BarricadeCommand extends Command {
 
     public BarricadeCommand(){
         super("barricade");

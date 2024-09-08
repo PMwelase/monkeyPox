@@ -1,6 +1,7 @@
-package no.org.PlayerCommands;
+package no.org.PlayerCommands.WeaponCommands;
 
 import no.org.ItemsPackage.Weapons.Weapon;
+import no.org.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
@@ -10,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WeaponDisposal extends Command {
 

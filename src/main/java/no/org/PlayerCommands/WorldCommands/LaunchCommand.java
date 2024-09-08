@@ -1,5 +1,6 @@
-package no.org.PlayerCommands;
+package no.org.PlayerCommands.WorldCommands;
 
+import no.org.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
 import no.org.World.Position;
 import no.org.World.World;

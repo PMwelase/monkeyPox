@@ -1,5 +1,13 @@
 package no.org.PlayerCommands;
 
+import no.org.PlayerCommands.RoomCommands.BarricadeCommand;
+import no.org.PlayerCommands.RoomCommands.EnterRoomCommand;
+import no.org.PlayerCommands.RoomCommands.LeaveRoomCommand;
+import no.org.PlayerCommands.RoomCommands.TagCommand;
+import no.org.PlayerCommands.WeaponCommands.PickUpWeapon;
+import no.org.PlayerCommands.WeaponCommands.UseWeapon;
+import no.org.PlayerCommands.WeaponCommands.WeaponDisposal;
+import no.org.PlayerCommands.WorldCommands.*;
 import org.json.JSONArray;
 
 import java.util.HashMap;

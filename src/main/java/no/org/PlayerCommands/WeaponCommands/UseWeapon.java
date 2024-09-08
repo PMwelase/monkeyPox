@@ -1,6 +1,7 @@
-package no.org.PlayerCommands;
+package no.org.PlayerCommands.WeaponCommands;
 
 import no.org.ItemsPackage.Weapons.Weapon;
+import no.org.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
 import no.org.World.World;
 import org.json.JSONArray;

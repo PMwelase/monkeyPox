@@ -1,5 +1,6 @@
-package no.org.PlayerCommands;
+package no.org.PlayerCommands.WorldCommands;
 
+import no.org.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
@@ -11,7 +12,7 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DropItem extends Command{
+public class DropItem extends Command {
 
 
     String item;

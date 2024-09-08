@@ -58,7 +58,7 @@ public class Player {
 //                this.weapon = "fist";
                 this.item = "spray can";
 
-                this.setInventory(new ArrayList<>(List.of("spray can", "spray can")));
+                this.setInventory(new ArrayList<>(List.of("spray can", "clip", "shell")));
                 break;
         }
 
