@@ -1,13 +1,14 @@
-package no.org.PlayerCommands;
+package no.org.PlayerPackage.PlayerCommands;
 
-import no.org.PlayerCommands.RoomCommands.BarricadeCommand;
-import no.org.PlayerCommands.RoomCommands.EnterRoomCommand;
-import no.org.PlayerCommands.RoomCommands.LeaveRoomCommand;
-import no.org.PlayerCommands.RoomCommands.TagCommand;
-import no.org.PlayerCommands.WeaponCommands.PickUpWeapon;
-import no.org.PlayerCommands.WeaponCommands.UseWeapon;
-import no.org.PlayerCommands.WeaponCommands.WeaponDisposal;
-import no.org.PlayerCommands.WorldCommands.*;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.BarricadeCommand;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.EnterRoomCommand;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.LeaveRoomCommand;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.TagCommand;
+import no.org.PlayerPackage.PlayerCommands.WeaponCommands.LoadWeapon;
+import no.org.PlayerPackage.PlayerCommands.WeaponCommands.PickUpWeapon;
+import no.org.PlayerPackage.PlayerCommands.WeaponCommands.UseWeapon;
+import no.org.PlayerPackage.PlayerCommands.WeaponCommands.WeaponDisposal;
+import no.org.PlayerPackage.PlayerCommands.WorldCommands.*;
 import org.json.JSONArray;
 
 import java.util.HashMap;
@@ -101,6 +102,10 @@ public class CommandFactory {
 
         else if ("arm".equalsIgnoreCase(commandName)) {
             return new UseWeapon(String.valueOf(arguments));
+        }
+
+        else if ("load".equalsIgnoreCase(commandName)) {
+            return new LoadWeapon(String.valueOf(arguments));
         }
 
 

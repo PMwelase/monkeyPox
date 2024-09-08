@@ -1,7 +1,7 @@
-package no.org.PlayerCommands.WeaponCommands;
+package no.org.PlayerPackage.PlayerCommands.WeaponCommands;
 
 import no.org.ItemsPackage.Weapons.Weapon;
-import no.org.PlayerCommands.Command;
+import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;

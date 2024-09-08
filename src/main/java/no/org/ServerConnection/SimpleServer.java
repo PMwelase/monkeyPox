@@ -1,7 +1,7 @@
 package no.org.ServerConnection;
 
-import no.org.PlayerCommands.Command;
-import no.org.PlayerCommands.CommandFactory;
+import no.org.PlayerPackage.PlayerCommands.Command;
+import no.org.PlayerPackage.PlayerCommands.CommandFactory;
 import no.org.World.Position;
 import no.org.World.World;
 import no.org.PlayerPackage.Player;

@@ -1,4 +1,4 @@
-package no.org.PlayerCommands;
+package no.org.PlayerPackage.PlayerCommands;
 
 import no.org.PlayerPackage.Player;
 import no.org.World.World;

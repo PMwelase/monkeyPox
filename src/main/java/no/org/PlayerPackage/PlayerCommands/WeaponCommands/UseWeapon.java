@@ -1,7 +1,7 @@
-package no.org.PlayerCommands.WeaponCommands;
+package no.org.PlayerPackage.PlayerCommands.WeaponCommands;
 
 import no.org.ItemsPackage.Weapons.Weapon;
-import no.org.PlayerCommands.Command;
+import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
 import no.org.World.World;
 import org.json.JSONArray;
@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class UseWeapon extends Command {
     private final String weaponName;
 
-    // Constructor
     public UseWeapon(String weapon) {
         super("arm");
 
@@ -31,6 +30,7 @@ public class UseWeapon extends Command {
                 .filter(weapon -> weapon.getName().equalsIgnoreCase(weaponName))
                 .findFirst()
                 .orElse(null);
+
         JSONObject response = new JSONObject();
 
         if (weaponList.contains(targetWeapon)) {

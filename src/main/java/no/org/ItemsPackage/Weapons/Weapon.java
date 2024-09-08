@@ -15,11 +15,14 @@ public abstract class Weapon implements Item {
     private World world;
     private Position position;
 
+    private int ammo;
+
     public Weapon(String name, int x, int y, String serialNumber) {
         this.name = name;
         this.inUse = false;
         this.position = new Position(x, y);
         this.serialNumber = serialNumber;
+        this.ammo = 0;
     }
 
     @Override
@@ -53,6 +56,14 @@ public abstract class Weapon implements Item {
 
     public Boolean getInRoom(){
         return inRoom;
+    }
+
+    public int getAmmo() {
+        return ammo;
+    }
+
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
     }
 
 

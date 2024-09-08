@@ -25,6 +25,7 @@ public class Player {
     private Room currentRoom;
     private List<String> inventory = new java.util.ArrayList<>();
     private List<Weapon> weapons = new ArrayList<>();
+    private int deathCount;
 
     private World world;
     private Position position;
@@ -43,6 +44,7 @@ public class Player {
         this.maxHealth = 50;
         this.experience = 0;
         this.health = 5;
+        this.deathCount = 0;
 
 
         switch (type.toLowerCase()) {
@@ -220,4 +222,17 @@ public class Player {
         room.removePlayerInRoom(this);
         this.isInRoom = false;
     }
+
+    public int getDeathCount() {
+        return deathCount;
+    }
+
+    public void setDeathCount(int deathCount) {
+        this.deathCount = deathCount;
+    }
+
+    public void incrementDeathCount() {
+        this.deathCount++;
+    }
+
 }

@@ -1,7 +1,7 @@
-package no.org.PlayerCommands.RoomCommands;
+package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 
-import no.org.PlayerCommands.Command;
-import no.org.PlayerCommands.ErrorCommand;
+import no.org.PlayerPackage.PlayerCommands.Command;
+import no.org.PlayerPackage.PlayerCommands.ErrorCommand;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
