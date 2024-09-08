@@ -15,7 +15,7 @@ public class Shotgun extends Weapon {
 
     @Override
     public int getDamage() {
-        return 25;
+        return 4;
     }
 
     public int getAmmo() {

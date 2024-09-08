@@ -91,6 +91,10 @@ public class CommandFactory {
             return new WeaponDisposal(String.valueOf(arguments));
         }
 
+        else if ("arm".equalsIgnoreCase(commandName)) {
+            return new UseWeapon(String.valueOf(arguments));
+        }
+
 
         Command command = commands.get(commandName.toLowerCase());
         if (command == null) {

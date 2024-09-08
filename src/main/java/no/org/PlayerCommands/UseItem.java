@@ -27,7 +27,7 @@ public class UseItem extends Command {
         JSONObject response = new JSONObject();
 
         if (inventory.contains(item)) {
-            player.setWeapon(item);
+            player.setItem(item);
             player.removeItem(item);
 
             response.put("status", "success");

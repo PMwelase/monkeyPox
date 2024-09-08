@@ -22,14 +22,17 @@ public class StateCommand extends Command {
         response.put("Max-Health", player.getMaxHealth());
         response.put("Experience", player.getExperience());
         response.put("Level", player.getLevel());
-        response.put("Weapon", player.getWeapon());
+        response.put("Item in hand", player.getItem());
+        if (player.getWeapon() != null) {
+            response.put("Weapon in hand", player.getWeapon().getName());
+        }
         response.put("Pistol Ammo", player.getPistolAmmo());
         JSONArray weapons = new JSONArray();
         for (Weapon weapon : player.getWeapons()) {
             weapons.put(weapon.getName());
         }
-        response.put("Weapons", weapons);
-        response.put("Inventory", player.getInventory());
+        response.put("Weapons Inventory", weapons);
+        response.put("Items Inventory", player.getInventory());
         response.put("Enemy Kills", player.getEnemyKills());
         response.put("Friendly Kills", player.getFriendlyKills());
         response.put("Kills", player.getKills());

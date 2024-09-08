@@ -19,7 +19,8 @@ public class Player {
     private int kills;
     private int friendlyKills;
     private int enemyKills;
-    private String weapon;
+    private Weapon weapon;
+    private String item;
     private boolean isInRoom;
     private Room currentRoom;
     private List<String> inventory = new java.util.ArrayList<>();
@@ -40,22 +41,22 @@ public class Player {
         this.type = type;
         this.level = 1;
         this.maxHealth = 50;
-        this.weapon = "fist";
         this.experience = 0;
         this.health = 5;
 
 
         switch (type.toLowerCase()) {
             case "ape":
-                this.weapon = "fist";
+//                this.weapon = "fist";
                 break;
 
             case "hound":
-                this.weapon = "claws";
+//                this.weapon = "claws";
                 break;
 
             case "survivor":
-                this.weapon = "fist";
+//                this.weapon = "fist";
+                this.item = "spray can";
 
                 this.setInventory(new ArrayList<>(List.of("spray can", "spray can")));
                 break;
@@ -116,11 +117,19 @@ public class Player {
         this.level = level;
     }
 
-    public void setWeapon(String weapon){
+    public void setItem(String item){
+        this.item = item;
+    }
+
+    public String getItem(){
+        return item;
+    }
+
+    public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
-    public String getWeapon(){
+    public Weapon getWeapon() {
         return weapon;
     }
 
