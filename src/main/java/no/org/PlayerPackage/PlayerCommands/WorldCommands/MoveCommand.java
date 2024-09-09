@@ -2,6 +2,8 @@ package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.Rooms.Room;
+import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
 import org.json.JSONObject;
@@ -21,6 +23,10 @@ public class MoveCommand extends Command {
         Position currentPosition = player.getPosition();
         int x = currentPosition.getX();
         int y = currentPosition.getY();
+        RoomGrid roomGrid = world.getRoomGrid();
+        Room currentRoom = roomGrid.getRoom(currentPosition.getX(), currentPosition.getY());
+
+        boolean moved = true;
 
         // Update position based on moveValue
         switch (moveValue) {
@@ -57,7 +63,12 @@ public class MoveCommand extends Command {
                 JSONObject response = new JSONObject();
                 response.put("status", "failure");
                 response.put("message", "Invalid move value!");
+                moved = false;
                 return response;
+        }
+
+        if (moved){
+            player.leaveRoom(currentRoom);
         }
 
         Position newPosition = new Position(x, y);
