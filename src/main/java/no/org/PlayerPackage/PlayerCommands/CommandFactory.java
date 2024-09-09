@@ -1,10 +1,7 @@
 package no.org.PlayerPackage.PlayerCommands;
 
 import no.org.PlayerPackage.PlayerCommands.RoomCommands.*;
-import no.org.PlayerPackage.PlayerCommands.WeaponCommands.LoadWeapon;
-import no.org.PlayerPackage.PlayerCommands.WeaponCommands.PickUpWeapon;
-import no.org.PlayerPackage.PlayerCommands.WeaponCommands.UseWeapon;
-import no.org.PlayerPackage.PlayerCommands.WeaponCommands.WeaponDisposal;
+import no.org.PlayerPackage.PlayerCommands.WeaponCommands.*;
 import no.org.PlayerPackage.PlayerCommands.WorldCommands.*;
 import org.json.JSONArray;
 
@@ -122,6 +119,10 @@ public class CommandFactory {
 
         else if ("break".equalsIgnoreCase(commandName)) {
             return new BreakCommand();
+        }
+
+        else if ("stow".equalsIgnoreCase(commandName)) {
+            return new StowWeapon(String.valueOf(arguments));
         }
 
 

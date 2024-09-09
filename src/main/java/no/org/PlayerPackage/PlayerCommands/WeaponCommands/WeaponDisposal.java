@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Objects;
 
 public class WeaponDisposal extends Command {
 
@@ -29,12 +30,26 @@ public class WeaponDisposal extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
+        boolean isEquipped = false;
+
+        if (currentRoom == null) {
+            JSONObject response = new JSONObject();
+            response.put("status", "fail");
+            response.put("message", "No room found at the player's current position.");
+            return response;
+        }
+
         List<Weapon> weapons = player.getWeapons();
 
         Weapon targetWeapon = weapons.stream()
                 .filter(weapon -> weapon.getName().equalsIgnoreCase(weaponName))
                 .findFirst()
                 .orElse(null);
+
+        if (targetWeapon == null && player.getWeapon() != null && Objects.equals(player.getWeapon().getName(), weaponName)) {
+            targetWeapon = player.getWeapon();
+            isEquipped = true;
+        }
 
         if (targetWeapon == null) {
             JSONObject response = new JSONObject();
@@ -43,7 +58,11 @@ public class WeaponDisposal extends Command {
             return response;
         }
 
-        weapons.remove(targetWeapon);
+        if (isEquipped) {
+            player.setWeapon(null);
+        } else {
+            weapons.remove(targetWeapon);
+        }
 
         if (player.isInRoom()) {
             currentRoom.getWeaponsInRoom().add(targetWeapon);
@@ -53,7 +72,11 @@ public class WeaponDisposal extends Command {
 
         JSONObject response = new JSONObject();
         response.put("status", "success");
-        response.put("message", "Disposed of weapon: " + targetWeapon.getName() + " Serial number: " + targetWeapon.getSerialNumber());
+        if (isEquipped) {
+            response.put("message", "Disposed of " + targetWeapon.getName() + " (Serial number: " + targetWeapon.getSerialNumber() + ")");
+        } else {
+            response.put("message", "Disposed of weapon: " + targetWeapon.getName() + " (Serial number: " + targetWeapon.getSerialNumber() + ")");
+        }
 
         return response;
     }
