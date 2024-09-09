@@ -1,9 +1,6 @@
 package no.org.PlayerPackage.PlayerCommands;
 
-import no.org.PlayerPackage.PlayerCommands.RoomCommands.BarricadeCommand;
-import no.org.PlayerPackage.PlayerCommands.RoomCommands.EnterRoomCommand;
-import no.org.PlayerPackage.PlayerCommands.RoomCommands.LeaveRoomCommand;
-import no.org.PlayerPackage.PlayerCommands.RoomCommands.TagCommand;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.*;
 import no.org.PlayerPackage.PlayerCommands.WeaponCommands.LoadWeapon;
 import no.org.PlayerPackage.PlayerCommands.WeaponCommands.PickUpWeapon;
 import no.org.PlayerPackage.PlayerCommands.WeaponCommands.UseWeapon;
@@ -106,6 +103,10 @@ public class CommandFactory {
 
         else if ("load".equalsIgnoreCase(commandName)) {
             return new LoadWeapon(String.valueOf(arguments));
+        }
+
+        else if ("break".equalsIgnoreCase(commandName)) {
+            return new BreakCommand();
         }
 
 
