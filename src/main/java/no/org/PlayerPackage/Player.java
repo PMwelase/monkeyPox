@@ -14,6 +14,9 @@ public class Player {
     private int health;
     private int maxHealth;
     private int experience;
+    private int stamina;
+    private int maxStamina;
+
     private int pistolAmmo = 0;
     private int level;
     private int kills;
@@ -26,6 +29,7 @@ public class Player {
     private List<String> inventory = new java.util.ArrayList<>();
     private List<Weapon> weapons = new ArrayList<>();
     private int deathCount;
+
 
     private World world;
     private Position position;
@@ -42,9 +46,12 @@ public class Player {
         this.type = type;
         this.level = 1;
         this.maxHealth = 50;
+        this.stamina = 50;
+        this.maxStamina = 50;
         this.experience = 0;
         this.health = 5;
         this.deathCount = 0;
+
 
 
         switch (type.toLowerCase()) {

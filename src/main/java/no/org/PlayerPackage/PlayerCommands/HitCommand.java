@@ -74,8 +74,14 @@ public class HitCommand extends Command {
                                 ". Damage dealt: " + damage);
                     }
                 } else {
+                    String attackType;
+                    if (weapon != null && weapon.getAttackType() != null) {
+                        attackType = weapon.getAttackType();
+                    } else {
+                        attackType = "punched";
+                    }
                     response.put("status", "success");
-                    response.put("message", targetName + " has been hit. " +
+                    response.put("message", "You " + attackType + " " + targetName + ". " +
                             "Remaining health: " + target.getHealth() +
                             ". Damage dealt: " + damage);
                 }

@@ -44,4 +44,9 @@ public class Knife extends Weapon{
     @Override
     public void setAmmo(int ammo) {
     }
+
+    @Override
+    public String getAttackType() {
+        return "stabbed";
+    }
 }

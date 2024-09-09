@@ -79,10 +79,11 @@ public class MultiServer {
         Shotgun shotgun = new Shotgun(0, 0, "12345");
         world.setShotgunInWorld(shotgun);
         roomGrid.getRoom(0,0).addWeaponInRoom(shotgun);
-        roomGrid.getRoom(0,0).addWeaponExRoom(new Pistol(0,0, "12347"));
-        roomGrid.getRoom(1,1).addWeaponInRoom(new Shotgun(1,1, "12346"));
-        roomGrid.getRoom(2,2).addWeaponInRoom(new Pistol(2, 2, "12348"));
+        roomGrid.getRoom(0,0).addWeaponExRoom(new Pistol(0,0, "88888"));
+        roomGrid.getRoom(1,1).addWeaponInRoom(new Shotgun(1,1, "65756"));
+        roomGrid.getRoom(2,2).addWeaponInRoom(new Pistol(2, 2, "67348"));
         roomGrid.getRoom(1,1).addWeaponInRoom(new Knife(1, 1, "12349"));
+        roomGrid.getRoom(2,2).addItemInRoomInterior("shells");
         //***Temp***//
 
         MultiServer servers = new MultiServer(serverSocket, world, 10); // Assuming a thread pool size of 10

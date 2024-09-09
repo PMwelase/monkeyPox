@@ -37,6 +37,7 @@ public class StateCommand extends Command {
         response.put("Enemy Kills", player.getEnemyKills());
         response.put("Friendly Kills", player.getFriendlyKills());
         response.put("Kills", player.getKills());
+        response.put("Deaths", player.getDeathCount());
         return response;
     }
 }

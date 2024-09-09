@@ -17,6 +17,8 @@ public abstract class Weapon implements Item {
 
     private int ammo;
 
+    private String attackType;
+
     public Weapon(String name, int x, int y, String serialNumber) {
         this.name = name;
         this.inUse = false;
@@ -71,4 +73,8 @@ public abstract class Weapon implements Item {
     }
 
     public abstract int getDamage();
+
+    public String getAttackType() {
+        return attackType;
+    }
 }

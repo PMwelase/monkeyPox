@@ -45,4 +45,9 @@ public class Shotgun extends Weapon {
         return true;
     }
 
+    @Override
+    public String getAttackType() {
+        return "shot";
+    }
+
 }

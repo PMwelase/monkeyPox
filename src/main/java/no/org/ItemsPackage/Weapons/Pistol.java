@@ -42,4 +42,9 @@ public class Pistol extends Weapon {
         return true;
     }
 
+    @Override
+    public String getAttackType() {
+        return "shot";
+    }
+
 }
