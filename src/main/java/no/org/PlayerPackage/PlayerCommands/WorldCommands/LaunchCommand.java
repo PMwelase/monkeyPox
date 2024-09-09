@@ -18,8 +18,8 @@ public class LaunchCommand extends Command {
     public JSONObject execute(Player player, World world) {
         // Generate random coordinates within the world's bounds
         Random random = new Random();
-        int x = random.nextInt(world.getBottomRight().getX() + 1);
-        int y = random.nextInt(world.getBottomRight().getY() + 1);
+        int x = random.nextInt(world.getTopRight().getX() + 1);
+        int y = random.nextInt(world.getTopRight().getY() + 1);
 
         // Set the player's position to the random coordinates
         Position newPosition = new Position(x, y);

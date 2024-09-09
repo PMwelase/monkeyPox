@@ -26,11 +26,11 @@ public class Position {
         this.y = y;
     }
 
-    public boolean isIn(Position topLeft, Position bottomRight) {
-        boolean withinTop = this.y <= topLeft.getY();
-        boolean withinBottom = this.y >= bottomRight.getY();
-        boolean withinLeft = this.x >= topLeft.getX();
-        boolean withinRight = this.x <= bottomRight.getX();
+    public boolean isIn(Position bottomLeft, Position topRight) {
+        boolean withinTop = this.y <= topRight.getY();
+        boolean withinBottom = this.y >= bottomLeft.getY();
+        boolean withinLeft = this.x >= bottomLeft.getX();
+        boolean withinRight = this.x <= topRight.getX();
         return withinTop && withinBottom && withinLeft && withinRight;
     }
 

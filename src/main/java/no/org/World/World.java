@@ -8,29 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
-    private final Position topLeft;
-    private final Position bottomRight;
+    private final Position bottomLeft;
+    private final Position topRight;
     private final RoomGrid roomGrid;
 
     public static List<Player> playersInWorld = new ArrayList<>();
     //Temp
     public static List<Shotgun> shotgunsInWorld = new ArrayList<>();
-    public World(RoomGrid roomGrid, Position topLeft, Position bottomRight) {
+    public World(RoomGrid roomGrid, Position bottomLeft, Position topRight) {
         this.roomGrid = roomGrid;
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+        this.bottomLeft = bottomLeft;
+        this.topRight = topRight;
     }
 
     public RoomGrid getRoomGrid() {
         return roomGrid;
     }
 
-    public Position getTopLeft() {
-        return topLeft;
+    public Position getBottomLeft() {
+        return bottomLeft;
     }
 
-    public Position getBottomRight() {
-        return bottomRight;
+    public Position getTopRight() {
+        return topRight;
     }
 
     public void setPlayerInWorld(Player newPlayer) {
@@ -44,7 +44,7 @@ public class World {
     public List<Player> getPlayersInWorld() {
         return playersInWorld;
     }
-
+    
     //Temp
     public List<Shotgun> getShotgunsInWorld(){
         return shotgunsInWorld;

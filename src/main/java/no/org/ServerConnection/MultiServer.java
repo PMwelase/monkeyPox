@@ -76,9 +76,7 @@ public class MultiServer {
         World world = new World(roomGrid, new Position(0, 0), new Position(size, size));
 
         //***Temp***//
-        Shotgun shotgun = new Shotgun(0, 0, "12345");
-        world.setShotgunInWorld(shotgun);
-        roomGrid.getRoom(0,0).addWeaponInRoom(shotgun);
+        roomGrid.getRoom(0,0).addWeaponInRoom(new Shotgun(3,3, "44"));
         roomGrid.getRoom(0,0).addWeaponExRoom(new Pistol(0,0, "88888"));
         roomGrid.getRoom(1,1).addWeaponInRoom(new Shotgun(1,1, "65756"));
         roomGrid.getRoom(2,2).addWeaponInRoom(new Pistol(2, 2, "67348"));

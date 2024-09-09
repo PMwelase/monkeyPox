@@ -1,10 +1,8 @@
 package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
+import no.org.PlayerPackage.PlayerCommands.WorldCommands.MovementHelper;
 import no.org.PlayerPackage.Player;
-import no.org.Rooms.Room;
-import no.org.Rooms.RoomGrid;
-import no.org.World.Position;
 import no.org.World.World;
 import org.json.JSONObject;
 
@@ -19,64 +17,7 @@ public class MoveCommand extends Command {
 
     @Override
     public JSONObject execute(Player player, World world) {
-        System.out.println("Move Command: " + moveValue);
-        Position currentPosition = player.getPosition();
-        int x = currentPosition.getX();
-        int y = currentPosition.getY();
-        RoomGrid roomGrid = world.getRoomGrid();
-        Room currentRoom = roomGrid.getRoom(currentPosition.getX(), currentPosition.getY());
 
-        boolean moved = true;
-
-        // Update position based on moveValue
-        switch (moveValue) {
-            case 1:
-                x -= 1;
-                y += 1;
-                break;
-            case 2:
-                y += 1;
-                break;
-            case 3:
-                x += 1;
-                y += 1;
-                break;
-            case 4:
-                x -= 1;
-                break;
-            case 6:
-                x += 1;
-                break;
-            case 7:
-                x -= 1;
-                y -= 1;
-                break;
-            case 8:
-                y -= 1;
-                break;
-            case 9:
-                x += 1;
-                y -= 1;
-                break;
-            default:
-                // If the move value is not recognized, return an error
-                JSONObject response = new JSONObject();
-                response.put("status", "failure");
-                response.put("message", "Invalid move value!");
-                moved = false;
-                return response;
-        }
-
-        if (moved){
-            player.leaveRoom(currentRoom);
-        }
-
-        Position newPosition = new Position(x, y);
-        player.setPosition(newPosition);
-
-        JSONObject response = new JSONObject();
-        response.put("status", "success");
-        response.put("message", player.getName() + " moved to position: (" + x + ", " + y + ")");
-        return response;
+        return MovementHelper.movePlayer(player, world, moveValue);
     }
 }
