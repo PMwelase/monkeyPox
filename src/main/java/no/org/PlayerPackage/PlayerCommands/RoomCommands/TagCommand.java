@@ -2,6 +2,7 @@ package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 
 public class TagCommand extends Command {
     private final String tag;
+    private final int staminaCost = 1;
+
 
     public TagCommand(String tag) {
         super("tag");
@@ -35,6 +38,12 @@ public class TagCommand extends Command {
 
         JSONObject response = new JSONObject();
 
+        if (!StaminaCheck.canPerformAction(player, this)) {
+            response.put("status", "failure");
+            response.put("message", "Not enough stamina to perform the action.");
+            return response;
+        }
+
         if (inventory.contains("spray can")) {
             response.put("status", "success");
             response.put("message", "Room tagged as: " + tag);
@@ -54,6 +63,7 @@ public class TagCommand extends Command {
             System.out.println("You don't have a spray can");
         }
 
+        player.setStamina(player.getStamina() - staminaCost);
         return response;
     }
 }

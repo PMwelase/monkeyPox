@@ -11,6 +11,7 @@ import java.util.Objects;
 public class HitCommand extends Command {
 
     private final String targetName;
+    private final int staminaCost = 2;
 
     public HitCommand(String targetName) {
         super("hit");
@@ -19,13 +20,18 @@ public class HitCommand extends Command {
 
     @Override
     public JSONObject execute(Player player, World world) {
-        Position position = player.getPosition();
+        JSONObject response = new JSONObject();
 
+        if (!StaminaCheck.canPerformAction(player, this)) {
+            response.put("status", "failure");
+            response.put("message", "Not enough stamina to perform the action.");
+            return response;
+        }
+
+        Position position = player.getPosition();
         int playerX = position.getX();
         int playerY = position.getY();
         boolean isPlayerInRoom = player.isInRoom();
-
-        JSONObject response = new JSONObject();
 
         for (Player target : world.getPlayersInWorld()) {
             int targetX = target.getPosition().getX();
@@ -40,21 +46,23 @@ public class HitCommand extends Command {
 
                 Weapon weapon = player.getWeapon();
                 int damage = 0;
+                String attackType;
 
                 if (weapon != null && weapon.usesAmmo() && weapon.getAmmo() > 0) {
                     damage = weapon.getDamage();
                     target.setHealth(target.getHealth() - damage);
                     weapon.setAmmo(weapon.getAmmo() - 1);
                     response.put("remainingAmmo", weapon.getAmmo());
+                    attackType = weapon.getAttackType();
                 } else if (weapon != null && !weapon.usesAmmo()) {
-                    // For weapons that don't use ammo (like knife)
+
                     damage = weapon.getDamage();
                     target.setHealth(target.getHealth() - damage);
+                    attackType = weapon.getAttackType();
                 } else {
-                    // No weapon, use fists
                     damage = 1;
                     target.setHealth(target.getHealth() - damage);
-                    response.put("message", "You attacked with fists.");
+                    attackType = "punched";
                 }
 
                 if (target.getHealth() <= 0) {
@@ -74,24 +82,20 @@ public class HitCommand extends Command {
                                 ". Damage dealt: " + damage);
                     }
                 } else {
-                    String attackType;
-                    if (weapon != null && weapon.getAttackType() != null) {
-                        attackType = weapon.getAttackType();
-                    } else {
-                        attackType = "punched";
-                    }
                     response.put("status", "success");
                     response.put("message", "You " + attackType + " " + targetName + ". " +
                             "Remaining health: " + target.getHealth() +
                             ". Damage dealt: " + damage);
                 }
+
+                player.setStamina(player.getStamina() - staminaCost);
                 return response;
             }
         }
 
+        // If target not found or invalid
         response.put("status", "failure");
         response.put("message", "Target not found or invalid.");
         return response;
     }
-
 }

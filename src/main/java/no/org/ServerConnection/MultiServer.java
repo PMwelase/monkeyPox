@@ -64,13 +64,13 @@ public class MultiServer {
         Map<String, String> flags = parseArguments(args);
 
         int port = Integer.parseInt(flags.getOrDefault("-p", String.valueOf(SimpleServer.PORT)));
-        int size = Integer.parseInt(flags.getOrDefault("-s", "5"));
+        int size = Integer.parseInt(flags.getOrDefault("-s", "30"));
 
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("Server running & waiting for robots to connect...");
 
         // Create a 30x30 room grid and assign it to the static variable
-        roomGrid = new RoomGrid(30, 30);
+        roomGrid = new RoomGrid(31, 31);
 
         // Initialize the world with the static room grid and proper bounds
         World world = new World(roomGrid, new Position(0, 0), new Position(size, size));
@@ -83,6 +83,7 @@ public class MultiServer {
         roomGrid.getRoom(1,1).addWeaponInRoom(new Knife(1, 1, "12349"));
         roomGrid.getRoom(2,2).addItemInRoomInterior("shells");
         roomGrid.getRoom(0, 1).addItemInRoomExterior("crow bar");
+        roomGrid.getRoom(30, 30).addItemInRoomExterior("bee");
         //***Temp***//
 
         MultiServer servers = new MultiServer(serverSocket, world, 10); // Assuming a thread pool size of 10

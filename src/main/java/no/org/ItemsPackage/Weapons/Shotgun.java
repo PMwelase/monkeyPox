@@ -31,16 +31,6 @@ public class Shotgun extends Weapon {
         return super.getName();
     }
 
-    @Override
-    public int getQuantity() {
-        return 0;
-    }
-
-    @Override
-    public void setQuantity(int quantity) {
-
-    }
-
     public boolean usesAmmo() {
         return true;
     }

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class MovementHelper {
 
-    public static JSONObject movePlayer(Player player, World world, int moveValue) {
+    public static JSONObject movePlayer(Player player, World world, int moveValue, boolean isJump) {
         Position currentPosition = player.getPosition();
         int x = currentPosition.getX();
         int y = currentPosition.getY();
@@ -57,10 +57,14 @@ public class MovementHelper {
         JSONObject response = new JSONObject();
 
         if (newPosition.isIn(world.getBottomLeft(), world.getTopRight())) {
-            player.leaveRoom(currentRoom);
+            String move = isJump ? "jumped" : "moved";
+            if (!isJump) {
+                player.leaveRoom(currentRoom);
+            }
+
             player.setPosition(newPosition);
             response.put("status", "success");
-            response.put("message", player.getName() + " moved to position: (" + x + ", " + y + ")");
+            response.put("message", "You " + move + " to position: (" + x + ", " + y + ")");
         }
         else {
             response.put("message", "Can't leave the city.");

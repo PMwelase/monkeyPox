@@ -8,13 +8,13 @@ public class RoomGrid {
     public RoomGrid(int width, int height) {
         this.width = width;
         this.height = height;
-        rooms = new Room[width][height];
+        rooms = new Room[width + 1][height + 1];
         initializeRooms();
     }
 
     private void initializeRooms() {
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x <= width; x++) {
+            for (int y = 0; y <= height; y++) {
                 rooms[x][y] = new Room(x, y);
             }
         }

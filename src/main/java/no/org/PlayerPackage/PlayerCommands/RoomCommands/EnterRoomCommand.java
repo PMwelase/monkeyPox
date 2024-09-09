@@ -2,6 +2,7 @@ package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
@@ -10,6 +11,8 @@ import org.json.JSONObject;
 
 
 public class EnterRoomCommand extends Command {
+    private final int staminaCost = 1;
+
 
     public EnterRoomCommand() {
         super("enter");
@@ -23,6 +26,12 @@ public class EnterRoomCommand extends Command {
 
         JSONObject response = new JSONObject();
 
+        if (!StaminaCheck.canPerformAction(player, this)) {
+            response.put("status", "failure");
+            response.put("message", "Not enough stamina to perform the action.");
+            return response;
+        }
+
         if (room.getBarricades() == 0) {
             player.enterRoom(room);
             response.put("message", "You have entered the room.");
@@ -32,6 +41,8 @@ public class EnterRoomCommand extends Command {
         }
 
         response.put("status", "success");
+
+        player.setStamina(player.getStamina() - staminaCost);
 
         return response;
     }

@@ -28,16 +28,6 @@ public class Pistol extends Weapon {
     }
 
     @Override
-    public int getQuantity() {
-        return 0;
-    }
-
-    @Override
-    public void setQuantity(int quantity) {
-
-    }
-
-    @Override
     public boolean usesAmmo() {
         return true;
     }

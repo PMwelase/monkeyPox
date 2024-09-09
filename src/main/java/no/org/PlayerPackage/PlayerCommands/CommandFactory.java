@@ -20,13 +20,28 @@ public class CommandFactory {
 
     public static Command createCommand(String commandName, JSONArray arguments) {
         System.out.println("Create Command: " + commandName);
-
         if ("move".equalsIgnoreCase(commandName)) {
             try {
                 if (!arguments.isEmpty()) {
                     int moveValue = Integer.parseInt(arguments.get(0).toString());
                     System.out.println("Move value parsed: " + moveValue);
                     return new MoveCommand(moveValue);
+                } else {
+                    System.out.println("Move command missing value in arguments");
+                    return new ErrorCommand();
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid move value in arguments");
+                return new ErrorCommand();
+            }
+        }
+
+        if ("jump".equalsIgnoreCase(commandName)) {
+            try {
+                if (!arguments.isEmpty()) {
+                    int moveValue = Integer.parseInt(arguments.get(0).toString());
+                    System.out.println("Move value parsed: " + moveValue);
+                    return new JumpCommand(moveValue);
                 } else {
                     System.out.println("Move command missing value in arguments");
                     return new ErrorCommand();

@@ -3,6 +3,7 @@ package no.org.PlayerPackage.PlayerCommands.WeaponCommands;
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 public class PickUpWeapon extends Command {
 
     private final String weaponName;
+    private final int staminaCost = 1;
+
 
     public PickUpWeapon(String weaponName) {
         super("pickup");
@@ -29,6 +32,12 @@ public class PickUpWeapon extends Command {
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
         JSONObject response = new JSONObject();
+
+        if (!StaminaCheck.canPerformAction(player, this)) {
+            response.put("status", "failure");
+            response.put("message", "Not enough stamina to perform the action.");
+            return response;
+        }
 
         if (player.isInRoom()) {
             if (currentRoom.getWeaponsInRoom().isEmpty()) {
@@ -75,6 +84,7 @@ public class PickUpWeapon extends Command {
             }
         }
 
+        player.setStamina(player.getStamina() - staminaCost);
 
         return response;
     }

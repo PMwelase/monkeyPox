@@ -110,6 +110,22 @@ public class Player {
         this.maxHealth = maxHealth;
     }
 
+    public int getStamina() {
+        return stamina;
+    }
+
+    public void setStamina(int stamina) {
+        this.stamina = stamina;
+    }
+
+    public int getMaxStamina() {
+        return maxStamina;
+    }
+
+    public void setMaxStamina(int maxStamina) {
+        this.maxStamina = maxStamina;
+    }
+
     public int getExperience(){
         return experience;
     }

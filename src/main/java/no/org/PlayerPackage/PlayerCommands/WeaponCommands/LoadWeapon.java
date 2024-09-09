@@ -3,6 +3,7 @@ package no.org.PlayerPackage.PlayerCommands.WeaponCommands;
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
 import no.org.World.World;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class LoadWeapon extends Command {
     private final String weaponName;
+    private final int staminaCost = 1;
 
     public LoadWeapon(String weapon) {
         super("load");
@@ -27,6 +29,12 @@ public class LoadWeapon extends Command {
         List<String> inventory = player.getInventory();
         Weapon playerWeapon = player.getWeapon();
         JSONObject response = new JSONObject();
+
+        if (!StaminaCheck.canPerformAction(player, this)) {
+            response.put("status", "failure");
+            response.put("message", "Not enough stamina to perform the action.");
+            return response;
+        }
 
         if (playerWeapon == null) {
             response.put("status", "error");
@@ -54,7 +62,7 @@ public class LoadWeapon extends Command {
                     player.removeItem("clip");
                     playerWeapon.setAmmo(10);
                     response.put("status", "success");
-                    response.put("message", "Loaded " + playerWeapon.getName() + " with " + playerWeapon.getAmmo() + " bullets.");
+                    response.put("message", "Loaded " + weaponName + " with " + playerWeapon.getAmmo() + " bullets.");
                 } else {
                     response.put("status", "error");
                     response.put("message", "No pistol ammo available in inventory to load.");
@@ -66,6 +74,7 @@ public class LoadWeapon extends Command {
                 response.put("message", "Cannot load this type of weapon.");
                 break;
         }
+        player.setStamina(player.getStamina() - staminaCost);
 
         return response;
     }
