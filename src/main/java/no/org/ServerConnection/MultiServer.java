@@ -1,6 +1,7 @@
 package no.org.ServerConnection;
 
 import no.org.ItemsPackage.Shells;
+import no.org.ItemsPackage.Weapons.Knife;
 import no.org.ItemsPackage.Weapons.Pistol;
 import no.org.ItemsPackage.Weapons.Shotgun;
 import no.org.ServerCommands.ServerManager;
@@ -81,6 +82,7 @@ public class MultiServer {
         roomGrid.getRoom(0,0).addWeaponExRoom(new Pistol(0,0, "12347"));
         roomGrid.getRoom(1,1).addWeaponInRoom(new Shotgun(1,1, "12346"));
         roomGrid.getRoom(2,2).addWeaponInRoom(new Pistol(2, 2, "12348"));
+        roomGrid.getRoom(1,1).addWeaponInRoom(new Knife(1, 1, "12349"));
         //***Temp***//
 
         MultiServer servers = new MultiServer(serverSocket, world, 10); // Assuming a thread pool size of 10

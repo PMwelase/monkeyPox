@@ -58,14 +58,17 @@ public abstract class Weapon implements Item {
         return inRoom;
     }
 
+    public abstract boolean usesAmmo();
+
     public int getAmmo() {
         return ammo;
     }
 
     public void setAmmo(int ammo) {
-        this.ammo = ammo;
+        if (usesAmmo()) {
+            this.ammo = ammo;
+        }
     }
-
 
     public abstract int getDamage();
 }

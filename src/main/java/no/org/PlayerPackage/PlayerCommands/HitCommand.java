@@ -41,19 +41,20 @@ public class HitCommand extends Command {
                 Weapon weapon = player.getWeapon();
                 int damage = 0;
 
-                if (weapon != null && weapon.getAmmo() > 0) {
+                if (weapon != null && weapon.usesAmmo() && weapon.getAmmo() > 0) {
                     damage = weapon.getDamage();
                     target.setHealth(target.getHealth() - damage);
                     weapon.setAmmo(weapon.getAmmo() - 1);
                     response.put("remainingAmmo", weapon.getAmmo());
-                } else if (weapon == null) {
+                } else if (weapon != null && !weapon.usesAmmo()) {
+                    // For weapons that don't use ammo (like knife)
+                    damage = weapon.getDamage();
+                    target.setHealth(target.getHealth() - damage);
+                } else {
+                    // No weapon, use fists
                     damage = 1;
                     target.setHealth(target.getHealth() - damage);
                     response.put("message", "You attacked with fists.");
-                } else {
-                    response.put("status", "error");
-                    response.put("message", "No ammo left to attack.");
-                    return response;
                 }
 
                 if (target.getHealth() <= 0) {
@@ -86,4 +87,5 @@ public class HitCommand extends Command {
         response.put("message", "Target not found or invalid.");
         return response;
     }
+
 }

@@ -37,4 +37,9 @@ public class Pistol extends Weapon {
 
     }
 
+    @Override
+    public boolean usesAmmo() {
+        return true;
+    }
+
 }

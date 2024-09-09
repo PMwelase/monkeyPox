@@ -41,4 +41,8 @@ public class Shotgun extends Weapon {
 
     }
 
+    public boolean usesAmmo() {
+        return true;
+    }
+
 }
