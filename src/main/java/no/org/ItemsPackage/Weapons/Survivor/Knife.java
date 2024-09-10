@@ -1,6 +1,8 @@
-package no.org.ItemsPackage.Weapons;
+package no.org.ItemsPackage.Weapons.Survivor;
 
-public class Knife extends Weapon{
+import no.org.ItemsPackage.Weapons.Weapon;
+
+public class Knife extends Weapon {
     private boolean inUse;
 
 

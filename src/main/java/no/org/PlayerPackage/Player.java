@@ -1,5 +1,6 @@
 package no.org.PlayerPackage;
 
+import no.org.ItemsPackage.Weapons.Infectant.Claws;
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.Rooms.Room;
 import no.org.World.Position;
@@ -46,8 +47,8 @@ public class Player {
         this.type = type;
         this.level = 1;
         this.maxHealth = 50;
-        this.stamina = 50;
-        this.maxStamina = 50;
+        this.stamina = 100;
+        this.maxStamina = 100;
         this.experience = 0;
         this.health = 5;
         this.deathCount = 0;
@@ -56,18 +57,17 @@ public class Player {
 
         switch (type.toLowerCase()) {
             case "ape":
-//                this.weapon = "fist";
+                this.type = "ape";
+                this.weapon = new Claws(0, 0, "sss");
                 break;
 
-            case "hound":
-//                this.weapon = "claws";
-                break;
+//            case "hound":
+////                this.weapon = "claws";
+//                break;
 
             case "survivor":
-//                this.weapon = "fist";
+                this.type = "survivor";
                 this.item = "spray can";
-
-                this.setInventory(new ArrayList<>(List.of("spray can", "clip", "shell")));
                 break;
         }
 
@@ -116,6 +116,10 @@ public class Player {
 
     public void setStamina(int stamina) {
         this.stamina = stamina;
+    }
+
+    public void addStamina(int amount) {
+        this.stamina += amount;
     }
 
     public int getMaxStamina() {

@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Request {
     public static JSONObject getJsonObject(String name) {
-        // Create a Scanner object to read user input
         Scanner scanner = new Scanner(System.in);
 
         // Ask user for input

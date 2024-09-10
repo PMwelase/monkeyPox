@@ -1,6 +1,6 @@
-package no.org.ItemsPackage.Weapons;
+package no.org.ItemsPackage.Weapons.Survivor;
 
-import no.org.World.Position;
+import no.org.ItemsPackage.Weapons.Weapon;
 
 public class Pistol extends Weapon {
     private int ammo;

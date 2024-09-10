@@ -13,10 +13,12 @@ public class HitCommand extends Command {
 
     private final String targetName;
     private final int staminaCost = 2;
+    private final DamageCalculator damageCalculator;
 
     public HitCommand(String targetName) {
         super("hit");
         this.targetName = targetName;
+        this.damageCalculator = new DamageCalculator();
     }
 
     @Override
@@ -30,32 +32,13 @@ public class HitCommand extends Command {
         }
 
         for (Player target : world.getPlayersInWorld()) {
-            System.out.println(targetName + player.getName() + "in position" + PlayerUtility.arePlayersInSamePosition(player, target));
             if (target.getName().equals(targetName) &&
                     !target.getName().equals(player.getName()) &&
                     PlayerUtility.arePlayersInSamePosition(player, target) &&
                     target.getHealth() > 0) {
 
-                Weapon weapon = player.getWeapon();
-                int damage = 0;
-                String attackType;
-
-                if (weapon != null && weapon.usesAmmo() && weapon.getAmmo() > 0) {
-                    damage = weapon.getDamage();
-                    target.setHealth(target.getHealth() - damage);
-                    weapon.setAmmo(weapon.getAmmo() - 1);
-                    response.put("remainingAmmo", weapon.getAmmo());
-                    attackType = weapon.getAttackType();
-                } else if (weapon != null && !weapon.usesAmmo()) {
-
-                    damage = weapon.getDamage();
-                    target.setHealth(target.getHealth() - damage);
-                    attackType = weapon.getAttackType();
-                } else {
-                    damage = 1;
-                    target.setHealth(target.getHealth() - damage);
-                    attackType = "punched";
-                }
+                int damage = damageCalculator.calculateDamage(player, response);
+                target.setHealth(target.getHealth() - damage);
 
                 if (target.getHealth() <= 0) {
                     response.put("status", "success");
@@ -76,7 +59,7 @@ public class HitCommand extends Command {
                     }
                 } else {
                     response.put("status", "success");
-                    response.put("message", "You " + attackType + " " + targetName + ". " +
+                    response.put("message", "You " + response.get("attackType") + " " + targetName + ". " +
                             "Remaining health: " + target.getHealth() +
                             ". Damage dealt: " + damage);
                 }
