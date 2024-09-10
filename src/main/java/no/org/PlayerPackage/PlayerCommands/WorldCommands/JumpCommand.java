@@ -1,8 +1,7 @@
 package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
-import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
-import no.org.PlayerPackage.PlayerCommands.WorldCommands.MovementHelper;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.PlayerPackage.Player;
 import no.org.World.World;
 import org.json.JSONObject;

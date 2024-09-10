@@ -3,7 +3,7 @@ package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.ErrorCommand;
 import no.org.PlayerPackage.Player;
-import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;

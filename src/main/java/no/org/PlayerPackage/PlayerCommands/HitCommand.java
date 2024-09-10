@@ -2,7 +2,8 @@ package no.org.PlayerPackage.PlayerCommands;
 
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.Player;
-import no.org.World.Position;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.PlayerUtility;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.World.World;
 import org.json.JSONObject;
 
@@ -28,20 +29,11 @@ public class HitCommand extends Command {
             return response;
         }
 
-        Position position = player.getPosition();
-        int playerX = position.getX();
-        int playerY = position.getY();
-        boolean isPlayerInRoom = player.isInRoom();
-
         for (Player target : world.getPlayersInWorld()) {
-            int targetX = target.getPosition().getX();
-            int targetY = target.getPosition().getY();
-            boolean isTargetInRoom = target.isInRoom();
-
+            System.out.println(targetName + player.getName() + "in position" + PlayerUtility.arePlayersInSamePosition(player, target));
             if (target.getName().equals(targetName) &&
                     !target.getName().equals(player.getName()) &&
-                    targetX == playerX && targetY == playerY &&
-                    isTargetInRoom == isPlayerInRoom &&
+                    PlayerUtility.arePlayersInSamePosition(player, target) &&
                     target.getHealth() > 0) {
 
                 Weapon weapon = player.getWeapon();
@@ -68,6 +60,7 @@ public class HitCommand extends Command {
                 if (target.getHealth() <= 0) {
                     response.put("status", "success");
                     player.setKills(player.getKills() + 1);
+                    target.setHealth(0);
                     target.incrementDeathCount();
 
                     if (Objects.equals(target.getType(), player.getType())) {
@@ -93,7 +86,6 @@ public class HitCommand extends Command {
             }
         }
 
-        // If target not found or invalid
         response.put("status", "failure");
         response.put("message", "Target not found or invalid.");
         return response;

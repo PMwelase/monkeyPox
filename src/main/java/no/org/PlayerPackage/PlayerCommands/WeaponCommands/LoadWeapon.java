@@ -3,7 +3,7 @@ package no.org.PlayerPackage.PlayerCommands.WeaponCommands;
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
-import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.World.World;
 import org.json.JSONArray;
 import org.json.JSONObject;

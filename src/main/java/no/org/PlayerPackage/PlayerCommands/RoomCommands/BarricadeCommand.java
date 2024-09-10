@@ -3,7 +3,8 @@ package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.ErrorCommand;
 import no.org.PlayerPackage.Player;
-import no.org.PlayerPackage.PlayerCommands.StaminaCheck;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomUtility.RoomUtility;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
@@ -33,18 +34,18 @@ public class BarricadeCommand extends Command {
 
         response.put("status", "success");
 
-        if (player.isInRoom() && currentRoom.getBarricades() <= 20){
-            currentRoom.setBarricades(currentRoom.getBarricades() + 1);
+        if (player.isInRoom() && RoomUtility.canBarricadeRoom(currentRoom)) {
+            RoomUtility.addBarricade(currentRoom);
             player.setStamina(player.getStamina() - staminaCost);
             response.put("message", "Barricade added to room");
-        } else if (!player.isInRoom()){
+        } else if (!player.isInRoom()) {
             response.put("message", "You cannot barricade a building from the outside.");
-        }  else if (currentRoom.getBarricades() >= 20){
+        } else if (!RoomUtility.canBarricadeRoom(currentRoom)) {
             response.put("message", "Room is already full of barricades");
-        }
-        else {
+        } else {
             return new ErrorCommand().execute(player, world);
         }
         return response;
     }
+
 }
