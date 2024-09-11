@@ -1,9 +1,8 @@
 package no.org.ServerConnection;
 
-import no.org.ItemsPackage.Shells;
-import no.org.ItemsPackage.Weapons.Knife;
-import no.org.ItemsPackage.Weapons.Pistol;
-import no.org.ItemsPackage.Weapons.Shotgun;
+import no.org.ItemsPackage.Weapons.Survivor.Knife;
+import no.org.ItemsPackage.Weapons.Survivor.Pistol;
+import no.org.ItemsPackage.Weapons.Survivor.Shotgun;
 import no.org.ServerCommands.ServerManager;
 import no.org.World.Position;
 import no.org.Rooms.RoomGrid;
@@ -14,7 +13,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -54,7 +52,7 @@ public class MultiServer {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 serverSocket.close();
             }
-            threadPool.shutdown(); // Properly shut down the thread pool
+            threadPool.shutdown();
         } catch (IOException e) {
             System.err.println("Failed to close server socket: " + e.getMessage());
         }

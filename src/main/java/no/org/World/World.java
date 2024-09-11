@@ -1,6 +1,6 @@
 package no.org.World;
 
-import no.org.ItemsPackage.Weapons.Shotgun;
+import no.org.ItemsPackage.Weapons.Survivor.Shotgun;
 import no.org.PlayerPackage.Player;
 import no.org.Rooms.RoomGrid;
 

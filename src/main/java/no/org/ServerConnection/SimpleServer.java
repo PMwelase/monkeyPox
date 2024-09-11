@@ -2,6 +2,7 @@ package no.org.ServerConnection;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.CommandFactory;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.Delay;
 import no.org.World.Position;
 import no.org.World.World;
 import no.org.PlayerPackage.Player;
@@ -24,7 +25,7 @@ public class SimpleServer implements Runnable {
     private final BufferedWriter bufferedWriter;
     private final PrintStream out;
     public final String clientID;
-    private String name; // Correctly declare the name field
+    private String name;
     private final World world;
     private Player player;
 
@@ -97,6 +98,7 @@ public class SimpleServer implements Runnable {
 
         while (!socket.isClosed()) {
             try {
+
                 messageFromClient = bufferedReader.readLine();
                 if (messageFromClient == null) break;
                 JSONObject jsonObject = new JSONObject(messageFromClient);
@@ -112,14 +114,20 @@ public class SimpleServer implements Runnable {
 
 
                 if (Objects.equals(player.getName(), "defaultName")) {
-                    player.initializePlayer(playerName, arguments.getString(0));  // Initialize the player
+                    player.initializePlayer(playerName, arguments.getString(0));
                 }
 
-                // Create and execute the command using the command name and arguments
                 Command command = CommandFactory.createCommand(commandName, arguments);
                 JSONObject response = command.execute(this.player, world);
 
-                // Send the response back to the client
+                if (player.getMaxStamina() > player.getStamina()) {
+                    Delay.delay(54000, player, false);
+                }
+
+                if (player.getMaxHealth() > player.getHealth()) {
+                    Delay.delay(60000, player, true);
+                }
+
                 out.println(response.toString());
                 out.flush();
             } catch (IOException e) {
@@ -128,7 +136,6 @@ public class SimpleServer implements Runnable {
                 break;
             } catch (org.json.JSONException e) {
                 System.out.println("Error parsing JSON: " + e.getMessage());
-                // Optionally, send an error response back to the client
             }
         }
 
