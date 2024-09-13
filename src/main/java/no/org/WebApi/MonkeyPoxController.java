@@ -51,11 +51,10 @@ public class MonkeyPoxController {
         private List<String> arguments;
         private String name;
 
-        // Default constructor
+
         public Action() {
         }
 
-        // Getter and Setter for command
         public String getCommand() {
             return command;
         }
@@ -64,7 +63,6 @@ public class MonkeyPoxController {
             this.command = command;
         }
 
-        // Getter and Setter for arguments
         public List<String> getArguments() {
             return arguments;
         }
@@ -73,7 +71,6 @@ public class MonkeyPoxController {
             this.arguments = arguments;
         }
 
-        // Getter and Setter for name
         public String getName() {
             return name;
         }
@@ -82,7 +79,6 @@ public class MonkeyPoxController {
             this.name = name;
         }
 
-        // Convert arguments to JSONArray
         public JSONArray getArgumentsAsJSONArray() {
             return new JSONArray(arguments);
         }

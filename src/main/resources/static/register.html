@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Send Command to MonkeyPox</title>
+    <title>Register Player to MonkeyPox</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-4">Send a Command</h1>
+    <h1 class="mt-4">Register a Player</h1>
 
     <div class="form-group">
         <label for="name">Player Name:</label>
@@ -14,33 +14,26 @@
     </div>
 
     <div class="form-group">
-        <label for="command">Command:</label>
-        <input type="text" id="command" class="form-control" placeholder="Command">
+        <label for="type">Player Type:</label>
+        <input type="text" id="type" class="form-control" placeholder="Player Type">
     </div>
 
-    <div class="form-group">
-        <label for="arguments">Arguments (comma-separated):</label>
-        <input type="text" id="arguments" class="form-control" placeholder="Arguments">
-    </div>
-
-    <button class="btn btn-primary" onclick="sendPostRequest()">Send Command</button>
+    <button class="btn btn-primary" onclick="sendRegisterRequest()">Register Player</button>
 
     <p id="response" class="mt-4"></p>
 </div>
 
 <script>
-    function sendPostRequest() {
+    function sendRegisterRequest() {
         const name = document.getElementById('name').value;
-        const command = document.getElementById('command').value;
-        const arguments = document.getElementById('arguments').value.split(',');
+        const type = document.getElementById('type').value;
 
         const requestBody = {
             name: name,
-            command: command,
-            arguments: arguments
+            type: type
         };
 
-        fetch('http://192.168.0.93:8081/monkeypox/world/action', {
+        fetch('http://192.168.0.93:8081/monkeypox/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

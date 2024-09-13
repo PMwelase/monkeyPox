@@ -12,9 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = {"no.org.ServerConnection", "no.org.WebApi"})
 public class MonkeyPoxApplication {
-//
-//    @Autowired
-//    private MultiServer multiServer;
 
     @Autowired
     private ServerManager serverManager;
@@ -28,10 +25,7 @@ public class MonkeyPoxApplication {
         return args -> {
             try {
                 serverManager.start();
-
-//                new Thread(() -> multiServer.startServers()).start();
-
-                System.out.println("MultiServer and ServerManager started...");
+                System.out.println("ServerManager started...");
             } catch (Exception e) {
                 System.err.println("Error starting servers: " + e.getMessage());
             }
