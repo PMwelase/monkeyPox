@@ -27,7 +27,7 @@ public class Player {
     private String item;
     private boolean isInRoom;
     private Room currentRoom;
-    private List<String> inventory = new java.util.ArrayList<>();
+    private List<String> inventory = new ArrayList<>();
     private List<Weapon> weapons = new ArrayList<>();
     private int deathCount;
 
@@ -50,7 +50,7 @@ public class Player {
         this.stamina = 100;
         this.maxStamina = 100;
         this.experience = 0;
-        this.health = 5;
+        this.health = 50;
         this.deathCount = 0;
 
 

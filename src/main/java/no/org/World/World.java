@@ -44,6 +44,15 @@ public class World {
     public List<Player> getPlayersInWorld() {
         return playersInWorld;
     }
+
+    public Player getPlayer(String name) {
+        for (Player player : playersInWorld) {
+            if (player.getName().equals(name)) {
+                return player;
+            }
+        }
+        return null;
+    }
     
     //Temp
     public List<Shotgun> getShotgunsInWorld(){

@@ -15,7 +15,7 @@ public class ClientConnection {
         PrintStream out = null;
 
         try {
-            socket = new Socket("localhost", 5000);
+            socket = new Socket("localhost", 8080);
             out = new PrintStream(socket.getOutputStream());
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -30,7 +30,7 @@ public class ClientConnection {
 
             while (true) {
                 JSONObject requestObject = getJsonObject(name);
-                out.println(requestObject.toString());
+                out.println(requestObject);
 
                 messageFromServer = in.readLine();
                 JSONObject message = new JSONObject(messageFromServer);

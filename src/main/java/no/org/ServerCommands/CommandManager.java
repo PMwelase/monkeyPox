@@ -29,20 +29,24 @@ public abstract class CommandManager {
 //            case "players":
 //                new RobotsCommand(world);
 //                return;
-//            case "dump":
-//                new DumpCommand(world);
-//                return;
+            case "dump":
+                new DumpCommand(world);
+                return;
 //            case "help":
 //                new HelpCommand();
 //                return;
 
-            case "purge":
-                PurgeCommand purge = new PurgeCommand();
-                System.out.println("Who would you like to purge?: ");
-                String robotName = scanner.nextLine();
-                purge.kick(robotName);
-                System.out.println(robotName + " has been kicked out!");
+            case "drop":
+                new LootDrop(world);
                 return;
+
+//            case "purge":
+//                PurgeCommand purge = new PurgeCommand();
+//                System.out.println("Who would you like to purge?: ");
+//                String robotName = scanner.nextLine();
+//                purge.kick(robotName);
+//                System.out.println(robotName + " has been kicked out!");
+//                return;
 
             default:
                 throw new IllegalArgumentException("Not a valid command: " + instruction);
