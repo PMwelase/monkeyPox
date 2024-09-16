@@ -1,11 +1,14 @@
 package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomState;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
 import org.json.JSONObject;
+
+import java.util.Stack;
 
 public class MovementHelper {
 
@@ -63,8 +66,14 @@ public class MovementHelper {
             }
 
             player.setPosition(newPosition);
+
+            Room newRoom = roomGrid.getRoom(x, y);
+
             response.put("status", "success");
             response.put("message", "You " + move + " to position: (" + x + ", " + y + ")");
+            RoomState roomState = new RoomState();
+            response.put("roomState", roomState.getRoomState(player, world));
+            response.put("playerState", new StateCommand().execute(player, world));
         }
         else {
             response.put("message", "Can't leave the city.");

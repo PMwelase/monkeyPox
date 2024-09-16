@@ -50,7 +50,7 @@ public class LoadWeapon extends Command {
                     player.removeItem("shells");
                     playerWeapon.setAmmo(16);
                     response.put("status", "success");
-                    response.put("message", "Loaded " + playerWeapon.getName() + " with " + playerWeapon.getAmmo() + " shells.");
+                    response.put("message", "Loaded your " + playerWeapon.getName() + " with " + playerWeapon.getAmmo() + " shells.");
                 } else {
                     response.put("status", "error");
                     response.put("message", "No shells available in inventory to load.");
@@ -62,7 +62,7 @@ public class LoadWeapon extends Command {
                     player.removeItem("clip");
                     playerWeapon.setAmmo(10);
                     response.put("status", "success");
-                    response.put("message", "Loaded " + weaponName + " with " + playerWeapon.getAmmo() + " bullets.");
+                    response.put("message", "Loaded your " + weaponName + " with " + playerWeapon.getAmmo() + " bullets.");
                 } else {
                     response.put("status", "error");
                     response.put("message", "No pistol ammo available in inventory to load.");

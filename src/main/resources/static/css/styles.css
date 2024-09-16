@@ -1,0 +1,50 @@
+/* Style for the grid blocks */
+.picture-holder {
+    width: 100%;
+    height: 150px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer; /* Make it clickable */
+}
+
+/* Grid layout (3x3) */
+.picture-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.apartment {
+    max-width: 60%;
+    max-height: 60%;
+}
+
+.picture-holder {
+      position: relative;
+    }
+
+.apartment {
+  width: 100%;
+}
+
+.survivor {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 50%; /* Adjust as needed */
+}
+
+/* Add custom styles for the status display */
+.status-display {
+  margin-top: 20px;
+}
+
+.status-display div {
+  margin-bottom: 10px;
+}

@@ -17,6 +17,7 @@ public class Room {
     private final int yCoordinate;
     private String interiorTag;
     private String exteriorTag;
+    private String name;
 
     public Room(int x, int y) {
         this.xCoordinate = x;
@@ -71,7 +72,6 @@ public class Room {
         itemsInRoomInterior.add(item);
     }
 
-
     public void removeItemInRoomInterior(String item) {
         itemsInRoomInterior.remove(item);
     }
@@ -112,4 +112,15 @@ public class Room {
         weaponsExRoom.remove(weapon);
     }
 
+    public List<Player> getPlayersInRoom() {
+        return playersInRoom;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
 }

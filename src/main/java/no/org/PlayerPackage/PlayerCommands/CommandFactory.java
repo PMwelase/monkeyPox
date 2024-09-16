@@ -77,12 +77,8 @@ public class CommandFactory {
             }
         }
 
-        else if ("enter".equalsIgnoreCase(commandName)){
-            return new EnterRoomCommand();
-        }
-
-        else if ("leave".equalsIgnoreCase(commandName)){
-            return new LeaveRoomCommand();
+        else if ("door".equalsIgnoreCase(commandName)){
+            return new DoorCommand();
         }
 
         else if ("barricade".equalsIgnoreCase(commandName)){

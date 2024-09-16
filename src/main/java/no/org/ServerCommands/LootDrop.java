@@ -20,7 +20,7 @@ public class LootDrop {
         int x = random.nextInt(roomGrid.getWidth());
         int y = random.nextInt(roomGrid.getHeight());
 
-        String[] items = {"shell", "crow bar", "bee"};
+        String[] items = {"shell", "crow bar", "spray can", "bullet"};
         String loot = items[random.nextInt(items.length)];
 
         boolean isInterior = random.nextBoolean();

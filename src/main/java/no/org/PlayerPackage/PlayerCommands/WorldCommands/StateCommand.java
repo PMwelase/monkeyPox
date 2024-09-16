@@ -20,7 +20,7 @@ public class StateCommand extends Command {
         response.put("Position", player.getPosition());
         response.put("Type", player.getType());
         response.put("Health", player.getHealth());
-        response.put("Max-Health", player.getMaxHealth());
+        response.put("MaxHealth", player.getMaxHealth());
         response.put("Experience", player.getExperience());
         response.put("Level", player.getLevel());
         response.put("Item in hand", player.getItem());

@@ -9,26 +9,26 @@
         /* Style for the grid blocks */
         .picture-holder {
             width: 100%;
-            height: 150px; /* Adjust height as needed */
+            height: 150px;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            position: relative; /* Ensures child element is positioned relative to block */
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer; /* Make it clickable */
         }
 
         /* Grid layout (3x3) */
         .picture-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns */
-            grid-gap: 10px; /* Space between the grid items */
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
         }
 
-        /* Center the apartment image inside the block */
         .apartment {
-            max-width: 60%; /* Adjust size to ensure it fits inside the block */
-            max-height: 60%; /* Ensure the image doesn't overflow */
+            max-width: 60%;
+            max-height: 60%;
         }
     </style>
 </head>
@@ -39,33 +39,15 @@
         <div class="col-md-6">
             <h3>Picture Grid (3x3)</h3>
             <div class="picture-grid">
-                <!-- 9 picture holders (3x3 grid) -->
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder center-block">
-                    <img class="character" src="Survivor-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
-                <div class="picture-holder">
-                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
-                </div>
+                <div class="picture-holder" data-position="0,0"></div>
+                <div class="picture-holder" data-position="0,1"></div>
+                <div class="picture-holder" data-position="0,2"></div>
+                <div class="picture-holder" data-position="1,0"></div>
+                <div class="picture-holder" data-position="1,1" id="center-block"></div>
+                <div class="picture-holder" data-position="1,2"></div>
+                <div class="picture-holder" data-position="2,0"></div>
+                <div class="picture-holder" data-position="2,1"></div>
+                <div class="picture-holder" data-position="2,2"></div>
             </div>
         </div>
 
@@ -75,7 +57,7 @@
 
             <div class="form-group">
                 <label for="name">Player Name:</label>
-                <input type="text" id="name" class="form-control" placeholder="Player Name">
+                <input type="text" id="name" class="form-control" placeholder="Player Name" value="Player1">
             </div>
 
             <div class="form-group">
@@ -97,26 +79,15 @@
 </div>
 
 <script>
-    window.onload = function() {
-        // Example of fetching player name from localStorage or an API
-        const playerName = localStorage.getItem('playerName') || 'Player1'; // Default to 'Player1' if not set
-        document.getElementById('name').value = playerName;
-    };
-
-    function sendPostRequest() {
+    // This function will send the move command
+    function sendMoveCommand(direction) {
         const name = document.getElementById('name').value.trim();
-        const command = document.getElementById('command').value.trim();
-        const args = document.getElementById('arguments').value.trim().split(',');
-
-        if (!name || !command || args.length === 0 || args[0] === "") {
-            document.getElementById('response').innerHTML = `<div class="alert alert-warning">Please fill out all fields.</div>`;
+        if (!name) {
+            document.getElementById('response').innerHTML = `<div class="alert alert-warning">Please enter a player name.</div>`;
             return;
         }
 
-        document.getElementById('loading').style.display = 'block'; // Show loading message
-        document.getElementById('response').innerHTML = ''; // Clear previous response
-
-        const requestBody = { name: name, command: command, arguments: args };
+        const requestBody = { name: name, command: 'move', arguments: [direction] };
 
         fetch('http://localhost:8081/monkeypox/world/action', {
             method: 'POST',
@@ -127,29 +98,51 @@
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('loading').style.display = 'none'; // Hide loading message
-
             let resultHtml = '';
-
             if (data.status === "success") {
                 resultHtml = `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
             } else {
                 resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
             }
-
-            // Display weapons, items, and players even if they are empty
-            resultHtml += `<div><strong>Weapons:</strong> ${data.Weapons && data.Weapons.length > 0 ? data.Weapons.join(', ') : 'None'}</div>`;
-            resultHtml += `<div><strong>Items on the floor:</strong> ${data["Items on the floor"] && data["Items on the floor"].length > 0 ? data["Items on the floor"].join(', ') : 'None'}</div>`;
-            resultHtml += `<div><strong>Players:</strong> ${data.Players && data.Players.length > 0 ? data.Players.join(', ') : 'None'}</div>`;
-
             document.getElementById('response').innerHTML = resultHtml;
         })
         .catch(error => {
-            document.getElementById('loading').style.display = 'none'; // Hide loading message
             document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
         });
     }
-</script>
 
+    // Map clicked square to move direction
+    function getMoveDirection(x, y) {
+        const centerX = 1;
+        const centerY = 1;
+
+        if (x == centerX - 1 && y == centerY + 1) return 7; // Top-left diagonal
+        if (x == centerX && y == centerY + 1) return 8;     // Top-center
+        if (x == centerX + 1 && y == centerY + 1) return 9; // Top-right diagonal
+        if (x == centerX - 1 && y == centerY) return 6;     // Middle-left
+        if (x == centerX + 1 && y == centerY) return ;     // Middle-right
+        if (x == centerX - 1 && y == centerY - 1) return 7; // Bottom-left diagonal
+        if (x == centerX && y == centerY - 1) return 8;     // Bottom-center
+        if (x == centerX + 1 && y == centerY - 1) return 9; // Bottom-right diagonal
+
+        return null;
+    }
+
+    // Attach event listeners to the picture holders
+    document.querySelectorAll('.picture-holder').forEach(function(holder) {
+        holder.addEventListener('click', function() {
+            const position = this.getAttribute('data-position').split(',');
+            const x = parseInt(position[0], 10);
+            const y = parseInt(position[1], 10);
+            const direction = getMoveDirection(x, y);
+
+            if (direction) {
+                sendMoveCommand(direction);
+            } else {
+                alert('You clicked the center block or an invalid block.');
+            }
+        });
+    });
+</script>
 </body>
 </html>

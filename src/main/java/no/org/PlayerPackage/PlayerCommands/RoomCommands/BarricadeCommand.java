@@ -47,5 +47,4 @@ public class BarricadeCommand extends Command {
         }
         return response;
     }
-
 }
