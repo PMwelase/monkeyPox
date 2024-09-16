@@ -18,35 +18,44 @@ public class MovementHelper {
         int y = currentPosition.getY();
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(currentPosition.getX(), currentPosition.getY());
+        String direction = "";
 
         switch (moveValue) {
             case 1:
                 x -= 1;
                 y += 1;
+                direction = "North West";
                 break;
             case 2:
                 y += 1;
+                direction = "North";
                 break;
             case 3:
                 x += 1;
                 y += 1;
+                direction = "North East";
                 break;
             case 4:
                 x -= 1;
+                direction = "West";
                 break;
             case 6:
                 x += 1;
+                direction = "East";
                 break;
             case 7:
                 x -= 1;
                 y -= 1;
+                direction = "South West";
                 break;
             case 8:
                 y -= 1;
+                direction = "South";
                 break;
             case 9:
                 x += 1;
                 y -= 1;
+                direction = "South East";
                 break;
             default:
                 JSONObject response = new JSONObject();
@@ -67,10 +76,8 @@ public class MovementHelper {
 
             player.setPosition(newPosition);
 
-            Room newRoom = roomGrid.getRoom(x, y);
-
             response.put("status", "success");
-            response.put("message", "You " + move + " to position: (" + x + ", " + y + ")");
+            response.put("message", "You " + move + " 1 step " +direction + "." );
             RoomState roomState = new RoomState();
             response.put("roomState", roomState.getRoomState(player, world));
             response.put("playerState", new StateCommand().execute(player, world));

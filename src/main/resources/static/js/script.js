@@ -66,13 +66,13 @@ function sendMoveCommand(direction) {
     .then(data => {
         let resultHtml = '';
         if (data.status === "success") {
-            resultHtml = `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
+            resultHtml = `<div class=""><strong>You:</strong> ${data.message}</div>`;
         } else {
             resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
         }
 
        // After fetching and parsing the response:
-       resultHtml += `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
+//       resultHtml += `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
 
        document.getElementById('location').innerText = data.roomState.Location;
        document.getElementById('tag').innerText = data.roomState.Tag ? data.roomState.Tag : "no tag";
@@ -84,12 +84,6 @@ function sendMoveCommand(direction) {
        document.getElementById('stamina').innerText = data.playerState.Stamina;
 
        document.getElementById('response').innerHTML = resultHtml;
-
-
-
-        console.log(resultHtml);
-
-        document.getElementById('response').innerHTML = resultHtml;
     })
     .catch(error => {
         document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
