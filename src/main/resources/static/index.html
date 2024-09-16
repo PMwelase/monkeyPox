@@ -5,33 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Command to MonkeyPox</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Style for the grid blocks */
+        .picture-holder {
+            width: 100%;
+            height: 150px; /* Adjust height as needed */
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            position: relative; /* Ensures child element is positioned relative to block */
+        }
+
+        /* Grid layout (3x3) */
+        .picture-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-gap: 10px; /* Space between the grid items */
+        }
+
+        /* Center the apartment image inside the block */
+        .apartment {
+            max-width: 60%; /* Adjust size to ensure it fits inside the block */
+            max-height: 60%; /* Ensure the image doesn't overflow */
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="mt-4">Send a Command</h1>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Picture holders grid on the left -->
+        <div class="col-md-6">
+            <h3>Picture Grid (3x3)</h3>
+            <div class="picture-grid">
+                <!-- 9 picture holders (3x3 grid) -->
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder center-block">
+                    <img class="character" src="Survivor-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+                <div class="picture-holder">
+                    <img class="apartment" src="Apartments-01.svg" alt="Apartment">
+                </div>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="name">Player Name:</label>
-        <input type="text" id="name" class="form-control" placeholder="Player Name">
+        <!-- Form on the right -->
+        <div class="col-md-6">
+            <h1>Send a Command</h1>
+
+            <div class="form-group">
+                <label for="name">Player Name:</label>
+                <input type="text" id="name" class="form-control" placeholder="Player Name">
+            </div>
+
+            <div class="form-group">
+                <label for="command">Command:</label>
+                <input type="text" id="command" class="form-control" placeholder="Command">
+            </div>
+
+            <div class="form-group">
+                <label for="arguments">Arguments (comma-separated):</label>
+                <input type="text" id="arguments" class="form-control" placeholder="Arguments">
+            </div>
+
+            <button class="btn btn-primary" onclick="sendPostRequest()">Send Command</button>
+
+            <p id="loading" class="mt-4" style="display:none;">Sending command...</p>
+            <div id="response" class="mt-4"></div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="command">Command:</label>
-        <input type="text" id="command" class="form-control" placeholder="Command">
-    </div>
-
-    <div class="form-group">
-        <label for="arguments">Arguments (comma-separated):</label>
-        <input type="text" id="arguments" class="form-control" placeholder="Arguments">
-    </div>
-
-    <button class="btn btn-primary" onclick="sendPostRequest()">Send Command</button>
-
-    <p id="loading" class="mt-4" style="display:none;">Sending command...</p>
-    <div id="response" class="mt-4"></div>
 </div>
 
 <script>
+    window.onload = function() {
+        // Example of fetching player name from localStorage or an API
+        const playerName = localStorage.getItem('playerName') || 'Player1'; // Default to 'Player1' if not set
+        document.getElementById('name').value = playerName;
+    };
+
     function sendPostRequest() {
         const name = document.getElementById('name').value.trim();
         const command = document.getElementById('command').value.trim();
