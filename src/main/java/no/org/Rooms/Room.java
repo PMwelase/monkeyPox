@@ -18,6 +18,7 @@ public class Room {
     private String interiorTag;
     private String exteriorTag;
     private String name;
+    private String type;
 
     public Room(int x, int y) {
         this.xCoordinate = x;
@@ -60,7 +61,11 @@ public class Room {
         return barricades;
     }
 
-    public String setRoomType(String type) {
+    public void setRoomType(String type) {
+        this.type = type;
+    }
+
+    public String getType(){
         return type;
     }
 

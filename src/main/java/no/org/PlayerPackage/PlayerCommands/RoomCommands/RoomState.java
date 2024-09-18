@@ -16,6 +16,7 @@ public class RoomState {
         Room room = roomGrid.getRoom(position.getX(), position.getY());
 
         roomState.put("Name", room.getName());
+        roomState.put("Type", room.getType());
         String tag = "";
 
         if (player.isInRoom()) {

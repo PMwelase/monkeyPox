@@ -1,6 +1,7 @@
 package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.GridState;
 import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomState;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
@@ -76,8 +77,12 @@ public class MovementHelper {
 
             player.setPosition(newPosition);
 
+            GridState gridState = new GridState();
+            response.put("grid", gridState.getGrid(player, world));
+            System.out.println(gridState.getGrid(player, world));
+
             response.put("status", "success");
-            response.put("message", "You " + move + " 1 step " +direction + "." );
+            response.put("message", "You " + move + " 1 step " +direction + " to " + newPosition + "." );
             RoomState roomState = new RoomState();
             response.put("roomState", roomState.getRoomState(player, world));
             response.put("playerState", new StateCommand().execute(player, world));

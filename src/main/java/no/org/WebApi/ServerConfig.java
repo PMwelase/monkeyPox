@@ -21,7 +21,7 @@ public class ServerConfig {
 
     @Bean
     public RoomGrid roomGrid() {
-        return new RoomGrid(6, 6);
+        return new RoomGrid(31, 31);
     }
 
     @Bean

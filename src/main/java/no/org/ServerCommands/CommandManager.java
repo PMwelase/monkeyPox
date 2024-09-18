@@ -40,6 +40,18 @@ public abstract class CommandManager {
                 new LootDrop(world);
                 return;
 
+            case "type":
+                System.out.println("x?: ");
+                int x = scanner.nextInt();
+                System.out.println("y?: ");
+                int y = scanner.nextInt();
+                scanner.nextLine();  // This will consume the remaining newline character
+                System.out.println("type?: ");
+                String type = scanner.nextLine();
+                new RoomType(x, y, type);
+                return;
+
+
 //            case "purge":
 //                PurgeCommand purge = new PurgeCommand();
 //                System.out.println("Who would you like to purge?: ");

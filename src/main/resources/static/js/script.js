@@ -83,6 +83,27 @@ function sendMoveCommand(direction) {
        document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
        document.getElementById('stamina').innerText = data.playerState.Stamina;
 
+//       document.getElementById('img1').src = `Assets/${data.grid.rooms[6].type}-01.svg`
+//       document.getElementById('img2').src = `Assets/${data.grid.rooms[7].type}-01.svg`
+//       document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`
+//       document.getElementById('img4').src = `Assets/${data.grid.rooms[3].type}-01.svg`
+//       document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`
+//       document.getElementById('img6').src = `Assets/${data.grid.rooms[5].type}-01.svg`
+//       document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`
+//       document.getElementById('img8').src = `Assets/${data.grid.rooms[1].type}-01.svg`
+//       document.getElementById('img9').src = `Assets/${data.grid.rooms[2].type}-01.svg`
+//
+       document.getElementById('img1').src = `Assets/${data.grid.rooms[2].type}-01.svg`
+       document.getElementById('img2').src = `Assets/${data.grid.rooms[5].type}-01.svg`
+       document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`
+       document.getElementById('img4').src = `Assets/${data.grid.rooms[1].type}-01.svg`
+       document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`
+       document.getElementById('img6').src = `Assets/${data.grid.rooms[7].type}-01.svg`
+       document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`
+       document.getElementById('img8').src = `Assets/${data.grid.rooms[3].type}-01.svg`
+       document.getElementById('img9').src = `Assets/${data.grid.rooms[6].type}-01.svg`
+
+
        document.getElementById('response').innerHTML = resultHtml;
     })
     .catch(error => {
@@ -140,6 +161,7 @@ function sendEnterCommand() {
         document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
     });
 }
+
 
 // Attach event listeners to the picture holders
 document.querySelectorAll('.picture-holder').forEach(function(holder) {

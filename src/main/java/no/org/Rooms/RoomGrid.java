@@ -1,9 +1,17 @@
 package no.org.Rooms;
 
+import java.util.Random;
+
 public class RoomGrid {
-    private final Room[][] rooms;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
+    private Room[][] rooms;
+
+    // List of possible room types corresponding to the assets
+    private static final String[] roomTypes = {
+            "Apartment", "Church", "Complex", "Police Station",
+            "fire station", "hospital", "townhouse", "Library", "high rise", "school"
+    };
 
     public RoomGrid(int width, int height) {
         this.width = width;
@@ -13,26 +21,32 @@ public class RoomGrid {
         initializeRooms();
     }
 
+    // Method to initialize rooms and set random room types
     private void initializeRooms() {
+        Random random = new Random();
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                rooms[x][y] = new Room(x, y);
+                // Assign a random room type
+                String randomRoomType = roomTypes[random.nextInt(roomTypes.length)];
+
+                // Create the room and set its type
+                Room room = new Room(x, y);
+                room.setRoomType(randomRoomType);
+
+                // Add the room to the grid
+                rooms[x][y] = room;
             }
         }
     }
 
+    // Getter for room grid (optional)
     public Room getRoom(int x, int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-            throw new IllegalArgumentException("Coordinates out of bounds: (" + x + ", " + y + ")");
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            return rooms[x][y];
+        } else {
+            return null; // Out of bounds
         }
-        return rooms[x][y];
-    }
-
-    public void setRoom(int x, int y, Room room) {
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-            throw new IllegalArgumentException("Coordinates out of bounds: (" + x + ", " + y + ")");
-        }
-        rooms[x][y] = room;
     }
 
     public int getWidth() {
