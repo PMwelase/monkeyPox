@@ -3,12 +3,14 @@ package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 import no.org.PlayerPackage.Player;
 import no.org.PlayerPackage.PlayerCommands.RoomCommands.GridState;
 import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomState;
+import no.org.Protocols.Response;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
 import org.json.JSONObject;
 
+import java.security.SecureRandom;
 import java.util.Stack;
 
 public class MovementHelper {
@@ -66,31 +68,24 @@ public class MovementHelper {
         }
 
         Position newPosition = new Position(x, y);
+        Response response = new Response();
+        String message = "";
 
-        JSONObject response = new JSONObject();
-
-        if (newPosition.isIn(world.getBottomLeft(), world.getTopRight())) {
+        if (x >= roomGrid.getWidth() || y >= roomGrid.getHeight() || x < 0 || y < 0) {
+            message = "Can't leave the city.";
+        }
+        else {
             String move = isJump ? "jumped" : "moved";
             if (!isJump) {
                 player.leaveRoom(currentRoom);
             }
-
             player.setPosition(newPosition);
 
-            GridState gridState = new GridState();
-            response.put("grid", gridState.getGrid(player, world));
-            System.out.println(gridState.getGrid(player, world));
-
-            response.put("status", "success");
-            response.put("message", "You " + move + " 1 step " +direction + " to " + newPosition + "." );
-            RoomState roomState = new RoomState();
-            response.put("roomState", roomState.getRoomState(player, world));
-            response.put("playerState", new StateCommand().execute(player, world));
+            message = "You " + move + " 1 step " +direction + " to " + newPosition + ".";
         }
-        else {
-            response.put("message", "Can't leave the city.");
-        }
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
 
-        return response;
+        return response1;
     }
 }

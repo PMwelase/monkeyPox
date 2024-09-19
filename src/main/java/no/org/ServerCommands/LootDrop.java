@@ -2,6 +2,7 @@ package no.org.ServerCommands;
 
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
+import no.org.World.Position;
 import no.org.World.World;
 
 import java.util.Random;
@@ -12,13 +13,14 @@ public class LootDrop {
     private RoomGrid roomGrid;
     private Random random;
 
-    private String[] lootItems = {"bullet", "spray can", "shell", "water", "crow bar"};
+    private String[] lootItems = {"clip", "spray can", "shells", "water", "crow bar"};
 
     public LootDrop(World world, Scanner scanner) {
         this.world = world;
         this.roomGrid = world.getRoomGrid();
         this.random = new Random();  // Initialize random number generator
         dropLoot();
+        dropTreasure();
     }
 
     public void dropLoot() {
@@ -43,5 +45,12 @@ public class LootDrop {
                 }
             }
         }
+    }
+
+    public void dropTreasure() {
+        Random random1 = new Random();
+        Position pos = new Position(random1.nextInt(0, 29), random1.nextInt(0, 29));
+        roomGrid.getRoom(pos.getX(), pos.getY()).addItemInRoomExterior("Slippers");
+//        System.out.println("Dropped Slippers outside the room at (" + pos.getX() + ", " + pos.getY() + ").");
     }
 }

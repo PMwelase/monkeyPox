@@ -74,15 +74,19 @@ function sendMoveCommand(direction) {
        // After fetching and parsing the response:
 //       resultHtml += `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
 
-       document.getElementById('location').innerText = data.roomState.Location;
-       document.getElementById('tag').innerText = data.roomState.Tag ? data.roomState.Tag : "no tag";
-       document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No items";
-       document.getElementById('weapons').innerText = data.roomState.Weapons ? data.roomState.Weapons : "No Weapons";
-       document.getElementById('players').innerText = data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
+       document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
+       document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
+       document.getElementById('items').innerText = data.roomState  && data.roomState.Items > 0 ? data.roomState.Items : "No items";
+       document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons > 0 ? data.roomState.Weapons : "No Weapons";
+       document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
 
-       document.getElementById('xp').innerText = data.playerState.Level;
-       document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
-       document.getElementById('stamina').innerText = data.playerState.Stamina;
+      document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
+      document.getElementById('stamina').innerText = data.playerState.Stamina;
+      document.getElementById('xp').innerText = data.playerState.Experience;
+      document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
+      document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
+      document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
+
 
        // For img1
        document.getElementById('img1').src = `Assets/${data.grid.rooms[2].type}-01.svg`;
@@ -170,7 +174,7 @@ function getMoveDirection(x, y) {
     if (x == centerX + 1 && y == centerY) return 8;  // Bottom-center
     if (x == centerX + 1 && y == centerY + 1) return 9; // Bottom-right <diagonal></diagonal>
 
-    return null; // Center block or invalid position
+    return null;
 }
 
 // This function will send the enter command

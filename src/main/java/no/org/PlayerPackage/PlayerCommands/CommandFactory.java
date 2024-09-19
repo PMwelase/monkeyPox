@@ -101,7 +101,7 @@ public class CommandFactory {
             return new PickUpWeapon(String.valueOf(arguments));
         }
 
-         else if ("lose".equalsIgnoreCase(commandName)) {
+        else if ("lose".equalsIgnoreCase(commandName)) {
             return new WeaponDisposal(String.valueOf(arguments));
         }
 

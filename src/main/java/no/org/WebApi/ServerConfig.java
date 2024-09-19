@@ -21,12 +21,12 @@ public class ServerConfig {
 
     @Bean
     public RoomGrid roomGrid() {
-        return new RoomGrid(31, 31);
+        return new RoomGrid(30, 30);
     }
 
     @Bean
     public World world(RoomGrid roomGrid) {
-        return new World(roomGrid, new Position(0, 0), new Position(5, 5));
+        return new World(roomGrid, new Position(0, 0), new Position(30, 30));
     }
 //
 //    @Bean

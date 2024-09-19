@@ -27,7 +27,7 @@ public class MonkeyPoxController {
     }
 
     public World world(RoomGrid roomGrid) {
-        return new World(roomGrid, new Position(0, 0), new Position(30, 30));
+        return new World(roomGrid, new Position(0, 0), new Position(31, 31));
     }
 
     // Method to generate a random position within the grid
@@ -52,7 +52,7 @@ public class MonkeyPoxController {
         String commandName = action.getCommand();
         System.out.println("Command: " + commandName);
         JSONArray arguments = new JSONArray(action.getArguments());
-        System.out.println("Arguments: " + arguments.toString());
+        System.out.println("Arguments: " + arguments);
         Command command = CommandFactory.createCommand(commandName, arguments);
         Player player = this.world.getPlayer(action.getName());
         JSONObject response = command.execute(player, world);

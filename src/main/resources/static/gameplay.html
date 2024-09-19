@@ -88,7 +88,17 @@
     <!-- Form on the right -->
     <div class="col-md-6">
       <h1>Action</h1>
-      <div><strong>HP:</strong> <span id="hp"></span> | <strong>XP:</strong> <span id="xp"></span> | <strong>Stamina:</strong> <span id="stamina"></span></div>
+      <div>
+        <strong>HP:</strong> <span id="hp"></span> |
+        <strong>XP:</strong> <span id="xp"></span> |
+        <strong>Stamina:</strong> <span id="stamina"></span>
+        <br>
+        <strong>Inventory:</strong> <span id="inventory"></span>
+        <br>
+        <strong>Weapons:</strong> <span id="weapons_list"></span>
+        <br>
+        <strong>Armed:</strong> <span id="weapon_in_hand"></span>
+      </div>
 
       <div class="form-group">
         <label for="name">Player Name:</label>
@@ -98,17 +108,19 @@
       <label for="command">Command:</label>
       <select id="command" class="form-control">
         <option value="jump">Jump</option>
-        <option value="barricade">Fortify</option>
-        <option value="use">Use</option>
-        <option value="pickup">Pickup Weapon</option>
-        <option value="lose">Drop Weapon</option>
         <option value="tag">Tag</option>
-        <option value="hit">Attack</option>
-        <option value="take">Pick up Item</option>
-        <option value="load">Load</option>
-        <option value="drop">Drop</option>
-        <option value="arm">Arm Weapon</option>
+        <option value="barricade">Fortify</option>
         <option value="break">Break Barricade</option>
+
+        <option value="take">Pick up Item</option>
+        <option value="use">Use</option>
+        <option value="drop">Drop</option>
+
+        <option value="hit">Attack</option>
+        <option value="pickup">Pickup Weapon</option>
+        <option value="load">Load</option>
+        <option value="arm">Arm Weapon</option>
+        <option value="lose">Drop Weapon</option>
         <option value="stow">Stow Weapon</option>
       </select>
 

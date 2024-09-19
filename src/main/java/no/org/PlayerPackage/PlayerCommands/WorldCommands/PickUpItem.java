@@ -48,6 +48,8 @@ public class PickUpItem extends Command {
             player.addToInventory(item);
             response.put("status", "success");
             response.put("message", "Item picked up from room exterior: " + item);
+            StateCommand stateCommand = new StateCommand();
+            response.put("playerState", stateCommand.execute(player, world));
         }
 
         else if (player.isInRoom() && currentRoom.getItemsInRoomInterior().contains(item)) {
