@@ -34,7 +34,15 @@ public class RoomGrid {
                 Room room = new Room(x, y);
                 room.setRoomType(randomRoomType);
 
-                // Add the room to the grid
+                if (x < width/2 && y < height / 2) {
+                    room.setColor("FBF8CC");
+                } else if (x >= width / 2 && y < height / 2) {
+                    room.setColor("FDE4CF");
+                } else if (x < width / 2 && y >= height / 2) {
+                    room.setColor("98F5E1");
+                } else {
+                    room.setColor("90DBF4");
+                }
                 rooms[x][y] = room;
             }
         }

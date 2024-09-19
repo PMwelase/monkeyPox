@@ -8,8 +8,8 @@ function sendPostRequest() {
             return;
         }
 
-        document.getElementById('loading').style.display = 'block'; // Show loading message
-        document.getElementById('response').innerHTML = ''; // Clear previous response
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('response').innerHTML = '';
 
         const requestBody = { name: name, command: command, arguments: args };
 
@@ -77,32 +77,41 @@ function sendMoveCommand(direction) {
        document.getElementById('location').innerText = data.roomState.Location;
        document.getElementById('tag').innerText = data.roomState.Tag ? data.roomState.Tag : "no tag";
        document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No items";
+       document.getElementById('weapons').innerText = data.roomState.Weapons ? data.roomState.Weapons : "No Weapons";
        document.getElementById('players').innerText = data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
 
        document.getElementById('xp').innerText = data.playerState.Level;
        document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
        document.getElementById('stamina').innerText = data.playerState.Stamina;
 
-//       document.getElementById('img1').src = `Assets/${data.grid.rooms[6].type}-01.svg`
-//       document.getElementById('img2').src = `Assets/${data.grid.rooms[7].type}-01.svg`
-//       document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`
-//       document.getElementById('img4').src = `Assets/${data.grid.rooms[3].type}-01.svg`
-//       document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`
-//       document.getElementById('img6').src = `Assets/${data.grid.rooms[5].type}-01.svg`
-//       document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`
-//       document.getElementById('img8').src = `Assets/${data.grid.rooms[1].type}-01.svg`
-//       document.getElementById('img9').src = `Assets/${data.grid.rooms[2].type}-01.svg`
-//
        document.getElementById('img1').src = `Assets/${data.grid.rooms[2].type}-01.svg`
-       document.getElementById('img2').src = `Assets/${data.grid.rooms[5].type}-01.svg`
-       document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`
-       document.getElementById('img4').src = `Assets/${data.grid.rooms[1].type}-01.svg`
-       document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`
-       document.getElementById('img6').src = `Assets/${data.grid.rooms[7].type}-01.svg`
-       document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`
-       document.getElementById('img8').src = `Assets/${data.grid.rooms[3].type}-01.svg`
-       document.getElementById('img9').src = `Assets/${data.grid.rooms[6].type}-01.svg`
+       document.getElementById('img01').style.backgroundColor = `#${data.grid.rooms[2].Color}`;
 
+       document.getElementById('img2').src = `Assets/${data.grid.rooms[5].type}-01.svg`
+       document.getElementById('img02').style.backgroundColor = `#${data.grid.rooms[5].Color}`;
+
+       document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`
+       document.getElementById('img03').style.backgroundColor = `#${data.grid.rooms[8].Color}`;
+
+
+       document.getElementById('img4').src = `Assets/${data.grid.rooms[1].type}-01.svg`
+       document.getElementById('img04').style.backgroundColor = `#${data.grid.rooms[1].Color}`;
+
+       document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`
+       document.getElementById('center-block').style.backgroundColor = `#${data.grid.rooms[4].Color}`;
+
+       document.getElementById('img6').src = `Assets/${data.grid.rooms[7].type}-01.svg`
+       document.getElementById('img06').style.backgroundColor = `#${data.grid.rooms[7].Color}`;
+
+
+       document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`
+       document.getElementById('img07').style.backgroundColor = `#${data.grid.rooms[0].Color}`;
+
+       document.getElementById('img8').src = `Assets/${data.grid.rooms[3].type}-01.svg`
+       document.getElementById('img08').style.backgroundColor = `#${data.grid.rooms[3].Color}`;
+
+       document.getElementById('img9').src = `Assets/${data.grid.rooms[6].type}-01.svg`
+       document.getElementById('img09').style.backgroundColor = `#${data.grid.rooms[6].Color}`;
 
        document.getElementById('response').innerHTML = resultHtml;
     })

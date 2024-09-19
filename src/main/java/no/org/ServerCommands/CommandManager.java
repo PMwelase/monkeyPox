@@ -37,7 +37,10 @@ public abstract class CommandManager {
 //                return;
 
             case "drop":
-                new LootDrop(world);
+                new ItemDrop(world, scanner);
+                return;
+            case "loot":
+                new LootDrop(world, scanner);
                 return;
 
             case "type":
@@ -49,6 +52,10 @@ public abstract class CommandManager {
                 System.out.println("type?: ");
                 String type = scanner.nextLine();
                 new RoomType(x, y, type);
+                return;
+
+            case "armour":
+                new WeaponDrop(world);
                 return;
 
 

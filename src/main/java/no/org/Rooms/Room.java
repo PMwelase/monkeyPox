@@ -19,10 +19,20 @@ public class Room {
     private String exteriorTag;
     private String name;
     private String type;
+    private String color;
+
 
     public Room(int x, int y) {
         this.xCoordinate = x;
         this.yCoordinate = y;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getColor() {
+        return this.color;
     }
 
     public void setPlayerInRoom(Player newPlayer) {

@@ -29,6 +29,7 @@ public class GridState {
                     roomInfo.put("x", x);
                     roomInfo.put("y", y);
                     roomInfo.put("type", room.getType());
+                    roomInfo.put("Color", room.getColor());
 
                     roomTypes.put(roomInfo);
                 }

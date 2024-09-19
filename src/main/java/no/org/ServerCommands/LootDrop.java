@@ -1,36 +1,47 @@
 package no.org.ServerCommands;
 
+import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.World;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class LootDrop {
     private World world;
     private RoomGrid roomGrid;
-    private Random random = new Random();
+    private Random random;
 
-    public LootDrop(World world) {
+    private String[] lootItems = {"bullet", "spray can", "shell", "water", "crow bar"};
+
+    public LootDrop(World world, Scanner scanner) {
         this.world = world;
         this.roomGrid = world.getRoomGrid();
+        this.random = new Random();  // Initialize random number generator
         dropLoot();
     }
 
     public void dropLoot() {
-        int x = random.nextInt(roomGrid.getWidth());
-        int y = random.nextInt(roomGrid.getHeight());
+        for (int x = 0; x < roomGrid.getWidth(); x++) {
+            for (int y = 0; y < roomGrid.getHeight(); y++) {
+                Room room = roomGrid.getRoom(x, y); // Get the room at (x, y)
 
-        String[] items = {"shell", "crow bar", "spray can", "bullet"};
-        String loot = items[random.nextInt(items.length)];
+                if (room != null) {
+                    // Randomly select an item from the lootItems array
+                    String randomItem = lootItems[random.nextInt(lootItems.length)];
 
-        boolean isInterior = random.nextBoolean();
+                    // Randomly decide to drop inside or outside (50% chance for each)
+                    boolean dropInside = random.nextBoolean();
 
-        if (isInterior) {
-            roomGrid.getRoom(x, y).addItemInRoomInterior(loot);
-            System.out.println("Dropped " + loot + " inside room at (" + x + "," + y + ")");
-        } else {
-            roomGrid.getRoom(x, y).addItemInRoomExterior(loot);
-            System.out.println("Dropped " + loot + " outside room at (" + x + "," + y + ")");
+                    if (dropInside) {
+                        room.addItemInRoomInterior(randomItem);
+                        System.out.println("Dropped " + randomItem + " inside the room at (" + x + ", " + y + ").");
+                    } else {
+                        room.addItemInRoomExterior(randomItem);
+                        System.out.println("Dropped " + randomItem + " outside the room at (" + x + ", " + y + ").");
+                    }
+                }
+            }
         }
     }
 }

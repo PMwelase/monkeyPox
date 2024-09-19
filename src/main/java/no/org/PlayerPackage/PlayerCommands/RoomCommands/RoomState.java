@@ -24,11 +24,13 @@ public class RoomState {
             roomState.put("Tag", room.getInteriorTag());
             roomState.put("Players", room.getPlayersInRoom());
             roomState.put("Items", room.getItemsInRoomInterior());
+            roomState.put("Weapons", room.getWeaponsInRoom());
         } else {
             roomState.put("Location", "Outside");
             roomState.put("Tag", room.getExteriorTag());
             roomState.put("Players", room.getPlayersInRoom());
             roomState.put("Items", room.getItemsInRoomExterior());
+            roomState.put("Weapons", room.getWeaponsExRoom());
         }
         return roomState;
     }
