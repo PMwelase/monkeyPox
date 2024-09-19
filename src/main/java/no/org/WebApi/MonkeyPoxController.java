@@ -12,27 +12,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/monkeypox")
 public class MonkeyPoxController {
 
     private final World world;
+    private final Random random;
 
     public MonkeyPoxController(RoomGrid roomGrid) {
         this.world = world(roomGrid);
+        this.random = new Random();  // Initialize the random object
     }
 
     public World world(RoomGrid roomGrid) {
         return new World(roomGrid, new Position(0, 0), new Position(30, 30));
     }
 
+    // Method to generate a random position within the grid
+    private Position getRandomPosition(RoomGrid roomGrid) {
+        int width = roomGrid.getWidth();
+        int height = roomGrid.getHeight();
+        int randomX = random.nextInt(width);  // Random X within grid width
+        int randomY = random.nextInt(height); // Random Y within grid height
+        return new Position(randomX, randomY);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Player user) {
-        Player newPlayer = new Player(user.getName(), user.getType(), this.world, new Position(0, 0));
+        Position randomPosition = getRandomPosition(this.world.getRoomGrid());  // Get random position in grid
+        Player newPlayer = new Player(user.getName(), user.getType(), this.world, randomPosition);  // Use random position
         newPlayer.initializePlayer(user.getName(), user.getType());
-        return ResponseEntity.ok("User added to world as Player: " + newPlayer.getName());
+        return ResponseEntity.ok("User added to world as Player: " + newPlayer.getName() + " at position " + randomPosition);
     }
 
     @PostMapping("/world/action")
@@ -51,7 +63,6 @@ public class MonkeyPoxController {
         private String command;
         private List<String> arguments;
         private String name;
-
 
         public Action() {
         }
