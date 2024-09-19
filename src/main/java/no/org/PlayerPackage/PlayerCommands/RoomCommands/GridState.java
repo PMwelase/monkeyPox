@@ -19,20 +19,34 @@ public class GridState {
         int playerX = position.getX();
         int playerY = position.getY();
 
-        // Loop through the rooms around the player's position (3x3 grid)
+        int gridWidth = roomGrid.getWidth();
+        int gridHeight = roomGrid.getHeight();
+
+        // Loop through the 3x3 grid around the player's position, including out-of-bounds areas
         for (int x = playerX - 1; x <= playerX + 1; x++) {
             for (int y = playerY - 1; y <= playerY + 1; y++) {
-                // Check if the room is within the grid bounds
-                if (x >= 0 && x <= roomGrid.getWidth() && y >= 0 && y <= roomGrid.getHeight()) {
-                    Room room = roomGrid.getRoom(x, y);
-                    JSONObject roomInfo = new JSONObject();
+                JSONObject roomInfo = new JSONObject();
+
+                // Check if the coordinates are out of bounds
+                if (x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) {
+                    // For out-of-bounds areas, send "edge"
                     roomInfo.put("x", x);
                     roomInfo.put("y", y);
-                    roomInfo.put("type", room.getType());
-                    roomInfo.put("Color", room.getColor());
-
-                    roomTypes.put(roomInfo);
+                    roomInfo.put("type", "edge");
+                    roomInfo.put("Color", "CFBAF0");
+                } else {
+                    // For valid rooms within bounds
+                    Room room = roomGrid.getRoom(x, y);
+                    if (room != null) {
+                        roomInfo.put("x", x);
+                        roomInfo.put("y", y);
+                        roomInfo.put("type", room.getType());
+                        roomInfo.put("Color", room.getColor());
+                    }
                 }
+
+                // Add the room (or edge) information to the list
+                roomTypes.put(roomInfo);
             }
         }
 
@@ -40,3 +54,4 @@ public class GridState {
         return gridState;
     }
 }
+
