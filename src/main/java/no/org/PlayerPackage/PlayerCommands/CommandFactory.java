@@ -33,21 +33,21 @@ public class CommandFactory {
             }
         }
 
-        if ("jump".equalsIgnoreCase(commandName)) {
-            try {
-                if (!arguments.isEmpty()) {
-                    int moveValue = Integer.parseInt(arguments.get(0).toString());
-                    System.out.println("Move value parsed: " + moveValue);
-                    return new JumpCommand(moveValue);
-                } else {
-                    System.out.println("Move command missing value in arguments");
-                    return new ErrorCommand();
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid move value in arguments");
-                return new ErrorCommand();
-            }
-        }
+//        if ("jump".equalsIgnoreCase(commandName)) {
+//            try {
+//                if (!arguments.isEmpty()) {
+//                    int moveValue = Integer.parseInt(arguments.get(0).toString());
+//                    System.out.println("Move value parsed: " + moveValue);
+//                    return new JumpCommand(moveValue);
+//                } else {
+//                    System.out.println("Move command missing value in arguments");
+//                    return new ErrorCommand();
+//                }
+//            } catch (NumberFormatException e) {
+//                System.out.println("Invalid move value in arguments");
+//                return new ErrorCommand();
+//            }
+//        }
 
         else if ("state".equalsIgnoreCase(commandName)){
             return new StateCommand();

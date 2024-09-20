@@ -3,6 +3,7 @@ package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.PlayerPackage.Player;
+import no.org.Protocols.Response;
 import no.org.World.World;
 import org.json.JSONObject;
 
@@ -20,6 +21,7 @@ public class MoveCommand extends Command {
     @Override
     public JSONObject execute(Player player, World world) {
         JSONObject response = new JSONObject();
+        Response responseObj = new Response();
 
         if (!StaminaCheck.canPerformAction(player, this)) {
             response.put("status", "failure");

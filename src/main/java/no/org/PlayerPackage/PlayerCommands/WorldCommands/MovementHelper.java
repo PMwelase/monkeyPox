@@ -85,6 +85,7 @@ public class MovementHelper {
         }
         JSONObject response1 = response.buildResponse(player, world);
         response1.put("message", message);
+        System.out.println(response1);
 
         return response1;
     }

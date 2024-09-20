@@ -76,8 +76,8 @@ function sendMoveCommand(direction) {
 
        document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
        document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
-       document.getElementById('items').innerText = data.roomState  && data.roomState.Items > 0 ? data.roomState.Items : "No items";
-       document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons > 0 ? data.roomState.Weapons : "No Weapons";
+       document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No Items";
+       document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
        document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
 
       document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
@@ -225,3 +225,134 @@ document.querySelectorAll('.picture-holder').forEach(function(holder) {
         }
     });
 });
+
+// This function will send the jump command
+//function sendJumpCommand(direction) {
+//    const name = document.getElementById('name').value.trim();
+//    if (!name) {
+//        document.getElementById('response').innerHTML = `<div class="alert alert-warning">Please enter a player name.</div>`;
+//        return;
+//    }
+//
+//    const requestBody = { name: name, command: 'jump', arguments: [direction] };
+//
+//    fetch('http://localhost:8081/monkeypox/world/action', {
+//        method: 'POST',
+//        headers: {
+//            'Content-Type': 'application/json',
+//        },
+//        body: JSON.stringify(requestBody)
+//    })
+//    .then(response => response.json())
+//    .then(data => {
+//        let resultHtml = '';
+//        if (data.status === "success") {
+//            resultHtml = `<div class=""><strong>You:</strong> ${data.message}</div>`;
+//        } else {
+//            resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
+//        }
+//
+//       // After fetching and parsing the response:
+////       resultHtml += `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
+//
+//       document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
+//       document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
+//       document.getElementById('items').innerText = data.roomState  && data.roomState.Items > 0 ? data.roomState.Items : "No items";
+//       document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons > 0 ? data.roomState.Weapons : "No Weapons";
+//       document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
+//
+//      document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
+//      document.getElementById('stamina').innerText = data.playerState.Stamina;
+//      document.getElementById('xp').innerText = data.playerState.Experience;
+//      document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
+//      document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
+//      document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
+//
+//
+//       // For img1
+//       document.getElementById('img1').src = `Assets/${data.grid.rooms[2].type}-01.svg`;
+//       document.getElementById('img1').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';  // Fallback image if not found
+//       };
+//       document.getElementById('img01').style.backgroundColor = `#${data.grid.rooms[2].Color}`;
+//
+//       // For img2
+//       document.getElementById('img2').src = `Assets/${data.grid.rooms[5].type}-01.svg`;
+//       document.getElementById('img2').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img02').style.backgroundColor = `#${data.grid.rooms[5].Color}`;
+//
+//       // For img3
+//       document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`;
+//       document.getElementById('img3').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img03').style.backgroundColor = `#${data.grid.rooms[8].Color}`;
+//
+//       // For img4
+//       document.getElementById('img4').src = `Assets/${data.grid.rooms[1].type}-01.svg`;
+//       document.getElementById('img4').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img04').style.backgroundColor = `#${data.grid.rooms[1].Color}`;
+//
+//       // For img5
+//       document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`;
+//       document.getElementById('img5').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('center-block').style.backgroundColor = `#${data.grid.rooms[4].Color}`;
+//
+//       // For img6
+//       document.getElementById('img6').src = `Assets/${data.grid.rooms[7].type}-01.svg`;
+//       document.getElementById('img6').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img06').style.backgroundColor = `#${data.grid.rooms[7].Color}`;
+//
+//       // For img7
+//       document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`;
+//       document.getElementById('img7').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img07').style.backgroundColor = `#${data.grid.rooms[0].Color}`;
+//
+//       // For img8
+//       document.getElementById('img8').src = `Assets/${data.grid.rooms[3].type}-01.svg`;
+//       document.getElementById('img8').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img08').style.backgroundColor = `#${data.grid.rooms[3].Color}`;
+//
+//       // For img9
+//       document.getElementById('img9').src = `Assets/${data.grid.rooms[6].type}-01.svg`;
+//       document.getElementById('img9').onerror = function() {
+//           this.src = 'Assets/circle-01.svg';
+//       };
+//       document.getElementById('img09').style.backgroundColor = `#${data.grid.rooms[6].Color}`;
+//
+//       document.getElementById('response').innerHTML = resultHtml;
+//    })
+//    .catch(error => {
+//        document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
+//    });
+//}
+//
+//document.querySelectorAll('.picture-holder').forEach(function(holder) {
+//    holder.addEventListener('contextmenu', function(event) {
+//        event.preventDefault();
+//
+//        const position = this.getAttribute('data-position').split(',');
+//        const x = parseInt(position[0], 10);
+//        const y = parseInt(position[1], 10);
+//        const direction = getMoveDirection(x, y);
+//
+//        if (direction) {
+//            sendJumpCommand(direction);
+//        } else {
+//            sendEnterCommand();
+//        }
+//    });
+//});
+
