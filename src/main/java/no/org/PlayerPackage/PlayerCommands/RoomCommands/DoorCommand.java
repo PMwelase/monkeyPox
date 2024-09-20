@@ -4,6 +4,7 @@ import no.org.PlayerPackage.Player;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomUtility.RoomUtility;
+import no.org.Protocols.Response;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -23,33 +24,34 @@ public class DoorCommand extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room room = roomGrid.getRoom(position.getX(), position.getY());
 
-        JSONObject response = new JSONObject();
+        Response response = new Response();
+        String message = "";
 
         // Check if the player has enough stamina to perform the action
         if (!StaminaCheck.canPerformAction(player, this)) {
-            response.put("status", "failure");
-            response.put("message", "Not enough stamina to perform the action.");
-            return response;
+            message = "Not enough stamina to perform the action.";
         }
 
         // Player tries to enter the room if they're not already in it
         if (!player.isInRoom()) {
             if (RoomUtility.canEnterRoom(room)) {
                 RoomUtility.enterRoom(player, room);
-                response.put("message", "You have entered the room.");
+                message =  "You have entered the room.";
             } else {
-                response.put("message", "The room is barred.");
+                message = "The room is barred.";
             }
         }
         // Player tries to leave the room if they're currently in it
         else if (player.isInRoom()) {
             player.leaveRoom(room);
-            response.put("message", "You have left the room.");
+            message = "You have left the room.";
         }
 
-        response.put("status", "success");
+
         player.setStamina(player.getStamina() - staminaCost);
 
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

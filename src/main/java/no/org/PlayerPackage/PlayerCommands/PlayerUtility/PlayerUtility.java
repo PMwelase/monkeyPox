@@ -9,7 +9,8 @@ public class PlayerUtility {
             Position pos1 = player1.getPosition();
             Position pos2 = player2.getPosition();
 
-            // Compare both X and Y coordinates
-            return pos1.getX() == pos2.getX() && pos1.getY() == pos2.getY();
+            return pos1.getX() == pos2.getX() &&
+                    pos1.getY() == pos2.getY() &&
+                    player1.isInRoom() == player2.isInRoom();
         }
 }

@@ -81,11 +81,12 @@ public class MovementHelper {
             }
             player.setPosition(newPosition);
 
+            currentRoom.setPlayerInRoom(player);
+
             message = "You " + move + " 1 step " +direction + " to " + newPosition + ".";
         }
         JSONObject response1 = response.buildResponse(player, world);
         response1.put("message", message);
-        System.out.println(response1);
 
         return response1;
     }

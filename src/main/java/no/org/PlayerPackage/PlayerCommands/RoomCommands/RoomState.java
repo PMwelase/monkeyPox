@@ -2,6 +2,7 @@ package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.PlayerUtility;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -25,6 +26,13 @@ public class RoomState {
         List<Weapon> WeaponsOut = room.getWeaponsExRoom();
         List<String> players = new ArrayList<>();
 
+        for (Player player1 : room.getPlayersInRoom()){
+            if (PlayerUtility.arePlayersInSamePosition(player1, player)
+            && !Objects.equals(player1.getName(), player.getName())){
+                players.add(player1.getName());
+            }
+        }
+
 
         for (Weapon weapon : weapons) {
             weaponsList.add(weapon.getName());
@@ -34,33 +42,23 @@ public class RoomState {
             weaponsListOut.add(weapon.getName());
         }
 
-        for (Player player1 : world.getPlayersInWorld()) {
-            if (!Objects.equals(player1.getName(), player.getName()) &&
-                    player1.getPosition().getX() == position.getX() &&
-                    player1.getPosition().getY() == position.getY())
-            {
-                players.add(player1.getName());
-            }
-        }
 
         roomState.put("Name", room.getName());
         roomState.put("Type", room.getType());
-        String tag = "";
+
 
         if (player.isInRoom()) {
             roomState.put("Location", "Indoors");
             roomState.put("Tag", room.getInteriorTag());
-            roomState.put("Players", room.getPlayersInRoom());
             roomState.put("Items", room.getItemsInRoomInterior());
             roomState.put("Weapons", weaponsList);
             roomState.put("Players", players);
         } else {
             roomState.put("Location", "Outside");
             roomState.put("Tag", room.getExteriorTag());
-            roomState.put("Players", room.getPlayersInRoom());
             roomState.put("Items", room.getItemsInRoomExterior());
             roomState.put("Weapons", weaponsListOut);
-            roomState.put("Players", players);
+            roomState.put("Players",  players);
         }
         return roomState;
     }

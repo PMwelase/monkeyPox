@@ -203,6 +203,20 @@ function sendEnterCommand() {
             resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
         }
         document.getElementById('response').innerHTML = resultHtml;
+
+        document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
+               document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
+               document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No Items";
+              document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
+              document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
+
+              document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
+              document.getElementById('stamina').innerText = data.playerState.Stamina;
+              document.getElementById('xp').innerText = data.playerState.Experience;
+              document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
+              document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
+              document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
+
     })
     .catch(error => {
         document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;

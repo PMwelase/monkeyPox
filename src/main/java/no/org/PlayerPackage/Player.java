@@ -241,7 +241,7 @@ public class Player {
     public void enterRoom(Room room) {
         this.currentRoom = room;
         this.isInRoom = true;
-        room.setPlayerInRoom(this);
+//        room.setPlayerInRoom(this);
     }
 
     public void leaveRoom(Room room) {
