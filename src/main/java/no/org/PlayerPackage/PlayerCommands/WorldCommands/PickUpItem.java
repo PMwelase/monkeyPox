@@ -47,7 +47,6 @@ public class PickUpItem extends Command {
             currentRoom.getItemsInRoomExterior().remove(item);
             player.addToInventory(item);
             response.put("status", "success");
-            response.put("message", "Item picked up from room exterior: " + item);
             StateCommand stateCommand = new StateCommand();
             response.put("playerState", stateCommand.execute(player, world));
         }
@@ -56,11 +55,12 @@ public class PickUpItem extends Command {
             currentRoom.getItemsInRoomInterior().remove(item);
             player.addToInventory(item);
             response.put("status", "success");
-            response.put("message", "Item picked up from room interior: " + item);
         }
         else {
             return new ErrorCommand().execute(player, world);
         }
+
+        response.put("message", "picked up " + item + ".");
 
         player.setStamina(player.getStamina() - staminaCost);
         return response;

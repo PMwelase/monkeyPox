@@ -36,15 +36,15 @@ public class DoorCommand extends Command {
         if (!player.isInRoom()) {
             if (RoomUtility.canEnterRoom(room)) {
                 RoomUtility.enterRoom(player, room);
-                message =  "You have entered the room.";
+                message =  "entered the room.";
             } else {
-                message = "The room is barred.";
+                message = "can't enter. The room is barred.";
             }
         }
         // Player tries to leave the room if they're currently in it
         else if (player.isInRoom()) {
             player.leaveRoom(room);
-            message = "You have left the room.";
+            message = "left the room.";
         }
 
 

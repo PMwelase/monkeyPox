@@ -59,7 +59,7 @@ public class TagCommand extends Command {
 
         else {
             response.put("status", "success");
-            response.put("message", "No spray can in inventory");
+            response.put("message", "have no spray can in inventory");
             System.out.println("You don't have a spray can");
         }
 

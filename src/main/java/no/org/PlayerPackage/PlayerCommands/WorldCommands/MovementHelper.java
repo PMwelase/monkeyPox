@@ -83,7 +83,7 @@ public class MovementHelper {
 
             currentRoom.setPlayerInRoom(player);
 
-            message = "You " + move + " 1 step " +direction + " to " + newPosition + ".";
+            message =  move + " 1 step " +direction + " to " + newPosition + ".";
         }
         JSONObject response1 = response.buildResponse(player, world);
         response1.put("message", message);

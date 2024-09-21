@@ -59,7 +59,7 @@ public class HitCommand extends Command {
                     }
                 } else {
                     response.put("status", "success");
-                    response.put("message", "You " + response.get("attackType") + " " + targetName + ". " +
+                    response.put("message", response.get("attackType") + " " + targetName + ". " +
                             "Remaining health: " + target.getHealth() +
                             ". Damage dealt: " + damage);
                 }
