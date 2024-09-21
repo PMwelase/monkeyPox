@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Random;
@@ -41,13 +42,18 @@ public class MonkeyPoxController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Player user) {
-        Position randomPosition = getRandomPosition(this.world.getRoomGrid());  // Get random position in grid
-        Player newPlayer = new Player(user.getName(), user.getType(), this.world, randomPosition);  // Use random position
+        Position randomPosition = getRandomPosition(this.world.getRoomGrid());
+        Player newPlayer = new Player(user.getName(), user.getType(), this.world, randomPosition);
         newPlayer.initializePlayer(user.getName(), user.getType());
-        return ResponseEntity.ok("User added to world as Player: " + newPlayer.getName() + " at position " + randomPosition);
+
+        // Return the URL for the action page
+        String redirectUrl = "/play?playerName=" + newPlayer.getName();
+        return ResponseEntity.ok(redirectUrl);
     }
 
-    @PostMapping("/world/action")
+
+
+    @PostMapping("/play")
     public ResponseEntity<String> performAction(@RequestBody Action action) {
         String commandName = action.getCommand();
         System.out.println("Command: " + commandName);

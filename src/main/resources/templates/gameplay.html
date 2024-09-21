@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Command to MonkeyPox</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <style>
+    .picture-holder {
+      position: relative;
+    }
+
+    .apartment {
+      width: 100%;
+    }
+
+    .survivor {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: 50%; /* Adjust as needed */
+    }
+
+    .chat-box {
+          height: 200px;
+          overflow-y: scroll;
+          border: 1px solid #ccc;
+          padding: 10px;
+        }
+  </style>
+</head>
+<body>
+<div class="container mt-4">
+  <div class="row">
+    <!-- Picture holders grid on the left -->
+    <div class="col-md-6">
+      <h3>Picture Grid (3x3)</h3>
+
+      <div class="picture-grid">
+        <div class="picture-holder" data-position="0,0" id="img01">
+          <img id="img1" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+        <div class="picture-holder" data-position="0,1" id="img02">
+          <img id="img2" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+        <div class="picture-holder" data-position="0,2" id="img03">
+          <img id="img3" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+
+        <div class="picture-holder" data-position="1,0" id="img04">
+          <img id="img4" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+        <div class="picture-holder" data-position="1,1" id="center-block">
+          <img id="img5" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+          <img src="Assets/Survivor-01.svg" alt="Survivor" class="survivor">
+        </div>
+        <div class="picture-holder" data-position="1,2" id="img06">
+          <img id="img6" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+
+        <div class="picture-holder" data-position="2,0" id="img07">
+          <img id="img7" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+        <div class="picture-holder" data-position="2,1" id="img08">
+          <img id="img8" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+        <div class="picture-holder" data-position="2,2" id="img09">
+          <img id="img9" src="Assets/Apartment-01.svg" alt="Apartment" class="apartment">
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="status-display">
+            <!--          <div id="response" class="mt-2"></div>-->
+            <div><strong>Tag:</strong> <span id="tag"></span> | <strong>Location:</strong> <span id="location"></span></div>
+            <div><strong>Items:</strong> <span id="items"></span></div>
+            <div><strong>Weapons:</strong> <span id="weapons"></span></div>
+            <div><strong>Players:</strong> <span id="players"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form on the right -->
+    <div class="col-md-6">
+      <h1>Action</h1>
+      <div>
+        <strong>HP:</strong> <span id="hp"></span> |
+        <strong>XP:</strong> <span id="xp"></span> |
+        <strong>Stamina:</strong> <span id="stamina"></span>
+        <br>
+        <strong>Inventory:</strong> <span id="inventory"></span>
+        <br>
+        <strong>Weapons:</strong> <span id="weapons_list"></span>
+        <br>
+        <strong>Armed:</strong> <span id="weapon_in_hand"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Player Name:</label>
+        <input type="text" id="name" class="form-control" placeholder="Player Name" value="Player1">
+      </div>
+
+      <label for="command">Command:</label>
+      <select id="command" class="form-control">
+        <option value="jump">Jump</option>
+        <option value="tag">Tag</option>
+        <option value="barricade">Fortify</option>
+        <option value="break">Break Barricade</option>
+
+        <option value="take">Pick up Item</option>
+        <option value="use">Use</option>
+        <option value="drop">Drop</option>
+
+        <option value="hit">Attack</option>
+        <option value="pickup">Pickup Weapon</option>
+        <option value="load">Load</option>
+        <option value="arm">Arm Weapon</option>
+        <option value="lose">Drop Weapon</option>
+        <option value="stow">Stow Weapon</option>
+      </select>
+
+      <div class="form-group">
+        <label for="arguments">Arguments (comma-separated):</label>
+        <input type="text" id="arguments" class="form-control" placeholder="Arguments">
+      </div>
+
+      <button class="btn btn-primary" onclick="sendPostRequest()">Send Command</button>
+
+      <p id="loading" class="mt-4" style="display:none;">Sending command...</p>
+
+      <div class="chat-log mt-4">
+        <h5>Chat Log</h5>
+        <div class="chat-box" id="chatBox">
+          <!-- Chat messages will appear here -->
+          <p><div id="response" class="mt-2"></div></p>
+          <p><strong>Player2:</strong> Picked up a crowbar</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="/js/script.js"></script>
+</body>
+</html>

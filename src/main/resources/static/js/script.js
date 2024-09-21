@@ -13,7 +13,7 @@ function sendPostRequest() {
 
         const requestBody = { name: name, command: command, arguments: args };
 
-        fetch('http://localhost:8081/monkeypox/world/action', {
+        fetch('http://localhost:8081/monkeypox/play', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ function sendMoveCommand(direction) {
 
     const requestBody = { name: name, command: 'move', arguments: [direction] };
 
-    fetch('http://localhost:8081/monkeypox/world/action', {
+    fetch('http://localhost:8081/monkeypox/play', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ function sendEnterCommand() {
 
     const requestBody = { name: name, command: 'door', arguments: [] };
 
-    fetch('http://localhost:8081/monkeypox/world/action', {
+    fetch('http://localhost:8081/monkeypox/play', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -205,17 +205,17 @@ function sendEnterCommand() {
         document.getElementById('response').innerHTML = resultHtml;
 
         document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
-               document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
-               document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No Items";
-              document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
-              document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
+        document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
+        document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No Items";
+        document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
+        document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
 
-              document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
-              document.getElementById('stamina').innerText = data.playerState.Stamina;
-              document.getElementById('xp').innerText = data.playerState.Experience;
-              document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
-              document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
-              document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
+        document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
+        document.getElementById('stamina').innerText = data.playerState.Stamina;
+        document.getElementById('xp').innerText = data.playerState.Experience;
+        document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
+        document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
+        document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
 
     })
     .catch(error => {
@@ -250,7 +250,7 @@ document.querySelectorAll('.picture-holder').forEach(function(holder) {
 //
 //    const requestBody = { name: name, command: 'jump', arguments: [direction] };
 //
-//    fetch('http://localhost:8081/monkeypox/world/action', {
+//    fetch('http://localhost:8081/monkeypox/play', {
 //        method: 'POST',
 //        headers: {
 //            'Content-Type': 'application/json',
