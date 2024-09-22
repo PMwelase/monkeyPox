@@ -72,7 +72,7 @@ public class MovementHelper {
         String message = "";
 
         if (x >= roomGrid.getWidth() || y >= roomGrid.getHeight() || x < 0 || y < 0) {
-            message = "Can't leave the city.";
+            message = "can't leave the city.";
         }
         else {
             String move = isJump ? "jumped" : "moved";

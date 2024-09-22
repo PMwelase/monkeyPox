@@ -32,9 +32,11 @@ public class BreakCommand extends Command {
 
         response.put("status", "success");
 
-        if (currentRoom.getBarricades() > 0 && player.getInventory().contains("crow bar")){
+        if (currentRoom.getBarricades() > 0 && player.getInventory().contains("crow bar")) {
             currentRoom.setBarricades(currentRoom.getBarricades() - 1);
-            response.put("message", "Barricade removed from room");
+            response.put("message", "weakened barricades.");
+        } else if (!player.getInventory().contains("crow bar")){
+            response.put("message","don't have the tools to perform this action.");
         } else {
             response.put("message", "There are no barricades in the room to remove");
         }

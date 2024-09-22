@@ -37,11 +37,11 @@ public class BarricadeCommand extends Command {
         if (player.isInRoom() && RoomUtility.canBarricadeRoom(currentRoom)) {
             RoomUtility.addBarricade(currentRoom);
             player.setStamina(player.getStamina() - staminaCost);
-            response.put("message", "Barricade added to room");
+            response.put("message", "added a barricade to the room");
         } else if (!player.isInRoom()) {
-            response.put("message", "You cannot barricade a building from the outside.");
+            response.put("message", "cannot barricade a building from the outside.");
         } else if (!RoomUtility.canBarricadeRoom(currentRoom)) {
-            response.put("message", "Room is already full of barricades");
+            response.put("message", " can't add any more barricades");
         } else {
             return new ErrorCommand().execute(player, world);
         }

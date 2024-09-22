@@ -42,7 +42,6 @@ public class PickUpItem extends Command {
             return response;
         }
 
-
         if (!player.isInRoom() && currentRoom.getItemsInRoomExterior().contains(item)) {
             currentRoom.getItemsInRoomExterior().remove(item);
             player.addToInventory(item);
