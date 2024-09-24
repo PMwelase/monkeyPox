@@ -3,6 +3,7 @@ package no.org.WebApi;
 import no.org.PlayerPackage.Player;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.CommandFactory;
+import no.org.PlayerPackage.PlayerCommands.PlayerUtility.Delay;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
@@ -52,7 +53,6 @@ public class MonkeyPoxController {
     }
 
 
-
     @PostMapping("/play")
     public ResponseEntity<String> performAction(@RequestBody Action action) {
         String commandName = action.getCommand();
@@ -61,6 +61,14 @@ public class MonkeyPoxController {
         System.out.println("Arguments: " + arguments);
         Command command = CommandFactory.createCommand(commandName, arguments);
         Player player = this.world.getPlayer(action.getName());
+        if (player.getMaxStamina() > player.getStamina()) {
+            Delay.delay(54000, player, false);
+        }
+
+        if (player.getMaxHealth() > player.getHealth()) {
+            Delay.delay(60000, player, true);
+        }
+
         JSONObject response = command.execute(player, world);
         return ResponseEntity.ok(response.toString());
     }

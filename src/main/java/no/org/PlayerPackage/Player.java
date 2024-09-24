@@ -47,7 +47,7 @@ public class Player {
         this.type = type;
         this.level = 1;
         this.maxHealth = 50;
-        this.stamina = 1000;
+        this.stamina = 100;
         this.maxStamina = 100;
         this.experience = 0;
         this.health = 50;
