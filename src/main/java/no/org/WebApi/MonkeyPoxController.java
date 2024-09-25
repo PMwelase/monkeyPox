@@ -22,10 +22,12 @@ public class MonkeyPoxController {
 
     private final World world;
     private final Random random;
+    private final GameState gameState;  // Make GameState a class-level variable
 
     public MonkeyPoxController(RoomGrid roomGrid) {
         this.world = world(roomGrid);
         this.random = new Random();  // Initialize the random object
+        this.gameState = new GameState();  // Initialize GameState once at the controller level
     }
 
     public World world(RoomGrid roomGrid) {
@@ -52,7 +54,6 @@ public class MonkeyPoxController {
         return ResponseEntity.ok(redirectUrl);
     }
 
-
     @PostMapping("/play")
     public ResponseEntity<String> performAction(@RequestBody Action action) {
         String commandName = action.getCommand();
@@ -60,17 +61,38 @@ public class MonkeyPoxController {
         JSONArray arguments = new JSONArray(action.getArguments());
         System.out.println("Arguments: " + arguments);
         Command command = CommandFactory.createCommand(commandName, arguments);
-        Player player = this.world.getPlayer(action.getName());
-        if (player.getMaxStamina() > player.getStamina()) {
-            Delay.delay(54000, player, false);
-        }
 
-        if (player.getMaxHealth() > player.getHealth()) {
-            Delay.delay(60000, player, true);
-        }
+        // Check for the winning player
+        if (gameState.getWinningPlayer() != null) {
+            String winner = gameState.getWinningPlayer().getName();
+            System.out.println("Winner: " + winner);
+            return ResponseEntity.ok("Winner: " + winner);
+        } else {
+            Player player = this.world.getPlayer(action.getName());
 
-        JSONObject response = command.execute(player, world);
-        return ResponseEntity.ok(response.toString());
+            // Handle stamina and health recovery
+            if (player.getMaxStamina() > player.getStamina()) {
+                Delay.delay(54000, player, false);
+            }
+
+            if (player.getMaxHealth() > player.getHealth()) {
+                Delay.delay(60000, player, true);
+            }
+
+            // If the player has the flag, set them as the winner
+            if (player.getInventory().contains("flag")) {
+                System.out.println("flag has been captured");
+                gameState.setWinningPlayer(player);
+                JSONObject response = new JSONObject();
+                response = gameState.getGameState();
+                return ResponseEntity.ok(response.toString());
+            }
+            System.out.println(player.getName() + player.getInventory());
+
+            // Execute the command and return the response
+            JSONObject response = command.execute(player, world);
+            return ResponseEntity.ok(response.toString());
+        }
     }
 
     public static class Action {
@@ -109,5 +131,4 @@ public class MonkeyPoxController {
             return new JSONArray(arguments);
         }
     }
-
 }

@@ -75,8 +75,31 @@ function sendMoveCommand(direction) {
 //       resultHtml += `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
 
        document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
-       document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
-       document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No Items";
+       document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag: "";
+       let itemsArray = data.roomState.Items;
+       if (itemsArray && itemsArray.length > 0) {
+           let itemCounts = {};
+
+           // Count occurrences of each item
+           itemsArray.forEach(item => {
+               if (itemCounts[item]) {
+                   itemCounts[item]++;
+               } else {
+                   itemCounts[item] = 1;
+               }
+           });
+
+           // Create the output string
+           let output = Object.keys(itemCounts).map(item => {
+               return itemCounts[item] > 1 ? `${item} x ${itemCounts[item]}` : item;
+           }).join(', ');
+
+           // Display the result
+           document.getElementById('items').innerText = output;
+       } else {
+           document.getElementById('items').innerText = "No Items";
+       }
+
        document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
        document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
 
@@ -205,8 +228,31 @@ function sendEnterCommand() {
         document.getElementById('response').innerHTML = resultHtml;
 
         document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
-        document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "no tag";
-        document.getElementById('items').innerText = data.roomState.Items ? data.roomState.Items : "No Items";
+        document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag: "";
+        let itemsArray = data.roomState.Items;
+        if (itemsArray && itemsArray.length > 0) {
+            let itemCounts = {};
+
+            // Count occurrences of each item
+            itemsArray.forEach(item => {
+                if (itemCounts[item]) {
+                    itemCounts[item]++;
+                } else {
+                    itemCounts[item] = 1;
+                }
+            });
+
+            // Create the output string
+            let output = Object.keys(itemCounts).map(item => {
+                return itemCounts[item] > 1 ? `${item} x ${itemCounts[item]}` : item;
+            }).join(', ');
+
+            // Display the result
+            document.getElementById('items').innerText = output;
+        } else {
+            document.getElementById('items').innerText = "No Items";
+        }
+
         document.getElementById('weapons').innerText = data.roomState  && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
         document.getElementById('players').innerText = data.roomState  && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
 
