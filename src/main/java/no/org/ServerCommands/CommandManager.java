@@ -48,7 +48,7 @@ public abstract class CommandManager {
                 int x = scanner.nextInt();
                 System.out.println("y?: ");
                 int y = scanner.nextInt();
-                scanner.nextLine();  // This will consume the remaining newline character
+                scanner.nextLine();
                 System.out.println("type?: ");
                 String type = scanner.nextLine();
                 new RoomType(x, y, type);

@@ -75,7 +75,7 @@ function sendMoveCommand(direction) {
 //       resultHtml += `<div class="alert alert-success"><strong>Result:</strong> ${data.message}</div>`;
 
        document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
-       document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag: "";
+       document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag: data.roomState.Type;
        let itemsArray = data.roomState.Items;
        if (itemsArray && itemsArray.length > 0) {
            let itemCounts = {};
@@ -262,7 +262,6 @@ function sendEnterCommand() {
         document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
         document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
         document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
-
     })
     .catch(error => {
         document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
@@ -270,7 +269,6 @@ function sendEnterCommand() {
 }
 
 
-// Attach event listeners to the picture holders
 document.querySelectorAll('.picture-holder').forEach(function(holder) {
     holder.addEventListener('click', function() {
         const position = this.getAttribute('data-position').split(',');
@@ -291,7 +289,7 @@ function appendMessages(messages) {
 
     messages.forEach(message => {
         const messageElement = document.createElement('p');
-        messageElement.innerHTML = message; // Use innerHTML to allow HTML tags like <strong>
+        messageElement.innerHTML = message;
 
 
         chatBox.insertBefore(messageElement, chatBox.firstChild);

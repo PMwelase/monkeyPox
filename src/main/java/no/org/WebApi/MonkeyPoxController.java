@@ -62,15 +62,17 @@ public class MonkeyPoxController {
         System.out.println("Arguments: " + arguments);
         Command command = CommandFactory.createCommand(commandName, arguments);
 
-        // Check for the winning player
+        boolean game_over = false;
         if (gameState.getWinningPlayer() != null) {
             String winner = gameState.getWinningPlayer().getName();
             System.out.println("Winner: " + winner);
-            return ResponseEntity.ok("Winner: " + winner);
-        } else {
+            game_over = true;
+        }
+
+        if (!game_over) {
+
             Player player = this.world.getPlayer(action.getName());
 
-            // Handle stamina and health recovery
             if (player.getMaxStamina() > player.getStamina()) {
                 Delay.delay(54000, player, false);
             }
@@ -79,18 +81,25 @@ public class MonkeyPoxController {
                 Delay.delay(60000, player, true);
             }
 
-            // If the player has the flag, set them as the winner
             if (player.getInventory().contains("flag")) {
                 System.out.println("flag has been captured");
                 gameState.setWinningPlayer(player);
                 JSONObject response = new JSONObject();
                 response = gameState.getGameState();
+                response.put("status", "success");
+                response.put("message", "captured the flag");
                 return ResponseEntity.ok(response.toString());
             }
             System.out.println(player.getName() + player.getInventory());
 
-            // Execute the command and return the response
             JSONObject response = command.execute(player, world);
+            return ResponseEntity.ok(response.toString());
+        } else {
+            System.out.println("Game Over");
+            JSONObject response = new JSONObject();
+            response = gameState.getGameState();
+            response.put("status", "success");
+            response.put("message", "Game Over. " + gameState.getWinningPlayer().getName() + " has won!");
             return ResponseEntity.ok(response.toString());
         }
     }
