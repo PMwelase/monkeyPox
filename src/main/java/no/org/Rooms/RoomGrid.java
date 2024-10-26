@@ -16,9 +16,10 @@ public class RoomGrid {
     public RoomGrid(int width, int height) {
         this.width = width;
         this.height = height;
-        // Initialize the grid with the exact number of rooms
         rooms = new Room[width][height];
         initializeRooms();
+        myWorld();
+        stadium();
     }
 
     // Method to initialize rooms and set random room types
@@ -46,6 +47,45 @@ public class RoomGrid {
                 rooms[x][y] = room;
             }
         }
+    }
+
+    private void myWorld(){
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (x < width / 2 && y < height / 2) {
+                    rooms[x][y].setColor("FBF8CC");
+                    rooms[x][y].setRoomType("Apartment");
+                } else if (x >= width / 2 && y >= height / 2) {
+                    rooms[x][y].setColor("FDE4CF");
+                    rooms[x][y].setRoomType("townhouse");
+                } else if (x < width / 2 && y >= height / 2) {
+                    rooms[x][y].setColor("98F5E1");
+                    rooms[x][y].setRoomType("high rise");
+                } else {
+                    rooms[x][y].setColor("90DBF4");
+                    rooms[x][y].setRoomType("complex");
+                }
+            }
+        }
+    }
+
+    private void stadium(){
+        rooms[1][13].setRoomType("M1");
+        rooms[2][13].setRoomType("M2");
+        rooms[3][13].setRoomType("M3");
+        rooms[4][13].setRoomType("M4");
+        rooms[1][12].setRoomType("M5");
+        rooms[2][12].setRoomType("M6");
+        rooms[3][12].setRoomType("M7");
+        rooms[4][12].setRoomType("M8");
+        rooms[1][11].setRoomType("M9");
+        rooms[2][11].setRoomType("M10");
+        rooms[3][11].setRoomType("M11");
+        rooms[4][11].setRoomType("M12");
+    }
+
+    private void firestations(){
+
     }
 
     // Getter for room grid (optional)

@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Random;
@@ -31,7 +30,7 @@ public class MonkeyPoxController {
     }
 
     public World world(RoomGrid roomGrid) {
-        return new World(roomGrid, new Position(0, 0), new Position(31, 31));
+        return new World(roomGrid, new Position(0, 0), new Position(17, 17));
     }
 
     // Method to generate a random position within the grid

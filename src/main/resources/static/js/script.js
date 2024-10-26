@@ -114,9 +114,13 @@ function sendMoveCommand(direction) {
        // For img1
        document.getElementById('img1').src = `Assets/${data.grid.rooms[2].type}-01.svg`;
        document.getElementById('img1').onerror = function() {
-           this.src = 'Assets/circle-01.svg';  // Fallback image if not found
+           this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img01').style.backgroundColor = `#${data.grid.rooms[2].Color}`;
+       document.getElementById('img1').style.width = "80%";
+       if (data.grid.rooms[2].type.startsWith('M') || data.grid.rooms[2].type.startsWith('E')) {
+           document.getElementById('img1').style.width = "100%";
+       }
 
        // For img2
        document.getElementById('img2').src = `Assets/${data.grid.rooms[5].type}-01.svg`;
@@ -124,6 +128,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img02').style.backgroundColor = `#${data.grid.rooms[5].Color}`;
+       document.getElementById('img2').style.width = "80%";
+       if (data.grid.rooms[5].type.startsWith('M') || data.grid.rooms[5].type.startsWith('E')) {
+           document.getElementById('img2').style.width = "100%";
+       }
 
        // For img3
        document.getElementById('img3').src = `Assets/${data.grid.rooms[8].type}-01.svg`;
@@ -131,6 +139,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img03').style.backgroundColor = `#${data.grid.rooms[8].Color}`;
+       document.getElementById('img3').style.width = "80%";
+       if (data.grid.rooms[8].type.startsWith('M') || data.grid.rooms[8].type.startsWith('E')) {
+           document.getElementById('img3').style.width = "100%";
+       }
 
        // For img4
        document.getElementById('img4').src = `Assets/${data.grid.rooms[1].type}-01.svg`;
@@ -138,6 +150,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img04').style.backgroundColor = `#${data.grid.rooms[1].Color}`;
+       document.getElementById('img4').style.width = "80%";
+       if (data.grid.rooms[1].type.startsWith('M') || data.grid.rooms[1].type.startsWith('E')) {
+           document.getElementById('img4').style.width = "100%";
+       }
 
        // For img5
        document.getElementById('img5').src = `Assets/${data.grid.rooms[4].type}-01.svg`;
@@ -145,6 +161,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('center-block').style.backgroundColor = `#${data.grid.rooms[4].Color}`;
+       document.getElementById('img5').style.width = "80%";
+       if (data.grid.rooms[4].type.startsWith('M') || data.grid.rooms[4].type.startsWith('E')) {
+           document.getElementById('img5').style.width = "100%";
+       }
 
        // For img6
        document.getElementById('img6').src = `Assets/${data.grid.rooms[7].type}-01.svg`;
@@ -152,6 +172,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img06').style.backgroundColor = `#${data.grid.rooms[7].Color}`;
+       document.getElementById('img6').style.width = "80%";
+       if (data.grid.rooms[7].type.startsWith('M') || data.grid.rooms[7].type.startsWith('E')) {
+           document.getElementById('img6').style.width = "100%";
+       }
 
        // For img7
        document.getElementById('img7').src = `Assets/${data.grid.rooms[0].type}-01.svg`;
@@ -159,6 +183,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img07').style.backgroundColor = `#${data.grid.rooms[0].Color}`;
+       document.getElementById('img7').style.width = "80%";
+       if (data.grid.rooms[0].type.startsWith('M') || data.grid.rooms[0].type.startsWith('E')) {
+           document.getElementById('img7').style.width = "100%";
+       }
 
        // For img8
        document.getElementById('img8').src = `Assets/${data.grid.rooms[3].type}-01.svg`;
@@ -166,6 +194,10 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img08').style.backgroundColor = `#${data.grid.rooms[3].Color}`;
+       document.getElementById('img8').style.width = "80%";
+       if (data.grid.rooms[3].type.startsWith('M') || data.grid.rooms[3].type.startsWith('E')) {
+           document.getElementById('img8').style.width = "100%";
+       }
 
        // For img9
        document.getElementById('img9').src = `Assets/${data.grid.rooms[6].type}-01.svg`;
@@ -173,6 +205,11 @@ function sendMoveCommand(direction) {
            this.src = 'Assets/circle-01.svg';
        };
        document.getElementById('img09').style.backgroundColor = `#${data.grid.rooms[6].Color}`;
+       document.getElementById('img9').style.width = "80%";
+       if (data.grid.rooms[6].type.startsWith('M') || data.grid.rooms[6].type.startsWith('E')) {
+           document.getElementById('img9').style.width = "100%";
+       }
+
 
        document.getElementById('response').innerHTML = resultHtml;
     })
