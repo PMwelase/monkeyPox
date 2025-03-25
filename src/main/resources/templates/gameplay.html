@@ -93,8 +93,14 @@
         <strong>Armed:</strong> <span id="weapon_in_hand"></span>
       </div>
 
-        <h4 id="name"></h4>
-
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <p onclick="fortifyAction()">
+          <img class="action-images" src="Assets/sword.png" alt="fortify">
+        </p>
+        <p onclick="tagAction()">
+          <img class="action-images" src="Assets/spray.png" alt="tag">
+        </p>
+      </div>
       <label for="command">Command:</label>
       <select id="command" class="form-control">
 <!--        <option value="jump">Jump</option>-->

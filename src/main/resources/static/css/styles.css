@@ -64,3 +64,9 @@
 .status-display div {
   margin-bottom: 10px;
 }
+
+
+.action-images {
+    max-width: 2rem;
+    max-height: auto;
+}
