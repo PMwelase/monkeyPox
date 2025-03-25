@@ -21,12 +21,12 @@ public class MonkeyPoxController {
 
     private final World world;
     private final Random random;
-    private final GameState gameState;  // Make GameState a class-level variable
+    private final GameState gameState;
 
     public MonkeyPoxController(RoomGrid roomGrid) {
         this.world = world(roomGrid);
-        this.random = new Random();  // Initialize the random object
-        this.gameState = new GameState();  // Initialize GameState once at the controller level
+        this.random = new Random();
+        this.gameState = new GameState();
     }
 
     public World world(RoomGrid roomGrid) {
@@ -49,7 +49,7 @@ public class MonkeyPoxController {
         newPlayer.initializePlayer(user.getName(), user.getType());
 
         // Return the URL for the action page
-        String redirectUrl = "/play?playerName=" + newPlayer.getName();
+        String redirectUrl = "/play?monkeyPox";
         return ResponseEntity.ok(redirectUrl);
     }
 
@@ -93,6 +93,7 @@ public class MonkeyPoxController {
 
             JSONObject response = command.execute(player, world);
             return ResponseEntity.ok(response.toString());
+
         } else {
             System.out.println("Game Over");
             JSONObject response = new JSONObject();

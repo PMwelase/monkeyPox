@@ -13,7 +13,7 @@ public class Response {
     public JSONObject buildResponse(Player player, World world) {
         JSONObject response = new JSONObject();  // Initialize the response JSON object
 
-        response.put("status", "success");  // Set the status to success
+        response.put("status", "success");
 
         // Add grid state to the response
         GridState gridState = new GridState();
@@ -26,6 +26,6 @@ public class Response {
         // Add player state to the response
         response.put("playerState", new StateCommand().execute(player, world));
 
-        return response;  // Return the constructed JSONObject
+        return response;
     }
 }

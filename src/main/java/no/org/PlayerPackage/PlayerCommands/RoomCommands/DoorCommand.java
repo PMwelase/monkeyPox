@@ -36,7 +36,7 @@ public class DoorCommand extends Command {
         if (!player.isInRoom()) {
             if (RoomUtility.canEnterRoom(room)) {
                 RoomUtility.enterRoom(player, room);
-                message =  "entered the room.";
+                message = "entered the room.";
             } else {
                 message = "can't enter. The room is barred.";
             }
@@ -52,6 +52,7 @@ public class DoorCommand extends Command {
 
         JSONObject response1 = response.buildResponse(player, world);
         response1.put("message", message);
+        System.out.println(response1);
         return response1;
     }
 }

@@ -4,6 +4,7 @@ import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.ErrorCommand;
 import no.org.PlayerPackage.Player;
 import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
+import no.org.Protocols.Response;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -34,34 +35,27 @@ public class PickUpItem extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
-        JSONObject response = new JSONObject();
+        Response response = new Response();
+        String message = "";
 
         if (!StaminaCheck.canPerformAction(player, this)) {
-            response.put("status", "failure");
-            response.put("message", "Not enough stamina to perform the action.");
-            return response;
-        }
+            message = "Not enough stamina to perform the action.";
 
-        if (!player.isInRoom() && currentRoom.getItemsInRoomExterior().contains(item)) {
-            currentRoom.getItemsInRoomExterior().remove(item);
-            player.addToInventory(item);
-            response.put("status", "success");
-            StateCommand stateCommand = new StateCommand();
-            response.put("playerState", stateCommand.execute(player, world));
-        }
+        } else {
 
-        else if (player.isInRoom() && currentRoom.getItemsInRoomInterior().contains(item)) {
-            currentRoom.getItemsInRoomInterior().remove(item);
-            player.addToInventory(item);
-            response.put("status", "success");
-        }
-        else {
-            return new ErrorCommand().execute(player, world);
-        }
+            if (!player.isInRoom() && currentRoom.getItemsInRoomExterior().contains(item)) {
+                currentRoom.getItemsInRoomExterior().remove(item);
+                player.addToInventory(item);
 
-        response.put("message", "picked up " + item + ".");
-
-        player.setStamina(player.getStamina() - staminaCost);
-        return response;
+            } else if (player.isInRoom() && currentRoom.getItemsInRoomInterior().contains(item)) {
+                currentRoom.getItemsInRoomInterior().remove(item);
+                player.addToInventory(item);
+            }
+            player.setStamina(player.getStamina() - staminaCost);
+            message = "picked up " + item + ".";
+        }
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

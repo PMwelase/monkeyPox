@@ -37,6 +37,8 @@
         type: type
     };
 
+    localStorage.setItem("requestBody", JSON.stringify(requestBody));
+
     fetch('http://localhost:8081/monkeypox/register', {
         method: 'POST',
         headers: {

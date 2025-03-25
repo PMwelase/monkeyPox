@@ -1,5 +1,7 @@
-function sendPostRequest() {
-    const name = document.getElementById('name').value.trim();
+function sendPostRequest(event) {
+    if (event) event.preventDefault(); // Prevent default even without form
+
+    const name = JSON.parse(localStorage.getItem("requestBody"))?.name || "";
     const command = document.getElementById('command').value.trim();
     const args = document.getElementById('arguments').value.trim().split(',');
 
@@ -9,46 +11,77 @@ function sendPostRequest() {
     }
 
     document.getElementById('loading').style.display = 'block';
-    document.getElementById('response').innerHTML = '';
+    // Removed: response.innerHTML clear here
 
     const requestBody = { name: name, command: command, arguments: args };
 
-    // Updated URL here:
     fetch('http://localhost:8081/monkeypox/play', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
     })
     .then(response => response.json())
     .then(data => {
         document.getElementById('loading').style.display = 'none';
 
-        let resultHtml = '';
-
         if (data.status === "success") {
             appendMessages([`<em>You </em> ${data.message}`]);
+            // Clear response only for success
+            document.getElementById('response').innerHTML = '';
         } else {
-            resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
+            // Only update response for errors
+            document.getElementById('response').innerHTML =
+              `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
         }
 
-        // Display weapons, items, and players even if they are empty
-        resultHtml += `<div><strong>Weapons:</strong> ${data.Weapons && data.Weapons.length > 0 ? data.Weapons.join(', ') : 'None'}</div>`;
-        resultHtml += `<div><strong>Items on the floor:</strong> ${data["Items on the floor"] && data["Items on the floor"].length > 0 ? data["Items on the floor"].join(', ') : 'None'}</div>`;
-        resultHtml += `<div><strong>Players:</strong> ${data.Players && data.Players.length > 0 ? data.Players.join(', ') : 'None'}</div>`;
+    // Update game state displays (keep this part the same)
+    document.getElementById('location').innerText = data.roomState?.Location || "You're lost";
+    document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "";
+    let itemsArray = data.roomState.Items;
+    if (itemsArray && itemsArray.length > 0) {
+        let itemCounts = {};
+        // Count occurrences of each item
+        itemsArray.forEach(item => {
+            if (itemCounts[item]) {
+                itemCounts[item]++;
+            } else {
+                itemCounts[item] = 1;
+            }
+        });
 
-        document.getElementById('response').innerHTML = resultHtml;
+        // Create the output string
+        let output = Object.keys(itemCounts).map(item => {
+            return itemCounts[item] > 1 ? `${item} x ${itemCounts[item]}` : item;
+        }).join(', ');
+
+        // Display the result
+        document.getElementById('items').innerText = output;
+    } else {
+        document.getElementById('items').innerText = "No Items";
+    }
+        // Display weapons, items, and players even if they are empty
+        document.getElementById('weapons').innerText = data.roomState && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
+        document.getElementById('players').innerText = data.roomState && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
+
+        document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
+        document.getElementById('stamina').innerText = data.playerState.Stamina;
+        document.getElementById('xp').innerText = data.playerState.Experience;
+        document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
+        document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
+        document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
     })
     .catch(error => {
-        document.getElementById('loading').style.display = 'none'; // Hide loading message
-        document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
+            document.getElementById('loading').style.display = 'none';
+        document.getElementById('response').innerHTML =
+          `<div class="alert alert-danger">Error: ${error}</div>`;
     });
 }
 
 // This function will send the move command
 function sendMoveCommand(direction) {
-    const name = document.getElementById('name').value.trim();
+    const name = JSON.parse(localStorage.getItem("requestBody"))?.name || "";
+
+//    const name = document.getElementById('name').value = name;
     if (!name) {
         document.getElementById('response').innerHTML = `<div class="alert alert-warning">Please enter a player name.</div>`;
         return;
@@ -236,9 +269,11 @@ function getMoveDirection(x, y) {
 
 // This function will send the enter command
 function sendEnterCommand() {
-    const name = document.getElementById('name').value.trim();
+    // Get name from localStorage
+    const name = JSON.parse(localStorage.getItem("requestBody"))?.name || "";
+
     if (!name) {
-        document.getElementById('response').innerHTML = `<div class="alert alert-warning">Please enter a player name.</div>`;
+        document.getElementById('response').innerHTML = `<div class="alert alert-warning">Player name not found. Please register first.</div>`;
         return;
     }
 
@@ -302,6 +337,78 @@ function sendEnterCommand() {
         document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
     });
 }
+
+// This function will send the FORTIFY command
+function sendFortifyCommand() {
+    // Get name from localStorage
+    const name = JSON.parse(localStorage.getItem("requestBody"))?.name || "";
+
+    if (!name) {
+        document.getElementById('response').innerHTML = `<div class="alert alert-warning">Player name not found. Please register first.</div>`;
+        return;
+    }
+
+    const requestBody = { name: name, command: 'fortify', arguments: [] };
+
+    // Updated URL here:
+    fetch('http://localhost:8081/monkeypox/play', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => response.json())
+    .then(data => {
+        let resultHtml = '';
+        if (data.status === "success") {
+            appendMessages([`<em>You </em> ${data.message}`]);
+        } else {
+            resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
+        }
+        document.getElementById('response').innerHTML = resultHtml;
+
+        document.getElementById('location').innerText = data.roomState && data.roomState.Location ? data.roomState.Location : "You're lost";
+        document.getElementById('tag').innerText = data.roomState && data.roomState.Tag ? data.roomState.Tag : "";
+        let itemsArray = data.roomState.Items;
+        if (itemsArray && itemsArray.length > 0) {
+            let itemCounts = {};
+
+            // Count occurrences of each item
+            itemsArray.forEach(item => {
+                if (itemCounts[item]) {
+                    itemCounts[item]++;
+                } else {
+                    itemCounts[item] = 1;
+                }
+            });
+
+            // Create the output string
+            let output = Object.keys(itemCounts).map(item => {
+                return itemCounts[item] > 1 ? `${item} x ${itemCounts[item]}` : item;
+            }).join(', ');
+
+            // Display the result
+            document.getElementById('items').innerText = output;
+        } else {
+            document.getElementById('items').innerText = "No Items";
+        }
+
+        document.getElementById('weapons').innerText = data.roomState && data.roomState.Weapons.length > 0 ? data.roomState.Weapons : "No Weapons";
+        document.getElementById('players').innerText = data.roomState && data.roomState.Players && data.roomState.Players.length > 0 ? data.roomState.Players : "You're alone";
+
+        document.getElementById('hp').innerText = `${data.playerState.Health}/${data.playerState.MaxHealth}`;
+        document.getElementById('stamina').innerText = data.playerState.Stamina;
+        document.getElementById('xp').innerText = data.playerState.Experience;
+        document.getElementById('weapons_list').innerText = data.playerState.WeaponsInventory && data.playerState.WeaponsInventory.length > 0 ? data.playerState.WeaponsInventory : "No weapons";
+        document.getElementById('weapon_in_hand').innerText = data.playerState.Weapon_in_hand ? data.playerState.Weapon_in_hand : "No weapon";
+        document.getElementById('inventory').innerText = data.playerState.ItemsInventory && data.playerState.ItemsInventory.length > 0 ? data.playerState.ItemsInventory : "No items";
+    })
+    .catch(error => {
+        document.getElementById('response').innerHTML = `<div class="alert alert-danger">Error: ${error}</div>`;
+    });
+}
+
 
 document.querySelectorAll('.picture-holder').forEach(function(holder) {
     holder.addEventListener('click', function() {

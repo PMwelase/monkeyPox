@@ -2,6 +2,7 @@ package no.org.PlayerPackage.PlayerCommands.WorldCommands;
 
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.Protocols.Response;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
@@ -34,11 +35,11 @@ public class DropItem extends Command {
 
         List<String> inventory = player.getInventory();
 
-        JSONObject response = new JSONObject();
+        Response response = new Response();
+        String message = "";
 
         if (inventory.contains(item)) {
-            response.put("status", "success");
-            response.put("message", "Item dropped: " + item);
+            message = "Item dropped: " + item;
             inventory.remove(item);
 
             if (player.isInRoom()){
@@ -48,9 +49,10 @@ public class DropItem extends Command {
             }
         }
         else {
-            response.put("status", "success");
-            response.put("message", "No item in inventory");
+            message = "No item in inventory";
         }
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

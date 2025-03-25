@@ -7,6 +7,7 @@ import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.World.World;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import no.org.Protocols.Response;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,18 +29,16 @@ public class LoadWeapon extends Command {
     public JSONObject execute(Player player, World world) {
         List<String> inventory = player.getInventory();
         Weapon playerWeapon = player.getWeapon();
-        JSONObject response = new JSONObject();
+
+        Response response = new Response();
+        String message = "";
 
         if (!StaminaCheck.canPerformAction(player, this)) {
-            response.put("status", "failure");
-            response.put("message", "Not enough stamina to perform the action.");
-            return response;
+            message = "Not enough stamina to perform the action.";
         }
 
         if (playerWeapon == null) {
-            response.put("status", "error");
-            response.put("message", "No weapon in hand to load.");
-            return response;
+            message = "No weapon in hand to load.";
         }
 
         String weaponInHand = playerWeapon.getName();
@@ -49,11 +48,9 @@ public class LoadWeapon extends Command {
                 if (inventory.contains("shells")) {
                     player.removeItem("shells");
                     playerWeapon.setAmmo(16);
-                    response.put("status", "success");
-                    response.put("message", "Loaded your " + playerWeapon.getName() + " with " + playerWeapon.getAmmo() + " shells.");
+                    message = "Loaded your " + playerWeapon.getName() + " with " + playerWeapon.getAmmo() + " shells.";
                 } else {
-                    response.put("status", "error");
-                    response.put("message", "No shells available in inventory to load.");
+                    message = "No shells available in inventory to load.";
                 }
                 break;
 
@@ -61,21 +58,20 @@ public class LoadWeapon extends Command {
                 if (inventory.contains("clip")) {
                     player.removeItem("clip");
                     playerWeapon.setAmmo(10);
-                    response.put("status", "success");
-                    response.put("message", "Loaded your " + weaponName + " with " + playerWeapon.getAmmo() + " bullets.");
+                    message = "Loaded your " + weaponName + " with " + playerWeapon.getAmmo() + " bullets.";
                 } else {
-                    response.put("status", "error");
-                    response.put("message", "No pistol ammo available in inventory to load.");
+                    message = "No pistol ammo available in inventory to load.";
                 }
                 break;
 
             default:
-                response.put("status", "error");
-                response.put("message", "Cannot load this type of weapon.");
+                message = "Cannot load this type of weapon.";
                 break;
         }
         player.setStamina(player.getStamina() - staminaCost);
 
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

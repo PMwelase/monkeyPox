@@ -3,6 +3,7 @@ package no.org.PlayerPackage.PlayerCommands.WeaponCommands;
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.Protocols.Response;
 import no.org.World.World;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,19 +27,20 @@ public class StowWeapon extends Command {
         List<Weapon> weapons = player.getWeapons();
         Weapon equippedWeapon = player.getWeapon();
 
+        Response response = new Response();
+        String message = "";
+
         if (equippedWeapon != null && Objects.equals(equippedWeapon.getName(), weaponName)) {
             weapons.add(equippedWeapon);
             player.setWeapon(null);
 
-            JSONObject response = new JSONObject();
-            response.put("status", "success");
-            response.put("message", "Weapon '" + equippedWeapon.getName() + "' stowed in inventory.");
-            return response;
+            message = "Weapon '" + equippedWeapon.getName() + "' stowed in inventory.";
+        } else {
+            message =  "Player is not currently armed with " + weaponName + ".";
         }
 
-        JSONObject response = new JSONObject();
-        response.put("status", "fail");
-        response.put("message", "Player is not currently armed with " + weaponName + ".");
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

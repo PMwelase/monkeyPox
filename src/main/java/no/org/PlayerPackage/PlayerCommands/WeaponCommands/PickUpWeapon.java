@@ -76,7 +76,6 @@ public class PickUpWeapon extends Command {
         response.put("message", message);
         JSONObject responseJson = response1.buildResponse(player, world);
         responseJson.put("message", message);
-        System.out.println(responseJson);
         return responseJson;
     }
 }

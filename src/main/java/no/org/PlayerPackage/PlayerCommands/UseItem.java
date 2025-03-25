@@ -1,6 +1,7 @@
 package no.org.PlayerPackage.PlayerCommands;
 
 import no.org.PlayerPackage.Player;
+import no.org.Protocols.Response;
 import no.org.World.World;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,19 +25,21 @@ public class UseItem extends Command {
     @Override
     public JSONObject execute(Player player, World world) {
         List<String> inventory = player.getInventory();
-        JSONObject response = new JSONObject();
+
+        Response response = new Response();
+        String message = "";
 
         if (inventory.contains(item)) {
             player.setItem(item);
             player.removeItem(item);
 
-            response.put("status", "success");
-            response.put("message", "Item in hand: " + item);
+            message = "Item in hand: " + item + ".";
         } else {
-            response.put("status", "error");
-            response.put("message", "Item not found in inventory");
+            message = item +  "not found in inventory.";
         }
 
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

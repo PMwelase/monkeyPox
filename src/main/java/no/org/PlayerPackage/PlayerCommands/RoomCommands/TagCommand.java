@@ -1,14 +1,16 @@
 package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 
-import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomUtility.RoomUtility;
+import no.org.Protocols.Response;
+import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
-import no.org.Rooms.Room;
-import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,38 +34,38 @@ public class TagCommand extends Command {
     public JSONObject execute(Player player, World world) {
         Position position = player.getPosition();
         RoomGrid roomGrid = world.getRoomGrid();
-        Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
+        Room room = roomGrid.getRoom(position.getX(), position.getY());
+
+        Response response = new Response();
+        String message = "";
 
         List<String> inventory = player.getInventory();
 
-        JSONObject response = new JSONObject();
 
+        // Check if the player has enough stamina to perform the action
         if (!StaminaCheck.canPerformAction(player, this)) {
-            response.put("status", "failure");
-            response.put("message", "Not enough stamina to perform the action.");
-            return response;
+            message = "Not enough stamina to perform the action.";
         }
 
         if (inventory.contains("spray can")) {
-            response.put("status", "success");
-            response.put("message", "Room tagged as: " + tag);
+            message=  "Room tagged as: " + tag;
 
             if (player.isInRoom()){
-                currentRoom.setInteriorTag(tag);
+                room.setInteriorTag(tag);
             } else {
-                currentRoom.setExteriorTag(tag);
+                room.setExteriorTag(tag);
             }
 
             inventory.remove("spray can");
         }
 
         else {
-            response.put("status", "success");
-            response.put("message", "have no spray can in inventory");
-            System.out.println("You don't have a spray can");
+            message = "have no spray can in inventory";
         }
 
-        player.setStamina(player.getStamina() - staminaCost);
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        System.out.println(response1);
+        return response1;
     }
 }

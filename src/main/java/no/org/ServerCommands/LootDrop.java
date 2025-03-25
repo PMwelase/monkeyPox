@@ -26,22 +26,37 @@ public class LootDrop {
     public void dropLoot() {
         for (int x = 0; x < roomGrid.getWidth(); x++) {
             for (int y = 0; y < roomGrid.getHeight(); y++) {
-                Room room = roomGrid.getRoom(x, y); // Get the room at (x, y)
+                try {
+                    Room room = roomGrid.getRoom(x, y);
+                    if (room != null) {
+                        // Randomly select an item from the lootItems array
+                        String randomItem = lootItems[random.nextInt(lootItems.length)];
 
-                if (room != null) {
-                    // Randomly select an item from the lootItems array
-                    String randomItem = lootItems[random.nextInt(lootItems.length)];
+                        // Randomly decide to drop inside or outside (50% chance for each)
+                        boolean dropInside = random.nextBoolean();
 
-                    // Randomly decide to drop inside or outside (50% chance for each)
-                    boolean dropInside = random.nextBoolean();
+                        if (dropInside) {
+                            try {
+                                room.addItemInRoomInterior(randomItem);
+                                System.out.println("Dropped " + randomItem + " inside the room at (" + x + ", " + y + ").");
+                            }
+                            catch (Exception e){
+                                System.out.println(e.getMessage());
+                            }
 
-                    if (dropInside) {
-                        room.addItemInRoomInterior(randomItem);
-                        System.out.println("Dropped " + randomItem + " inside the room at (" + x + ", " + y + ").");
-                    } else {
-                        room.addItemInRoomExterior(randomItem);
-                        System.out.println("Dropped " + randomItem + " outside the room at (" + x + ", " + y + ").");
+                        } else {
+                            try {
+                                room.addItemInRoomExterior(randomItem);
+                                System.out.println("Dropped " + randomItem + " outside the room at (" + x + ", " + y + ").");
+                            }
+                            catch (Exception e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
                     }
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
                 }
             }
         }
@@ -50,7 +65,13 @@ public class LootDrop {
     public void dropTreasure() {
         Random random1 = new Random();
         Position pos = new Position(random1.nextInt(0, 29), random1.nextInt(0, 29));
-        roomGrid.getRoom(pos.getX(), pos.getY()).addItemInRoomExterior("Slippers");
-//        System.out.println("Dropped Slippers outside the room at (" + pos.getX() + ", " + pos.getY() + ").");
+        System.out.println(pos);
+        try {
+            roomGrid.getRoom(pos.getX(), pos.getY()).addItemInRoomExterior("Slippers");
+                    System.out.println("Dropped Slippers outside the room at (" + pos.getX() + ", " + pos.getY() + ").");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }

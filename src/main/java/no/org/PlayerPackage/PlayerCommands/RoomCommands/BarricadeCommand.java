@@ -1,8 +1,7 @@
 package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 
-import no.org.PlayerPackage.PlayerCommands.Command;
-import no.org.PlayerPackage.PlayerCommands.ErrorCommand;
 import no.org.PlayerPackage.Player;
+import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
 import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomUtility.RoomUtility;
 import no.org.Rooms.RoomGrid;
@@ -10,6 +9,7 @@ import no.org.World.Position;
 import no.org.World.World;
 import no.org.Rooms.Room;
 import org.json.JSONObject;
+import no.org.Protocols.Response;
 
 public class BarricadeCommand extends Command {
     private final int staminaCost = 2;
@@ -24,27 +24,24 @@ public class BarricadeCommand extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
-        JSONObject response = new JSONObject();
+        Response response = new Response();
+        String message = "";
 
         if (!StaminaCheck.canPerformAction(player, this)) {
-            response.put("status", "failure");
-            response.put("message", "Not enough stamina to perform the action.");
-            return response;
+            message = "Not enough stamina to perform the action.";
         }
-
-        response.put("status", "success");
 
         if (player.isInRoom() && RoomUtility.canBarricadeRoom(currentRoom)) {
             RoomUtility.addBarricade(currentRoom);
             player.setStamina(player.getStamina() - staminaCost);
-            response.put("message", "added a barricade to the room");
+            message = "added a barricade to the room";
         } else if (!player.isInRoom()) {
-            response.put("message", "cannot barricade a building from the outside.");
+            message = "cannot barricade a building from the outside.";
         } else if (!RoomUtility.canBarricadeRoom(currentRoom)) {
-            response.put("message", " can't add any more barricades");
-        } else {
-            return new ErrorCommand().execute(player, world);
+            message = " can't add any more barricades";
         }
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }

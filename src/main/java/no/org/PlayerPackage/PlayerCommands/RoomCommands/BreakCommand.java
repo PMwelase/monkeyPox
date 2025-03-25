@@ -3,11 +3,13 @@ package no.org.PlayerPackage.PlayerCommands.RoomCommands;
 import no.org.PlayerPackage.Player;
 import no.org.PlayerPackage.PlayerCommands.Command;
 import no.org.PlayerPackage.PlayerCommands.PlayerUtility.StaminaCheck;
+import no.org.PlayerPackage.PlayerCommands.RoomCommands.RoomUtility.RoomUtility;
 import no.org.Rooms.Room;
 import no.org.Rooms.RoomGrid;
 import no.org.World.Position;
 import no.org.World.World;
 import org.json.JSONObject;
+import no.org.Protocols.Response;
 
 public class BreakCommand extends Command {
     private final int staminaCost = 3;
@@ -22,25 +24,23 @@ public class BreakCommand extends Command {
         RoomGrid roomGrid = world.getRoomGrid();
         Room currentRoom = roomGrid.getRoom(position.getX(), position.getY());
 
-        JSONObject response = new JSONObject();
+        Response response = new Response();
+        String message = "";
 
         if (!StaminaCheck.canPerformAction(player, this)) {
-            response.put("status", "failure");
-            response.put("message", "Not enough stamina to perform the action.");
-            return response;
+            message = "Not enough stamina to perform the action.";
         }
-
-        response.put("status", "success");
 
         if (currentRoom.getBarricades() > 0 && player.getInventory().contains("crow bar")) {
             currentRoom.setBarricades(currentRoom.getBarricades() - 1);
-            response.put("message", "weakened barricades.");
+            message = "weakened barricades.";
         } else if (!player.getInventory().contains("crow bar")){
-            response.put("message","don't have the tools to perform this action.");
+            message = "don't have the tools to perform this action.";
         } else {
-            response.put("message", "There are no barricades in the room to remove");
+            message = "There are no barricades in the room to remove";
         }
-        player.setStamina(player.getStamina() - staminaCost);
-        return response;
+        JSONObject response1 = response.buildResponse(player, world);
+        response1.put("message", message);
+        return response1;
     }
 }
