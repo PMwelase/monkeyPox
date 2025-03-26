@@ -2,12 +2,13 @@ package no.org.Rooms;
 
 import no.org.ItemsPackage.Weapons.Weapon;
 import no.org.PlayerPackage.Player;
+import no.org.messages.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
-    public static List<Player> playersInRoom = new ArrayList<>();
+    public List<Player> playersInRoom = new ArrayList<>();
     private List<Weapon> weaponsInRoom = new ArrayList<>();
     private List<Weapon> weaponsExRoom = new ArrayList<>();
     private List<String> itemsInRoomInterior = new ArrayList<>();
@@ -20,6 +21,7 @@ public class Room {
     private String name;
     private String type;
     private String color;
+    private List<Message> messages;
 
 
     public Room(int x, int y) {

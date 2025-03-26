@@ -93,20 +93,31 @@
         <strong>Armed:</strong> <span id="weapon_in_hand"></span>
       </div>
 
-      <div style="display: flex; gap: 20px; align-items: center;">
-        <p onclick="fortifyAction()">
-          <img class="action-images" src="Assets/sword.png" alt="fortify">
-        </p>
-        <p onclick="tagAction()">
-          <img class="action-images" src="Assets/spray.png" alt="tag">
-        </p>
+      <div class="container">
+        <div class="row" style="display: flex; align-items: center; gap: 8px;">
+<!--          <div>-->
+<!--            <p onclick="tagAction()" style="margin: 0;">-->
+<!--              <img class="action-images" src="Assets/spray.png" alt="tag" style="height: 32px; width: auto;">-->
+<!--            </p>-->
+<!--          </div>-->
+          <div>
+            <p onclick="fortifyAction()" style="margin: 0;">
+              <img class="action-images" src="Assets/fortify-01.svg" alt="fortify" style="height: 32px; width: auto;">
+            </p>
+          </div>
+          <div>
+            <p onclick="breakAction()" style="margin: 0;">
+              <img class="action-images" src="Assets/break-01.svg" alt="break" style="height: 32px; width: auto;">
+            </p>
+          </div>
+        </div>
       </div>
       <label for="command">Command:</label>
       <select id="command" class="form-control">
 <!--        <option value="jump">Jump</option>-->
         <option value="tag">Tag</option>
-        <option value="barricade">Fortify</option>
-        <option value="break">Break Barricade</option>
+<!--        <option value="barricade">Fortify</option>-->
+<!--        <option value="break">Break Barricade</option>-->
 
         <option value="take">Pick up Item</option>
         <option value="use">Use</option>
@@ -129,12 +140,23 @@
 
       <p id="loading" class="mt-4" style="display:none;">Sending command...</p>
 
-      <div class="chat-log mt-4">
-        <h5>Player Log</h5>
-        <div class="chat-box" id="chatBox">
-          <!-- Chat messages will appear here -->
-          <p><div id="response" class="mt-2"></div></p>
-          <p>Actions will be recorded here.</p>
+      <div style="display: flex; gap: 20px;">
+        <div class="chat-log mt-4">
+          <h5>Player Log</h5>
+          <div class="chat-box" id="chatBox">
+            <!-- Chat messages will appear here -->
+            <p><div id="response" class="mt-2"></div></p>
+            <p>Actions will be recorded here.</p>
+          </div>
+        </div>
+
+        <div class="chat-log mt-4">
+          <h5>Room Log</h5>
+          <div class="chat-box" id="roomLog">
+            <!-- Chat messages will appear here -->
+            <p><div id="roomActions" class="mt-2"></div></p>
+            <p>Room actions will be recorded here.</p>
+          </div>
         </div>
       </div>
 

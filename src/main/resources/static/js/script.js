@@ -24,7 +24,7 @@ function sendPostRequest(event) {
         document.getElementById('loading').style.display = 'none';
 
         if (data.status === "success") {
-            appendMessages([`<em>You </em> ${data.message}`]);
+            appendMessages([`${data.message}`]);
             // Clear response only for success
             document.getElementById('response').innerHTML = '';
         } else {
@@ -254,7 +254,43 @@ function sendFortifyCommand() {
     .then(data => {
         let resultHtml = '';
         if (data.status === "success") {
-            appendMessages([`<em>You </em> ${data.message}`]);
+            appendMessages([`${data.message}`]);
+        } else {
+            resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
+        }
+        document.getElementById('response').innerHTML = resultHtml;
+
+        updateUI(data);
+    })
+    .catch(error => {
+        document.getElementById('response').innerHTML =
+            `<div class="alert alert-danger">Error: ${error}</div>`;
+    });
+}
+
+// This function will send the BREAK command
+function sendBreakCommand() {
+    const name = JSON.parse(localStorage.getItem("requestBody"))?.name || "";
+
+    if (!name) {
+        document.getElementById('response').innerHTML = `<div class="alert alert-warning">Player name not found. Please register first.</div>`;
+        return;
+    }
+
+    const requestBody = { name: name, command: 'break', arguments: [] };
+
+    fetch('http://localhost:8081/monkeypox/play', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => response.json())
+    .then(data => {
+        let resultHtml = '';
+        if (data.status === "success") {
+            appendMessages([`${data.message}`]);
         } else {
             resultHtml = `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
         }
@@ -343,4 +379,8 @@ function updateUI(data) {
 
 function fortifyAction() {
     sendFortifyCommand();
+}
+
+function breakAction() {
+    sendBreakCommand();
 }
