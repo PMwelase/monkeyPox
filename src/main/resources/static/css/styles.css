@@ -1,8 +1,41 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0 2rem;
+    overflow: hidden;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
 
+.main-header {
+    padding: 10px 0;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.header-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.main-content {
+    flex: 1;
+    overflow: contain;
+    display: flex;
+}
+
+.picture-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    width: 90%;
+    max-height: 400px;
+    margin-bottom: 15px;
+}
 
 .picture-holder {
-    width: 100%; /* Use 100% of the grid cell */
-    height: 100%; /* Use 100% of the grid cell */
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     display: flex;
@@ -10,63 +43,149 @@
     align-items: center;
     position: relative;
     cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+    aspect-ratio: 1/1;
 }
 
-
 .picture-holder:hover {
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Hover effect shadow */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .picture-holder:active {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow for "pressed" effect */
-    transform: translateY(2px);
-}
-
-.picture-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    width: 450px;
-    height: 450px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
 }
 
 .apartment {
-    width: 100%; /* Set image width to 100% */
-    height: 100%; /* Set image height to 100% */
-    /*object-fit: cover; /* Maintain aspect ratio while covering the holder */
-}
-
-.picture-holder {
-      position: relative;
-    }
-
-.apartment {
-  width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .survivor {
-  color: blue;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10; /* Adjust as needed */
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    max-height: 70%;
 }
 
-/* Add custom styles for the status display */
 .status-display {
-  margin-top: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 0.9rem;
 }
 
 .status-display div {
-  margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
+.game-stats {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.action-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 
 .action-images {
-    max-width: 2rem;
-    max-height: auto;
+    height: 24px;
+    width: auto;
+    cursor: pointer;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.action-button:hover {
+    background-color: #e9ecef;
+}
+
+.chat-container {
+    display: flex;
+    gap: 10px;
+    height: 150px;
+    margin-top: 10px;
+}
+
+.chat-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 0.85rem;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    margin-bottom: 2px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.send-btn {
+    background-color: #007bff;
+    border: none;
+    width: 100%;
+}
+
+.scrollable-column {
+    height: 100%;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

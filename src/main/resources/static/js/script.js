@@ -304,6 +304,52 @@ function sendBreakCommand() {
     });
 }
 
+function sendInputCommand(commandName) {
+    if (event) event.preventDefault();
+
+    const name = JSON.parse(localStorage.getItem("requestBody"))?.name || "";
+    const command = commandName;
+    const args = document.getElementById('arguments').value.trim().split(',');
+
+    if (!name || !command || (args.length === 0) || args[0] === "") {
+        document.getElementById('response').innerHTML = `<div class="alert alert-warning">Please fill out all fields.</div>`;
+        return;
+    }
+
+        document.getElementById('loading').style.display = 'block';
+
+        const requestBody = { name: name, command: command, arguments: args };
+
+        fetch('http://localhost:8081/monkeypox/play', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('loading').style.display = 'none';
+
+            if (data.status === "success") {
+                appendMessages([`${data.message}`]);
+                // Clear response only for success
+                document.getElementById('response').innerHTML = '';
+            } else {
+                // Only update response for errors
+                document.getElementById('response').innerHTML =
+                  `<div class="alert alert-danger"><strong>Error:</strong> ${data.message}</div>`;
+            }
+
+            updateUI(data);
+
+        })
+        .catch(error => {
+                document.getElementById('loading').style.display = 'none';
+            document.getElementById('response').innerHTML =
+              `<div class="alert alert-danger">Error: ${error}</div>`;
+        });
+}
+
+
 
 
 document.querySelectorAll('.picture-holder').forEach(function(holder) {
@@ -384,3 +430,44 @@ function fortifyAction() {
 function breakAction() {
     sendBreakCommand();
 }
+
+function tagAction() {
+    sendTagCommand();
+}
+
+function takeAction() {
+    sendTakeCommand();
+}
+
+function useAction() {
+    sendUseCommand();
+}
+
+function dropAction() {
+    sendDropCommand();
+}
+
+function hitAction() {
+    sendHitCommand();
+}
+
+function pickupAction() {
+    sendPickupCommand();
+}
+
+function loadAction() {
+    sendLoadCommand();
+}
+
+function armAction() {
+    sendArmCommand();
+}
+
+function loseAction() {
+    sendLoseCommand();
+}
+
+function stowAction() {
+    sendStowCommand();
+}
+
